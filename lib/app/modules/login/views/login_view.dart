@@ -18,7 +18,8 @@ class LoginView extends GetView<LoginController> {
               height: MediaQuery.sizeOf(context).height,
               width: double.infinity,
               child: _buildInputFields(),
-            )
+            ),
+            _buildSocialLogins()
           ],
         ),
       )
