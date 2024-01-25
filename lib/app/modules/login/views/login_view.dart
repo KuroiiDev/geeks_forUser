@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geek/app/widgets/custom_clipper.dart';
 
 import 'package:get/get.dart';
 
@@ -23,13 +24,33 @@ class LoginView extends GetView<LoginController> {
     );
   }
   Widget _buildInputFields(){
-    return Container(
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [Color(0xffe18bff), Color(0xff7000FF)]
-        )
+    return ClipPath(
+      clipper: CustomClipperWidget(),
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Color(0xffe18bff), Color(0xff7000FF)]
+          )
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              SizedBox(height: Get.height * 0.002),
+              Image(
+                image: AssetImage("assets/images/logo_white.png"),
+                height: Get.height * 0.2,
+              ),
+              Text("Login", style: TextStyle(
+                color: Colors.white,
+
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
