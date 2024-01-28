@@ -15,11 +15,11 @@ class LoginView extends GetView<LoginController> {
         child: Column(
           children: [
             SizedBox(
-              height: MediaQuery.sizeOf(context).height,
+              height: MediaQuery.sizeOf(context).height*0.9,
               width: double.infinity,
               child: _buildInputFields(),
             ),
-            _buildSocialLogins()
+            _buildRegister()
           ],
         ),
       )
@@ -62,19 +62,15 @@ class LoginView extends GetView<LoginController> {
                 key: controller.formKey,
                   child:Column(
                     children: [
-                      _buildTextFormField(controller.emailController, Icons.person, "Email", "Email Can't Be Empty!"),
+                      _buildEmailField(controller.emailController),
                       SizedBox(height: 20),
-                      _buildTextFormField(controller.passwordController, Icons.lock, "Password", "Password Can't Be Empty!", isPassword: true),
+                      _buildPasswordField(controller.passwordController),
                       SizedBox(height: 30),
-                      ElevatedButton(
-                        onPressed: (){},
-                        child: Text("Login", style: GoogleFonts.alata(color: Colors.white, fontSize: 25)),
-                      ),
+                      _BuildButtonLogin(),
                       SizedBox(height: 15),
                       TextButton(
                           onPressed: (){},
-                          child:
-                          Text(
+                          child: Text(
                               "Forgot your Password? click here to reset!",
                               style: GoogleFonts.alata(color: Colors.white70, fontSize: 17)
                           )
@@ -88,31 +84,84 @@ class LoginView extends GetView<LoginController> {
       ),
     );
   }
-  Widget _buildSocialLogins(){
-    return Container();
+  Widget _buildRegister(){
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: [
+          TextButton(
+              onPressed: (){},
+              child: Text(
+                "Not a Geeks? Click Here to Register!",
+                style: GoogleFonts.alata(color: Colors.deepPurple, fontSize: 23),
+              )
+          )
+        ],
+      ),
+    );
   }
-  Widget _buildTextFormField(TextEditingController controller, IconData icon, String hint, String ifEmpty,{bool isPassword = false}){
+
+  // Micro Widget..
+
+  Widget _buildEmailField(TextEditingController controller){
     return TextFormField(
       controller: controller,
       style: GoogleFonts.alata(color: Colors.white, fontSize: 20),
       decoration: InputDecoration(
-        hintText: hint,
+        hintText: "Email",
         hintStyle: GoogleFonts.alata(color: Colors.white.withOpacity(0.4), fontSize: 20),
         prefixIcon: Icon(
-          icon,
+          Icons.email,
           color: Colors.white,
         ),
         filled: true,
         fillColor: Colors.white.withOpacity(0.1),
         border: OutlineInputBorder(borderSide: BorderSide.none),
       ),
-      obscureText: isPassword,
+      obscureText: false,
       validator: (value){
         if (value!.isEmpty){
-          return ifEmpty;
+          return "Please Fill out your email!";
         }
         return null;
       },
+    );
+  }
+  Widget _buildPasswordField(TextEditingController controller){
+    return TextFormField(
+      controller: controller,
+      style: GoogleFonts.alata(color: Colors.white, fontSize: 20),
+      decoration: InputDecoration(
+        hintText: "Password",
+        hintStyle: GoogleFonts.alata(color: Colors.white.withOpacity(0.4), fontSize: 20),
+        prefixIcon: Icon(
+          Icons.lock,
+          color: Colors.white,
+        ),
+        filled: true,
+        fillColor: Colors.white.withOpacity(0.1),
+        border: OutlineInputBorder(borderSide: BorderSide.none),
+      ),
+      obscureText: true,
+      validator: (value){
+        if (value!.isEmpty){
+          return "Please Fill out your password!";
+        }
+        return null;
+      },
+    );
+  }
+  Widget _BuildButtonLogin(){
+    return ElevatedButton.icon(
+      onPressed: (){},
+      label: Text("Login", style: GoogleFonts.alata(color: Colors.white, fontSize: 25)),
+      icon: Icon(Icons.login, color: Colors.white),
+      style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.all(25.0),
+        primary: Color(0xacffd1ff),
+        elevation: 5,
+        shape: StadiumBorder(),
+      ),
     );
   }
 }
