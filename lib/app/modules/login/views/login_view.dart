@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geek/app/widgets/custom_clipper.dart';
+import 'package:email_validator/email_validator.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -122,16 +123,26 @@ class LoginView extends GetView<LoginController> {
       validator: (value){
         if (value!.isEmpty){
           return "Please Fill out your email!";
+        }else if (!EmailValidator.validate(value.toString())){
+          return "Invalid Email Address";
         }
         return null;
       },
     );
   }
   Widget _buildPasswordField(TextEditingController controller){
+    bool isObscured = true;
     return TextFormField(
       controller: controller,
       style: GoogleFonts.alata(color: Colors.white, fontSize: 20),
       decoration: InputDecoration(
+        suffixIcon: IconButton(
+          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          icon: isObscured ? Icon(Icons.visibility, color: Colors.white,) : Icon(Icons.visibility_off, color: Colors.white,),
+          onPressed: () {
+            isObscured = !isObscured;
+          },
+        ),
         hintText: "Password",
         hintStyle: GoogleFonts.alata(color: Colors.white.withOpacity(0.4), fontSize: 20),
         prefixIcon: Icon(
@@ -153,7 +164,7 @@ class LoginView extends GetView<LoginController> {
   }
   Widget _BuildButtonLogin(){
     return ElevatedButton.icon(
-      onPressed: (){},
+      onPressed: (){controller.login();},
       label: Text("Login", style: GoogleFonts.alata(color: Colors.white, fontSize: 25)),
       icon: Icon(Icons.login, color: Colors.white),
       style: ElevatedButton.styleFrom(
