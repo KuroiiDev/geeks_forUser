@@ -15,7 +15,7 @@ class LoginController extends GetxController {
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  bool isObs = true;
+  var isObs = true.obs;
 
   final count = 0.obs;
   @override
@@ -38,8 +38,10 @@ class LoginController extends GetxController {
     super.onClose();
   }
 
-  obscurePass(){
-    isObs = !isObs;
+  void obscurePass(){
+    isObs.value = !isObs.value;
+    update();
+    print(isObs.value);
   }
 
   login() async {

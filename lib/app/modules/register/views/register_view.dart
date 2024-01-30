@@ -68,7 +68,7 @@ class RegisterView extends GetView<RegisterController> {
                       SizedBox(height: 20),
                       _buildNameField(),
                       SizedBox(height: 20),
-                      _buildPasswordField(controller.passwordController, "Create a Password"),
+                      _buildPasswordField(),
                       SizedBox(height: 30),
                       _BuildButtonRegister(),
                       SizedBox(height: 15),
@@ -151,7 +151,7 @@ class RegisterView extends GetView<RegisterController> {
     );
   }
   Widget _buildPasswordField(){
-    bool isObscured = true;
+    var isObscured = true;
     return TextFormField(
       controller: controller.passwordController,
       style: GoogleFonts.alata(color: Colors.white, fontSize: 20),

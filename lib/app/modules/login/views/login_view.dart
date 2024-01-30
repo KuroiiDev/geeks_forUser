@@ -138,7 +138,7 @@ class LoginView extends GetView<LoginController> {
       decoration: InputDecoration(
         suffixIcon: IconButton(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
-          icon: controller.isObs ? Icon(Icons.visibility, color: Colors.white,) : Icon(Icons.visibility_off, color: Colors.white,),
+          icon: controller.isObs.value ? Icon(Icons.visibility, color: Colors.white,) : Icon(Icons.visibility_off, color: Colors.white,),
           onPressed: () {
             controller.obscurePass();
           },
@@ -153,7 +153,7 @@ class LoginView extends GetView<LoginController> {
         fillColor: Colors.white.withOpacity(0.1),
         border: OutlineInputBorder(borderSide: BorderSide.none),
       ),
-      obscureText: true,
+      obscureText: controller.isObs.value,
       validator: (value){
         if (value!.isEmpty){
           return "Please Fill out your password!";
