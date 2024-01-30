@@ -12,10 +12,10 @@ import '../../../data/provider/storage_provider.dart';
 import '../../../routes/app_pages.dart';
 
 class LoginController extends GetxController {
-  final loading = false.obs;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  bool isObs = true;
 
   final count = 0.obs;
   @override
@@ -38,8 +38,11 @@ class LoginController extends GetxController {
     super.onClose();
   }
 
+  obscurePass(){
+    isObs = !isObs;
+  }
+
   login() async {
-    loading(true);
     try {
       FocusScope.of(Get.context!).unfocus();
       formKey.currentState?.save();
@@ -57,9 +60,7 @@ class LoginController extends GetxController {
           Get.snackbar("Sorry", "Login Failed!", backgroundColor: Colors.orange);
         }
       }
-      loading(false);
     }on dio.DioException catch(e) {
-      loading(false);
       if (e.response != null){
         if (e.response?.data != null){
           Get.snackbar("Sorry", "${e.response?.data['message']}", backgroundColor: Colors.orange);
@@ -67,7 +68,7 @@ class LoginController extends GetxController {
       } else {
         Get.snackbar("Sorry", e.message ?? "", backgroundColor: Colors.red);
       }
-    }catch (e) {loading(false);
+    }catch (e) {
     Get.snackbar("Error", e.toString(), backgroundColor: Colors.red);
     }
   }
