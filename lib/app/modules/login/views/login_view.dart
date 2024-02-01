@@ -66,7 +66,9 @@ class LoginView extends GetView<LoginController> {
                     children: [
                       _buildEmailField(),
                       SizedBox(height: 20),
+                      Obx(() {
                       _buildPasswordField(),
+                      });
                       SizedBox(height: 30),
                       _BuildButtonLogin(),
                       SizedBox(height: 15),
