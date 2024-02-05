@@ -6,6 +6,7 @@ class RegisterController extends GetxController {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  var isObs = true.obs;
 
   final count = 0.obs;
   @override
@@ -22,7 +23,11 @@ class RegisterController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
+  void obscurePass(){
+    isObs.value = !isObs.value;
+    update();
+    print(isObs.value);
+  }
   register() async{
 
   }

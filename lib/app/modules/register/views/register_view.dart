@@ -68,7 +68,9 @@ class RegisterView extends GetView<RegisterController> {
                       SizedBox(height: 20),
                       _buildNameField(),
                       SizedBox(height: 20),
-                      _buildPasswordField(),
+                      Obx(() =>
+                          _buildPasswordField()
+                      ),
                       SizedBox(height: 30),
                       _BuildButtonRegister(),
                       SizedBox(height: 15),
@@ -89,7 +91,7 @@ class RegisterView extends GetView<RegisterController> {
           TextButton(
               onPressed: ()=>Get.offAllNamed(Routes.LOGIN),
               child: Text(
-                "Already a Geeks? Click Here to Login",
+                "Already a Geeks? Please Login",
                 style: GoogleFonts.alata(color: Colors.deepPurple, fontSize: 23),
               )
           )
@@ -158,9 +160,9 @@ class RegisterView extends GetView<RegisterController> {
       decoration: InputDecoration(
         suffixIcon: IconButton(
           padding: EdgeInsets.symmetric(horizontal: 20.0),
-          icon: isObscured ? Icon(Icons.visibility, color: Colors.white,) : Icon(Icons.visibility_off, color: Colors.white,),
+          icon: controller.isObs.value ? Icon(Icons.visibility, color: Colors.white,) : Icon(Icons.visibility_off, color: Colors.white,),
           onPressed: () {
-            isObscured = !isObscured;
+            controller.obscurePass();
           },
         ),
         hintText: "Create a Password",
@@ -173,7 +175,7 @@ class RegisterView extends GetView<RegisterController> {
         fillColor: Colors.white.withOpacity(0.1),
         border: OutlineInputBorder(borderSide: BorderSide.none),
       ),
-      obscureText: true,
+      obscureText: controller.isObs.value,
       validator: (value){
         if (value!.isEmpty){
           return "Please Fill out your password!";

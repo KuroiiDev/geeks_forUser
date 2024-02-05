@@ -51,7 +51,7 @@ class LoginView extends GetView<LoginController> {
                 height: Get.height * 0.2,
               ),
               Text(
-                  "Welcome Back Geek!",
+                  "Welcome Back!",
                   style:GoogleFonts.creteRound(
                     fontSize: 40,
                     color: Colors.white,
@@ -66,9 +66,9 @@ class LoginView extends GetView<LoginController> {
                     children: [
                       _buildEmailField(),
                       SizedBox(height: 20),
-                      Obx(() {
-                      _buildPasswordField(),
-                      });
+                      Obx(() =>
+                      _buildPasswordField()
+                      ),
                       SizedBox(height: 30),
                       _BuildButtonLogin(),
                       SizedBox(height: 15),
@@ -76,7 +76,7 @@ class LoginView extends GetView<LoginController> {
                           onPressed: (){},
                           child: Text(
                               "Forgot your Password? click here to reset!",
-                              style: GoogleFonts.alata(color: Colors.white70, fontSize: 17)
+                              style: GoogleFonts.alata(color: Colors.white70, fontSize: 14)
                           )
                       )
                     ],
