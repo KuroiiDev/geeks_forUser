@@ -116,7 +116,9 @@ class RegisterView extends GetView<RegisterController> {
         lowercaseCharCount: 1,
         onSuccess: () {},
         key: controller.validatorKey,
-        controller: controller.passwordController
+        controller: controller.passwordController,
+        defaultColor: Colors.white70,
+        failureColor: Colors.redAccent,
     );
   }
 
