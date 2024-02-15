@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../widgets/custom_clipper.dart';
 import '../controllers/register_controller.dart';
+import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 
 class RegisterView extends GetView<RegisterController> {
   const RegisterView({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class RegisterView extends GetView<RegisterController> {
           child: Column(
             children: [
               SizedBox(
-                height: MediaQuery.sizeOf(context).height*0.9,
+                height: MediaQuery.sizeOf(context).height*0.92,
                 width: double.infinity,
                 child: _buildInputFields(),
               ),
@@ -59,7 +60,7 @@ class RegisterView extends GetView<RegisterController> {
                       letterSpacing: 1
                   )
               ),
-              SizedBox(height: 50),
+              SizedBox(height: 20),
               Form(
                   key: controller.formKey,
                   child:Column(
@@ -71,6 +72,8 @@ class RegisterView extends GetView<RegisterController> {
                       Obx(() =>
                           _buildPasswordField()
                       ),
+                      SizedBox(height: 5),
+                      _buildPasswordValidator(),
                       SizedBox(height: 30),
                       _BuildButtonRegister(),
                       SizedBox(height: 15),
@@ -101,6 +104,21 @@ class RegisterView extends GetView<RegisterController> {
   }
 
   // Micro Widget..
+
+  Widget _buildPasswordValidator() {
+    return FlutterPwValidator(
+        width: 400,
+        height: 137,
+        minLength: 8,
+        uppercaseCharCount: 1,
+        numericCharCount: 1,
+        specialCharCount: 1,
+        lowercaseCharCount: 1,
+        onSuccess: () {},
+        key: controller.validatorKey,
+        controller: controller.passwordController
+    );
+  }
 
   Widget _buildEmailField(){
     return TextFormField(
@@ -176,12 +194,6 @@ class RegisterView extends GetView<RegisterController> {
         border: OutlineInputBorder(borderSide: BorderSide.none),
       ),
       obscureText: controller.isObs.value,
-      validator: (value){
-        if (value!.isEmpty){
-          return "Please Fill out your password!";
-        }
-        return null;
-      },
     );
   }
   Widget _BuildButtonRegister(){
