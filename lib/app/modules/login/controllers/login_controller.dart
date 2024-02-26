@@ -74,4 +74,18 @@ class LoginController extends GetxController {
     Get.snackbar("Error", e.toString(), backgroundColor: Colors.red);
     }
   }
+  skip() async{
+    FocusScope.of(Get.context!).unfocus();
+    formKey.currentState?.save();
+    if (formKey.currentState!.validate()) {
+        String email = emailController.text.toString();
+        String pass = passwordController.text.toString();
+      if (email == "user@example.com" && pass == "user") {
+        Get.snackbar("Success", "Login Success!", backgroundColor: Colors.green);
+        Get.offAllNamed(Routes.HOME);
+      } else {
+        Get.snackbar("Sorry", "Login Failed!", backgroundColor: Colors.orange);
+      }
+    }
+  }
 }

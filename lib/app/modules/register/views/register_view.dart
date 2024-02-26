@@ -18,7 +18,7 @@ class RegisterView extends GetView<RegisterController> {
           child: Column(
             children: [
               SizedBox(
-                height: MediaQuery.sizeOf(context).height*0.92,
+                height: MediaQuery.sizeOf(context).height*0.93,
                 width: double.infinity,
                 child: _buildInputFields(),
               ),
@@ -49,12 +49,12 @@ class RegisterView extends GetView<RegisterController> {
               SizedBox(height: Get.height * 0.002),
               Image(
                 image: AssetImage("assets/images/logo_white.png"),
-                height: Get.height * 0.2,
+                height: Get.height * 0.15,
               ),
               Text(
                   "Join Us!",
                   style:GoogleFonts.creteRound(
-                      fontSize: 40,
+                      fontSize: 25,
                       color: Colors.white,
                       fontWeight: FontWeight.w500,
                       letterSpacing: 1
@@ -204,7 +204,7 @@ class RegisterView extends GetView<RegisterController> {
       label: Text("Register", style: GoogleFonts.alata(color: Colors.white, fontSize: 25)),
       icon: Icon(Icons.app_registration, color: Colors.white),
       style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.all(25.0),
+        padding: EdgeInsets.all(17.0),
         primary: Color(0xacffd1ff),
         elevation: 5,
         shape: StadiumBorder(),

@@ -15,7 +15,7 @@ class SplashscreenView extends GetView<SplashscreenController> {
     );
     return Container(
         child: Center(
-        child: Lottie.asset("splash_screen.json"),
+        child: Lottie.asset("splash/splash_screen.json"),
     ),
       decoration: BoxDecoration(
           gradient: LinearGradient(
