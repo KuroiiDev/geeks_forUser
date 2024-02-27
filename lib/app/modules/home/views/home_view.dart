@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geek/app/widgets/custom_navbar.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -15,30 +16,7 @@ class HomeView extends GetView<HomeController> {
 
         ],
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0,
-        onTap: (index){
-          switch(index){
-            case 0:
-              break;
-            case 1:
-              break;
-            case 2:
-              break;
-          }
-        },
-        items: [
-          BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: "home"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.question_mark),
-              label: "apalah"),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.question_mark),
-              label: "itulah"),
-        ],
-      ),
+      bottomNavigationBar: CustomNavbar(indexNum: 1)
     );
   }
 }
