@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 
-import '../controllers/account_controller.dart';
+import '../controllers/index_controller.dart';
 
-class AccountView extends GetView<AccountController> {
-  const AccountView({Key? key}) : super(key: key);
+class IndexView extends GetView<IndexController> {
+  const IndexView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.purple,
       body: Center(
         child: Text(
-          'Account Center',
+          'Book Index',
           style: TextStyle(fontSize: 20),
         ),
       ),

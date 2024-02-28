@@ -2,8 +2,14 @@ import 'package:get/get.dart';
 
 import '../modules/account/bindings/account_binding.dart';
 import '../modules/account/views/account_view.dart';
+import '../modules/bookmark/bindings/bookmark_binding.dart';
+import '../modules/bookmark/views/bookmark_view.dart';
+import '../modules/dashboard/bindings/dashboard_binding.dart';
+import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/index/bindings/index_binding.dart';
+import '../modules/index/views/index_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/register/bindings/register_binding.dart';
@@ -43,6 +49,21 @@ class AppPages {
       name: _Paths.ACCOUNT,
       page: () => const AccountView(),
       binding: AccountBinding(),
+    ),
+    GetPage(
+      name: _Paths.DASHBOARD,
+      page: () => const DashboardView(),
+      binding: DashboardBinding(),
+    ),
+    GetPage(
+      name: _Paths.INDEX,
+      page: () => const IndexView(),
+      binding: IndexBinding(),
+    ),
+    GetPage(
+      name: _Paths.BOOKMARK,
+      page: () => const BookmarkView(),
+      binding: BookmarkBinding(),
     ),
   ];
 }

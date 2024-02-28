@@ -82,7 +82,7 @@ class LoginController extends GetxController {
         String pass = passwordController.text.toString();
       if (email == "user@example.com" && pass == "user") {
         Get.snackbar("Success", "Login Success!", backgroundColor: Colors.green);
-        Get.offAllNamed(Routes.HOME);
+        Get.offAllNamed(Routes.DASHBOARD);
       } else {
         Get.snackbar("Sorry", "Login Failed!", backgroundColor: Colors.orange);
       }
