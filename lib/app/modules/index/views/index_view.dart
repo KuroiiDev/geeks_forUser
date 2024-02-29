@@ -9,13 +9,29 @@ class IndexView extends GetView<IndexController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.purple,
-      body: Center(
-        child: Text(
-          'Book Index',
-          style: TextStyle(fontSize: 20),
-        ),
+      appBar: AppBar(
+        title: const Text('Book Index'),
+        centerTitle: true,
       ),
+      body: controller.obx((state) => ListView.separated(
+          itemBuilder: (context, index){
+            return ListTile(
+              title: Text('${state[index].title}'),
+              subtitle: Text('Writer: ${state[index].writer}'),
+              trailing: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  ElevatedButton(child: Text("Rent"),onPressed: (){}),
+                  ElevatedButton(child: Icon(Icons.bookmark),onPressed: (){}),
+                ]
+              ),
+            );
+          },
+          separatorBuilder: (context, index){
+            return Divider();
+          },
+          itemCount: state!.length
+      )),
     );
   }
 }

@@ -166,7 +166,7 @@ class LoginView extends GetView<LoginController> {
   }
   Widget _BuildButtonLogin(){
     return ElevatedButton.icon(
-      onPressed: (){controller.skip();},
+      onPressed: (){controller.login();},
       label: Text("Login", style: GoogleFonts.alata(color: Colors.white, fontSize: 25)),
       icon: Icon(Icons.login, color: Colors.white),
       style: ElevatedButton.styleFrom(

@@ -29,7 +29,7 @@ class LoginController extends GetxController {
     String status = StorageProvider.read(StorageKey.status);
     log("status : $status");
     if (status == "logged"){
-      Get.offAllNamed(Routes.HOME);
+      Get.offAllNamed(Routes.DASHBOARD);
     }
   }
 
@@ -54,10 +54,12 @@ class LoginController extends GetxController {
           "password": passwordController.text.toString()}));
         if (response.statusCode == 200) {
           ResponseLoginPost responseLogin = ResponseLoginPost.fromJson(response.data);
-          await StorageProvider.write(StorageKey.idUser, responseLogin.token.toString());
+          await StorageProvider.write(StorageKey.idUser, responseLogin.data!.id.toString());
+          await StorageProvider.write(StorageKey.name, responseLogin.data!.name.toString());
           await StorageProvider.write(StorageKey.status, "logged");
           Get.snackbar("Success", "Login Success!", backgroundColor: Colors.green);
-          Get.offAllNamed(Routes.HOME);
+          log("Name : ${StorageProvider.read(StorageKey.name)}");
+          Get.offAllNamed(Routes.DASHBOARD);
         } else {
           Get.snackbar("Sorry", "Login Failed!", backgroundColor: Colors.orange);
         }

@@ -1,12 +1,12 @@
 /// status : "success"
-/// data : {"id":1,"email":"user@example.com","name":"user","role":"USER","created_at":"2024-02-29T05:48:13.000000Z","updated_at":"2024-02-29T05:48:13.000000Z"}
+/// data : {"name":"user","email":"user@example.com","role":"USER","updated_at":"2024-02-29T05:48:13.000000Z","created_at":"2024-02-29T05:48:13.000000Z","id":1}
 
-class ResponseLoginPost {
-  ResponseLoginPost({
+class ResponseRegisterPost {
+  ResponseRegisterPost({
       this.status, 
       this.data,});
 
-  ResponseLoginPost.fromJson(dynamic json) {
+  ResponseRegisterPost.fromJson(dynamic json) {
     status = json['status'];
     data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
@@ -24,45 +24,45 @@ class ResponseLoginPost {
 
 }
 
-/// id : 1
-/// email : "user@example.com"
 /// name : "user"
+/// email : "user@example.com"
 /// role : "USER"
-/// created_at : "2024-02-29T05:48:13.000000Z"
 /// updated_at : "2024-02-29T05:48:13.000000Z"
+/// created_at : "2024-02-29T05:48:13.000000Z"
+/// id : 1
 
 class Data {
   Data({
-      this.id, 
-      this.email, 
       this.name, 
+      this.email, 
       this.role, 
+      this.updatedAt, 
       this.createdAt, 
-      this.updatedAt,});
+      this.id,});
 
   Data.fromJson(dynamic json) {
-    id = json['id'];
-    email = json['email'];
     name = json['name'];
+    email = json['email'];
     role = json['role'];
-    createdAt = json['created_at'];
     updatedAt = json['updated_at'];
+    createdAt = json['created_at'];
+    id = json['id'];
   }
-  int? id;
-  String? email;
   String? name;
+  String? email;
   String? role;
-  String? createdAt;
   String? updatedAt;
+  String? createdAt;
+  int? id;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['id'] = id;
-    map['email'] = email;
     map['name'] = name;
+    map['email'] = email;
     map['role'] = role;
-    map['created_at'] = createdAt;
     map['updated_at'] = updatedAt;
+    map['created_at'] = createdAt;
+    map['id'] = id;
     return map;
   }
 
