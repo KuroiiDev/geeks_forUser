@@ -10,10 +10,10 @@ class AccountView extends GetView<AccountController> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text(
-          'Account Center',
-          style: TextStyle(fontSize: 20),
-        ),
+        child: ElevatedButton(
+          child: Icon(Icons.logout),
+          onPressed: ()=>controller.logout(),
+        )
       ),
     );
   }

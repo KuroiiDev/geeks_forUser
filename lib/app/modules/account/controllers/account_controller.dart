@@ -1,5 +1,8 @@
 import 'package:get/get.dart';
 
+import '../../../data/provider/storage_provider.dart';
+import '../../../routes/app_pages.dart';
+
 class AccountController extends GetxController {
   //TODO: Implement AccountController
 
@@ -19,5 +22,10 @@ class AccountController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  logout() async{
+    await StorageProvider.write(StorageKey.idUser, "");
+    await StorageProvider.write(StorageKey.name, "");
+    await StorageProvider.write(StorageKey.status, "");
+    Get.offAllNamed(Routes.LOGIN);
+  }
 }

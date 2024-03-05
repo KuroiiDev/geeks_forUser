@@ -43,7 +43,7 @@ class DashboardView extends GetView<DashboardController> {
       onPressed: (){
         Get.to(Get.toNamed(Routes.INDEX), transition: Transition.zoom);
       },
-      child: Icon(Icons.list_alt),
+      child: Icon(Icons.list_alt, color: Colors.white),
       backgroundColor: Color(0xff5947ff),
     );
   }
