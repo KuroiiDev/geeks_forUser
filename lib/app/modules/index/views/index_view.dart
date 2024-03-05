@@ -15,20 +15,20 @@ class IndexView extends GetView<IndexController> {
       ),
       body: controller.obx((state) => ListView.separated(
           itemBuilder: (context, index){
-            return ListTile(
-              title: Text('${state[index].title}'),
-              subtitle: Text('Writer: ${state[index].writer}'),
-              trailing: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  ElevatedButton(child: Text("Rent"),onPressed: (){}),
-                  ElevatedButton(child: Icon(Icons.bookmark),onPressed: (){}),
-                ]
+            return Card(
+              elevation: 5.0,
+              child: ListTile(
+                onTap: (){},
+                leading: Icon(Icons.rectangle_rounded,size: 60),
+                title: Text('${state[index].title}'),
+                subtitle: Text('Writer: ${state[index].writer}'),
+                trailing:
+                    ElevatedButton(child: Icon(Icons.bookmark),onPressed: (){}),
               ),
             );
           },
           separatorBuilder: (context, index){
-            return Divider();
+            return Divider(color: Colors.transparent,);
           },
           itemCount: state!.length
       )),
