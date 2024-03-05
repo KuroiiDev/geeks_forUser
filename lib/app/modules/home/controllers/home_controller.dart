@@ -1,9 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../data/provider/storage_provider.dart';
 
 class HomeController extends GetxController {
   //TODO: Implement HomeController
+
+  final TextEditingController searchController = TextEditingController();
   RxString name = "".obs;
 
   final count = 0.obs;

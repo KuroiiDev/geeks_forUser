@@ -26,7 +26,7 @@ class DashboardController extends GetxController {
     String status = StorageProvider.read(StorageKey.status);
     log("status : $status");
     if (status != "logged"){
-      Get.offAllNamed(Routes.LOGIN);
+      //Get.offAllNamed(Routes.LOGIN);
     }
   }
 

@@ -44,14 +44,14 @@ class DashboardView extends GetView<DashboardController> {
         Get.to(Get.toNamed(Routes.INDEX), transition: Transition.zoom);
       },
       child: Icon(Icons.list_alt),
-      backgroundColor: Colors.deepPurple,
+      backgroundColor: Color(0xff5947ff),
     );
   }
 
   Widget _buildNavigationBar() {
     return CurvedNavigationBar(
-      backgroundColor: Colors.transparent,
-      color: Colors.deepPurple,
+      backgroundColor: Color(0xff29005b),
+      color: Color(0xff5947ff),
       onTap: (index)=>controller.changeTabIndex(index),
       index: 1,
       items: [

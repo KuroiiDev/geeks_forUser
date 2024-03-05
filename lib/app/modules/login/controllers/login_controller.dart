@@ -72,22 +72,16 @@ class LoginController extends GetxController {
       } else {
         Get.snackbar("Sorry", e.message ?? "", backgroundColor: Colors.red);
       }
-    }catch (e) {
+    }
+    catch (e) {
     Get.snackbar("Error", e.toString(), backgroundColor: Colors.red);
     }
   }
   skip() async{
     FocusScope.of(Get.context!).unfocus();
-    formKey.currentState?.save();
-    if (formKey.currentState!.validate()) {
-        String email = emailController.text.toString();
-        String pass = passwordController.text.toString();
-      if (email == "user@example.com" && pass == "user") {
-        Get.snackbar("Success", "Login Success!", backgroundColor: Colors.green);
-        Get.offAllNamed(Routes.DASHBOARD);
-      } else {
-        Get.snackbar("Sorry", "Login Failed!", backgroundColor: Colors.orange);
-      }
-    }
+    await StorageProvider.write(StorageKey.idUser, "1");
+    await StorageProvider.write(StorageKey.name, "User Trial");
+    await StorageProvider.write(StorageKey.status, "logged");
+    Get.offAllNamed(Routes.DASHBOARD);
   }
 }
