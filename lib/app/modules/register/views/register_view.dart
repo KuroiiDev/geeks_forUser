@@ -92,7 +92,7 @@ class RegisterView extends GetView<RegisterController> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           TextButton(
-              onPressed: ()=>Get.offAllNamed(Routes.LOGIN),
+              onPressed: ()=>Get.to(Get.toNamed(Routes.LOGIN), transition: Transition.rightToLeftWithFade),
               child: Text(
                 "Already a Geeks? Please Login",
                 style: GoogleFonts.alata(color: Colors.deepPurple, fontSize: 23),

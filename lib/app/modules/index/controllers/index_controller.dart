@@ -28,7 +28,7 @@ class IndexController extends GetxController with StateMixin<List<DataBook>> {
   Future<void> getData() async{
     change(null, status: RxStatus.loading());
     try {
-      final response = await ApiProvider.instance().get(Endpoint.book);
+      final response = await ApiProvider.instance().get("${Endpoint.book}/az");
       if (response.statusCode == 200) {
         final ResponseBook responseBook = ResponseBook.fromJson(response.data);
         if (responseBook.data!.isEmpty){

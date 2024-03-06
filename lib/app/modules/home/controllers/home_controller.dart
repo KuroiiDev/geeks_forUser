@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/provider/storage_provider.dart';
@@ -29,5 +30,8 @@ class HomeController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  search() async{
+    FocusScope.of(Get.context!).unfocus();
+    Get.snackbar("Search", searchController.text.toString(), backgroundColor: Colors.green);
+  }
 }

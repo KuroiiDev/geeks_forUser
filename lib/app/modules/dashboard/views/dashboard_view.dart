@@ -50,7 +50,7 @@ class DashboardView extends GetView<DashboardController> {
 
   Widget _buildNavigationBar() {
     return CurvedNavigationBar(
-      backgroundColor: Color(0xff29005b),
+      backgroundColor: Color(0xff11005b),
       color: Color(0xff5947ff),
       onTap: (index)=>controller.changeTabIndex(index),
       index: 1,

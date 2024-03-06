@@ -94,7 +94,7 @@ class LoginView extends GetView<LoginController> {
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
           TextButton(
-              onPressed: ()=>Get.offAllNamed(Routes.REGISTER),
+              onPressed: ()=>Get.to(Get.toNamed(Routes.REGISTER), transition: Transition.leftToRightWithFade),
               child: Text(
                 "Not a Geeks? Click Here to Join",
                 style: GoogleFonts.alata(color: Colors.deepPurple, fontSize: 23),
