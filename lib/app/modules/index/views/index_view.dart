@@ -28,7 +28,7 @@ class IndexView extends GetView<IndexController> {
                     '${state[index].title}',
                     style: GoogleFonts.alata(color: Colors.purple, fontSize: 20, fontWeight: FontWeight.bold)),
                 subtitle: Text(
-                    'Writer: ${state[index].writer}\nPublisher: ${state[index].publisher}\nYear: ${state[index].publishYear}',
+                    'Writer: ${state[index].writer}\nPublisher: ${state[index].publisher}\nYear: ${state[index].publishYear}\n${state[index].status}',
                     style: GoogleFonts.alata(color: Colors.purple[200], fontSize: 13)),
                 trailing: ElevatedButton(
                   child: Icon(Icons.bookmark),

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:geek/app/widgets/custom_clipper.dart';
 import 'package:email_validator/email_validator.dart';
@@ -73,7 +75,27 @@ class LoginView extends GetView<LoginController> {
                       _BuildButtonLogin(),
                       SizedBox(height: 15),
                       TextButton(
-                          onPressed: (){},
+                          onPressed: (){
+                            Color color = Colors.deepOrangeAccent;
+                            switch (Random().nextInt(5)){
+                              case 0:
+                                color = Colors.cyanAccent;
+                                break;
+                              case 1:
+                                color = Colors.white54;
+                                break;
+                              case 2:
+                                color = Colors.greenAccent;
+                                break;
+                              case 3:
+                                color = Colors.purpleAccent;
+                                break;
+                              case 4:
+                                color = Colors.limeAccent;
+                                break;
+                            }
+                            Get.snackbar("Lupa Yak?", "aawkaokwoakwoka Kasian", backgroundColor: color);
+                          },
                           child: Text(
                               "Forgot your Password? click here to reset!",
                               style: GoogleFonts.alata(color: Colors.white70, fontSize: 14)

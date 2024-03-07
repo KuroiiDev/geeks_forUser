@@ -27,6 +27,13 @@ class HomeView extends GetView<HomeController> {
               padding: EdgeInsets.all(10),
               child: _buildSearchBox()
             ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 18),
+              child: GestureDetector(
+                  onTap: ()=>Get.snackbar("Clicked", "Test", backgroundColor: Colors.deepPurpleAccent),
+                  child: _buildTopBook()
+              )
+            )
           ],
         ),
     );
@@ -39,7 +46,7 @@ class HomeView extends GetView<HomeController> {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Obx(() =>Text("Hello ${controller.name}!",
+            Obx(() =>Text("Hello, ${controller.name}!",
               style: GoogleFonts.dangrek(color: Colors.white, fontSize: 30, fontWeight: FontWeight.w500),
               textAlign: TextAlign.left,)),
             Text("What to read today?",
@@ -77,6 +84,43 @@ class HomeView extends GetView<HomeController> {
             ),
           )
         ]),
+      ),
+    );
+  }
+
+  Widget _buildTopBook(){
+    return Card(
+      elevation: 20,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(25.0)),
+      color: Colors.white,
+      child: Container(
+          height: 200.0,
+          width: Get.width*0.9,
+          decoration: BoxDecoration(
+            color: Colors.transparent,
+          ),
+          child: Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                child: Card(
+                  elevation: 5.0,
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+                  child: Container(
+                    height: 160,
+                    width: 120,
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15.0),
+                        image: DecorationImage(
+                            fit: BoxFit.fill,
+                            image: AssetImage("assets/images/book_loading.png")
+                        )
+                    ),
+                  ),
+                ),
+              )
+            ],
+          )
       ),
     );
   }
