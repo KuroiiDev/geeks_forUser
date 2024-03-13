@@ -54,7 +54,7 @@ class HomeView extends GetView<HomeController> {
               textAlign: TextAlign.left,)
           ],
         ),
-        Icon(Icons.circle, size: 60,)
+        Icon(Icons.circle, size: 75,)
       ],
     );
   }
@@ -118,6 +118,12 @@ class HomeView extends GetView<HomeController> {
                     ),
                   ),
                 ),
+              ),
+              Column(
+                children: [
+                  Text("judul"),
+                  Text("Deskripsi"),
+                ],
               )
             ],
           )

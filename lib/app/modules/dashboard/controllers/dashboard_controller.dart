@@ -1,5 +1,8 @@
 import 'dart:developer';
 
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:geek/app/modules/home/controllers/home_controller.dart';
 import 'package:get/get.dart';
 
@@ -9,10 +12,11 @@ import '../../account/controllers/account_controller.dart';
 import '../../index/controllers/index_controller.dart';
 
 class DashboardController extends GetxController {
+  final Rx<PageController> pageController = Rx<PageController>(PageController(initialPage: 1));
   HomeController homeController = Get.put(HomeController(), permanent: true);
   AccountController accountController = Get.put(AccountController(), permanent: true);
   IndexController indexController = Get.put(IndexController(), permanent: true);
-  var tabIndex = 1;
+  var tabIndex = 1.obs;
 
   final count = 0.obs;
   @override
@@ -36,7 +40,7 @@ class DashboardController extends GetxController {
   }
 
   void changeTabIndex(int index) {
-    tabIndex = index;
+    pageController.value.animateToPage(index, duration: Duration(milliseconds: 200), curve: Curves.easeInOut);
     update();
   }
 }

@@ -6,6 +6,7 @@ import 'package:geek/app/modules/home/views/home_view.dart';
 import 'package:geek/app/modules/index/views/index_view.dart';
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../../routes/app_pages.dart';
 import '../controllers/dashboard_controller.dart';
@@ -18,7 +19,7 @@ class DashboardView extends GetView<DashboardController> {
         builder: (controller){
           return Scaffold(
             body: _buildBody(),
-            bottomNavigationBar: _buildNavigationBar(),
+            bottomNavigationBar: Obx(()=>_buildNavigationBar()),
             floatingActionButton: _buildFloatingButton(),
           );
         }
@@ -27,15 +28,18 @@ class DashboardView extends GetView<DashboardController> {
 
   Widget _buildBody() {
     return SafeArea(
-        child: IndexedStack(
-          index: controller.tabIndex,
+        child: Obx(()=>PageView(
+           controller: controller.pageController.value,
           children: [
             BookmarkView(),
             HomeView(),
             AccountView(),
           ],
+          onPageChanged: (value){
+             controller.tabIndex.value = value;
+          },
         )
-    );
+    ));
   }
 
   Widget _buildFloatingButton(){
@@ -53,7 +57,8 @@ class DashboardView extends GetView<DashboardController> {
       backgroundColor: Color(0xff11005b),
       color: Color(0xff5947ff),
       onTap: (index)=>controller.changeTabIndex(index),
-      index: 1,
+      index: controller.tabIndex.value,
+      animationDuration: Duration(milliseconds: 200),
       items: [
         Icon(Icons.bookmark, color: Colors.white,),
         Icon(Icons.home, color: Colors.white,),

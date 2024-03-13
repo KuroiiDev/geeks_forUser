@@ -13,16 +13,18 @@ class SplashscreenView extends GetView<SplashscreenController> {
     Future.delayed(
       const Duration(milliseconds: 5700), (() => Get.offAllNamed(Routes.LOGIN))
     );
-    return Container(
-        child: Center(
-        child: Lottie.asset("splash/splash_screen.json"),
-    ),
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [Color(0xfff0d5ff), Color(0xffa873fa)]
-          ),
+    return SafeArea(
+      child: Container(
+          child: Center(
+          child: Lottie.asset("splash/splash_screen.json"),
+      ),
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Color(0xfff0d5ff), Color(0xffa873fa)]
+            ),
+        ),
       ),
     );
   }
