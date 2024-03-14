@@ -16,13 +16,13 @@ class SplashscreenView extends GetView<SplashscreenController> {
     return SafeArea(
       child: Container(
           child: Center(
-          child: Lottie.asset("splash/splash_screen.json"),
+          child: Lottie.asset("splash/splash_screen2.json"),
       ),
         decoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [Color(0xfff0d5ff), Color(0xffa873fa)]
+                colors: [Color(0xff8c68ab), Color(0xff7155ff)]
             ),
         ),
       ),

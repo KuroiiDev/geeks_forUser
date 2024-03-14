@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/constant/endpoint.dart';
-import '../../../data/model/response_book_get.dart';
+import '../../../data/model/response_top_get.dart';
 import '../../../data/provider/api_provider.dart';
 import '../../../data/provider/storage_provider.dart';
 
@@ -14,6 +14,11 @@ class HomeController extends GetxController {
 
   final TextEditingController searchController = TextEditingController();
   RxString name = "".obs;
+
+  String id = "0";
+  RxString title = "Book Title".obs;
+  RxString writer = "Writer's Name".obs;
+  RxString synopsis = "(The Description) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dignissim velit quis diam scelerisque, a faucibus diam feugiat. Nunc semper tempor tortor id facilisis. Suspendisse vel risus at ex vestibulum porta. Fusce metus sapien, viverra in mauris non, lobortis facilisis nunc. Integer rhoncus diam laoreet libero sodales, vel rutrum libero.".obs;
 
   final count = 0.obs;
   @override
@@ -27,8 +32,6 @@ class HomeController extends GetxController {
   @override
   void onReady() {
     super.onReady();
-    name = StorageProvider.read(StorageKey.name).obs;
-    update();
   }
 
   @override
@@ -44,13 +47,19 @@ class HomeController extends GetxController {
     try{
       final response = await ApiProvider.instance().get("${Endpoint.book}/top");
       if (response.statusCode == 200) {
-        final ResponseBook responseBook = ResponseBook.fromJson(response.data);
-        if (responseBook.data!.isEmpty){
+        final ResponseTop responseBook = ResponseTop.fromJson(response.data);
+        if (responseBook.data!.isNull){
           log("Kosong bg");
+        }else {
+          id = responseBook.data!.id.toString();
+          log("Id: "+id);
+          title = responseBook.data!.title.toString().obs;
+          writer = responseBook.data!.writer.toString().obs;
+          synopsis = responseBook.data!.synopsis.toString().obs;
         }
       }
     }catch(e){
-      log("Error bang");
+      log("Error bang: "+e.toString());
     }
   }
 }

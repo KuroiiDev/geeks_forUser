@@ -40,7 +40,7 @@ class LoginView extends GetView<LoginController> {
           gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
-              colors: [Color(0xffe18bff), Color(0xff7000FF)]
+              colors: [Color(0xff7055f8), Color(0xff4e00a2)]
           )
         ),
         child: Padding(
@@ -117,9 +117,18 @@ class LoginView extends GetView<LoginController> {
         children: [
           TextButton(
               onPressed: ()=>Get.to(Get.toNamed(Routes.REGISTER), transition: Transition.leftToRightWithFade),
-              child: Text(
-                "Not a Geeks? Click Here to Join",
-                style: GoogleFonts.alata(color: Colors.deepPurple, fontSize: 23),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Not a Geeks? ",
+                    style: GoogleFonts.alata(color: Color(0xff1d00bd), fontSize: 23),
+                  ),
+                  Text(
+                    "Join Us",
+                    style: GoogleFonts.alata(color: Color(0xff9585ff), fontSize: 23),
+                  ),
+                ],
               )
           )
         ],
@@ -193,7 +202,7 @@ class LoginView extends GetView<LoginController> {
       icon: Icon(Icons.login, color: Colors.white),
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.all(20.0),
-        primary: Color(0xacffd1ff),
+        primary: Color(0xace2d1ff),
         elevation: 5,
         shape: StadiumBorder(),
       ),

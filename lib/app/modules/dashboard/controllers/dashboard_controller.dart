@@ -1,13 +1,10 @@
 import 'dart:developer';
 
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:geek/app/modules/home/controllers/home_controller.dart';
 import 'package:get/get.dart';
 
 import '../../../data/provider/storage_provider.dart';
-import '../../../routes/app_pages.dart';
 import '../../account/controllers/account_controller.dart';
 import '../../index/controllers/index_controller.dart';
 

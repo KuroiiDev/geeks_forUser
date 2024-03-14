@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
@@ -37,18 +39,21 @@ class IndexController extends GetxController with StateMixin<List<DataBook>> {
           change(responseBook.data, status: RxStatus.success());
         }
       } else {
-        change(null, status: RxStatus.error("Failed"));
+        change(null, status: RxStatus.error("Internal Server Error"));
       }
     }on DioException catch(e) {
       if (e.response != null){
         if (e.response?.data != null){
-          change(null, status: RxStatus.error("${e.response?.data['message']}']"));
+          change(null, status: RxStatus.loading());
+          log("${e.response?.data['message']}']");
         }
       } else {
-        change(null, status: RxStatus.error(e.message ?? ""));
+        change(null, status: RxStatus.error("No Internet Connection"));
+        log(e.message ?? "");
       }
     }catch (e) {
-      change(null, status: RxStatus.error(e.toString()));
+      change(null, status: RxStatus.loading());
+      log(e.toString());
     }
   }
 }

@@ -11,6 +11,7 @@ abstract class Routes {
   static const DASHBOARD = _Paths.DASHBOARD;
   static const INDEX = _Paths.INDEX;
   static const BOOKMARK = _Paths.BOOKMARK;
+  static const DETAIL = _Paths.DETAIL;
 }
 
 abstract class _Paths {
@@ -23,4 +24,5 @@ abstract class _Paths {
   static const DASHBOARD = '/dashboard';
   static const INDEX = '/index';
   static const BOOKMARK = '/bookmark';
+  static const DETAIL = '/detail';
 }

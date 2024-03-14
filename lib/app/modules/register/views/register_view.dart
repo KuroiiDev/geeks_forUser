@@ -39,7 +39,7 @@ class RegisterView extends GetView<RegisterController> {
             gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
-                colors: [Color(0xffe18bff), Color(0xff7000FF)]
+                colors: [Color(0xff4e00a2), Color(0xff7055f8)]
             )
         ),
         child: Padding(
@@ -93,9 +93,18 @@ class RegisterView extends GetView<RegisterController> {
         children: [
           TextButton(
               onPressed: ()=>Get.to(Get.toNamed(Routes.LOGIN), transition: Transition.rightToLeftWithFade),
-              child: Text(
-                "Already a Geeks? Please Login",
-                style: GoogleFonts.alata(color: Colors.deepPurple, fontSize: 23),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Already a Geeks? ",
+                    style: GoogleFonts.alata(color: Color(0xff1d00bd), fontSize: 23),
+                  ),
+                  Text(
+                    "Login Now",
+                    style: GoogleFonts.alata(color: Color(0xff9585ff), fontSize: 23),
+                  ),
+                ],
               )
           )
         ],
@@ -107,13 +116,12 @@ class RegisterView extends GetView<RegisterController> {
 
   Widget _buildPasswordValidator() {
     return FlutterPwValidator(
-        width: 400,
-        height: 137,
+        width: 360,
+        height: 100,
         minLength: 8,
         uppercaseCharCount: 1,
         numericCharCount: 1,
         specialCharCount: 1,
-        lowercaseCharCount: 1,
         onSuccess: () {},
         key: controller.validatorKey,
         controller: controller.passwordController,
@@ -205,7 +213,7 @@ class RegisterView extends GetView<RegisterController> {
       icon: Icon(Icons.app_registration, color: Colors.white),
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.all(17.0),
-        primary: Color(0xacffd1ff),
+        primary: Color(0xace2d1ff),
         elevation: 5,
         shape: StadiumBorder(),
       ),

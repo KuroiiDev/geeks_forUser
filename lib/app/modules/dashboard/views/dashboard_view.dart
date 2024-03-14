@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:geek/app/modules/account/views/account_view.dart';
 import 'package:geek/app/modules/bookmark/views/bookmark_view.dart';
 import 'package:geek/app/modules/home/views/home_view.dart';
-import 'package:geek/app/modules/index/views/index_view.dart';
 
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 
 import '../../../routes/app_pages.dart';
 import '../controllers/dashboard_controller.dart';
@@ -45,7 +43,7 @@ class DashboardView extends GetView<DashboardController> {
   Widget _buildFloatingButton(){
     return FloatingActionButton(
       onPressed: (){
-        Get.to(Get.toNamed(Routes.INDEX), transition: Transition.zoom);
+        Get.toNamed(Routes.INDEX);
       },
       child: Icon(Icons.list_alt, color: Colors.white),
       backgroundColor: Color(0xff5947ff),
