@@ -40,7 +40,7 @@ class IndexView extends GetView<IndexController> {
                     'Writer: ${state[index].writer}\nPublisher: ${state[index].publisher}\nYear: ${state[index].publishYear}\n${state[index].status}',
                     style: GoogleFonts.alata(color: Colors.purple[200], fontSize: 13)),
                 trailing: ElevatedButton(
-                  child: Icon(Icons.bookmark),
+                  child: Icon(Icons.bookmark, color: Colors.white,),
                   onPressed: (){},
                   style: ElevatedButton.styleFrom(
                     padding: EdgeInsets.all(15.0),

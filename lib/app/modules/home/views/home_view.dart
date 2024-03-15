@@ -126,15 +126,20 @@ class HomeView extends GetView<HomeController> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Obx(()=>Text(
-                          controller.title.value,
-                          style:GoogleFonts.creteRound(
-                              fontSize: 30,
-                              color: Color(0xff7055f8),
-                              fontWeight: FontWeight.w500,
-                              letterSpacing: 1
-                          )
-                      )),
+                      Container(
+                        height: 50,
+                        width: Get.width *0.57,
+                        child: Obx(()=>Text(
+                            controller.title.value,
+                            overflow: TextOverflow.ellipsis, maxLines: 1,
+                            style:GoogleFonts.creteRound(
+                                fontSize: 30,
+                                color: Color(0xff7055f8),
+                                fontWeight: FontWeight.w500,
+                                letterSpacing: 1
+                            )
+                        )),
+                      ),
                         Obx(()=>Text(controller.writer.value,
                         style: GoogleFonts.alata(color: Colors.black54, fontSize: 15),
                         textAlign: TextAlign.left,))
