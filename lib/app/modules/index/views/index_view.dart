@@ -25,7 +25,14 @@ class IndexView extends GetView<IndexController> {
                       Get.toNamed(
                           Routes.DETAIL,
                           parameters: {
-                            'id' : (state[index].id).toString()
+                            'id' : (state[index].id).toString(),
+                            'title' : (state[index].title).toString(),
+                            'writer' : (state[index].writer).toString(),
+                            'publisher' : (state[index].publisher).toString(),
+                            'synopsis' : (state[index].synopsis).toString(),
+                            'status' : (state[index].status).toString(),
+                            'rented' : (state[index].rented).toString(),
+                            'publish_year' : (state[index].publishYear).toString(),
                           }
                       );
                 },

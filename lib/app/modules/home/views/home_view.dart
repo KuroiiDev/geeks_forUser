@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../routes/app_pages.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -30,7 +31,21 @@ class HomeView extends GetView<HomeController> {
             Padding(
               padding: EdgeInsets.symmetric(vertical: 18),
               child: GestureDetector(
-                  onTap: ()=>Get.snackbar("Clicked", "Test", backgroundColor: Colors.deepPurpleAccent),
+                  onTap: (){
+                    Get.toNamed(
+                        Routes.DETAIL,
+                        parameters: {
+                          'id' : controller.id,
+                          'title' : controller.title.value,
+                          'writer' : controller.writer.value,
+                          'publisher' : controller.publisher,
+                          'synopsis' : controller.synopsis.value,
+                          'status' : controller.status,
+                          'rented' : controller.rented,
+                          'publish_year' : controller.publish_year,
+                        }
+                    );
+                  },
                   child: _buildTopBook()
               )
             )
@@ -128,7 +143,7 @@ class HomeView extends GetView<HomeController> {
                     children: [
                       Container(
                         height: 50,
-                        width: Get.width *0.57,
+                        width: Get.width *0.50,
                         child: Obx(()=>Text(
                             controller.title.value,
                             overflow: TextOverflow.ellipsis, maxLines: 1,

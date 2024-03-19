@@ -19,24 +19,24 @@ class DetailView extends GetView<DetailController> {
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Column(
+                Obx(() =>Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Obx(() => Text("Id: ${controller.id}")),
-                      Obx(() => Text("Title: ${controller.title}")),
-                      Obx(() => Text("Writer: ${controller.writer}")),
-                      Obx(() => Text("Publisher: ${controller.publisher}")),
+                      Text("Id: ${controller.id}"),
+                      Text("Title: ${controller.title}"),
+                      Text("Writer: ${controller.writer}"),
+                      Text("Publisher: ${controller.publisher}"),
                       Container(
                         height: 20,
                           width: 100,
-                          child: Obx(() => Text("Synopsis: ${controller.synopsis}", overflow: TextOverflow.ellipsis,))
+                          child: Text("Synopsis: ${controller.synopsis}", overflow: TextOverflow.ellipsis,)
                       ),
-                      Obx(() => Text("Status: ${controller.status}")),
-                      Obx(() => Text("Rented Count: ${controller.rented}")),
-                      Obx(() => Text("Publish Year: ${controller.publish_year}")),
+                      Text("Status: ${controller.status}"),
+                      Text("Rented Count: ${controller.rented}"),
+                      Text("Publish Year: ${controller.publish_year}"),
                     ],
-                  ),
+                  )),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

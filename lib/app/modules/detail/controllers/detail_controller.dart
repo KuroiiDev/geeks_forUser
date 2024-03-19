@@ -36,29 +36,30 @@ class DetailController extends GetxController {
     super.onClose();
   }
 
-  getData() async{
-    try{
-      final response = await ApiProvider.instance().get("${Endpoint.book}/id/${Get.parameters['id'].toString()}");
-      if (response.statusCode == 200) {
-        final ResponseById responseBook = ResponseById.fromJson(response.data);
-        if (responseBook.data.isNull){
-          log("Kosong bg");
-        }else {
-          id = Get.parameters['id'].toString().obs;
-          title = responseBook.data!.title.toString().obs;
-          writer = responseBook.data!.writer.toString().obs;
-          publisher = responseBook.data!.publisher.toString().obs;
-          synopsis = responseBook.data!.synopsis.toString().obs;
-          rented = responseBook.data!.rented.toString().obs;
-          status = responseBook.data!.status.toString().obs;
-          publish_year = responseBook.data!.publishYear.toString().obs;
-          log("Title: "+title.value);
-          update();
-        }
-      }
-    }catch(e){
-      log("Error lagi: "+e.toString());
-    }
+  getData() async {
+    id = Get.parameters['id']
+        .toString()
+        .obs;
+    title = Get.parameters['title']
+        .toString()
+        .obs;
+    writer = Get.parameters['writer']
+        .toString()
+        .obs;
+    publisher = Get.parameters['publisher']
+        .toString()
+        .obs;
+    synopsis = Get.parameters['synopsis']
+        .toString()
+        .obs;
+    rented = Get.parameters['rented']
+        .toString()
+        .obs;
+    status = Get.parameters['status']
+        .toString()
+        .obs;
+    publish_year = Get.parameters['publish_year']
+        .toString()
+        .obs;
   }
-
 }

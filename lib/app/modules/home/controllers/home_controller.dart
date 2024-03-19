@@ -19,6 +19,10 @@ class HomeController extends GetxController {
   RxString title = "Book Title".obs;
   RxString writer = "Writer's Name".obs;
   RxString synopsis = "(The Description) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dignissim velit quis diam scelerisque, a faucibus diam feugiat. Nunc semper tempor tortor id facilisis. Suspendisse vel risus at ex vestibulum porta. Fusce metus sapien, viverra in mauris non, lobortis facilisis nunc. Integer rhoncus diam laoreet libero sodales, vel rutrum libero.".obs;
+  String publisher = "";
+  String status = "";
+  String rented = "";
+  String publish_year = "";
 
   final count = 0.obs;
   @override
@@ -55,7 +59,11 @@ class HomeController extends GetxController {
           log("Id: "+id);
           title = responseBook.data!.title.toString().obs;
           writer = responseBook.data!.writer.toString().obs;
+          publisher = responseBook.data!.publisher.toString();
           synopsis = responseBook.data!.synopsis.toString().obs;
+          status = responseBook.data!.status.toString();
+          rented = responseBook.data!.rented.toString();
+          publish_year = responseBook.data!.publishYear.toString();
         }
       }
     }catch(e){
