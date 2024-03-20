@@ -36,13 +36,13 @@ class HomeView extends GetView<HomeController> {
                         Routes.DETAIL,
                         parameters: {
                           'id' : controller.id,
-                          'title' : controller.title.value,
-                          'writer' : controller.writer.value,
-                          'publisher' : controller.publisher,
-                          'synopsis' : controller.synopsis.value,
-                          'status' : controller.status,
-                          'rented' : controller.rented,
-                          'publish_year' : controller.publish_year,
+                          //'title' : controller.title.value,
+                          //'writer' : controller.writer.value,
+                          //'publisher' : controller.publisher,
+                          //'synopsis' : controller.synopsis.value,
+                          //'status' : controller.status,
+                          //'rented' : controller.rented,
+                          //'publish_year' : controller.publish_year,
                         }
                     );
                   },
