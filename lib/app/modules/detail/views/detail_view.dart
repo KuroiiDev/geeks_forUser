@@ -110,4 +110,6 @@ class DetailView extends GetView<DetailController> {
         )
     );
   }
+
+
 }

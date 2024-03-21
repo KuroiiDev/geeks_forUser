@@ -27,18 +27,20 @@ class HomeView extends GetView<HomeController> {
             ),
             Padding(
               padding: EdgeInsets.all(10),
-              child: _buildSearchBox()
+              child:  _buildSearchBox(),
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 18),
               child: GestureDetector(
                   onTap: (){
-                    Get.toNamed(
-                        Routes.DETAIL,
-                        parameters: {
-                          'id' : controller.id,
-                        }
-                    );
+                    if (controller.id != "0"){
+                      Get.toNamed(
+                          Routes.DETAIL,
+                          parameters: {
+                            'id' : controller.id,
+                          }
+                      );
+                    }
                   },
                   child: _buildTopBook()
               )
@@ -83,7 +85,15 @@ class HomeView extends GetView<HomeController> {
           Container(
             width: 300,
             child: TextFormField(
-              controller: controller.searchController,
+              onChanged: (query){
+                FocusScope.of(Get.context!).unfocus();
+                Get.toNamed(
+                    Routes.INDEX,
+                    parameters: {
+                    'query' : query,
+                    }
+                );
+              },
               style: GoogleFonts.alata(fontSize: 20),
               decoration: InputDecoration(
                 border: InputBorder.none,
@@ -145,7 +155,7 @@ class HomeView extends GetView<HomeController> {
                               style:GoogleFonts.creteRound(
                                   fontSize: 30,
                                   color: Color(0xff7055f8),
-                                  fontWeight: FontWeight.w500,
+                                  fontWeight: FontWeight.bold,
                                   letterSpacing: 1
                               )
                           ),

@@ -60,11 +60,13 @@ class HomeController extends GetxController with StateMixin<DataBook>{
     } on DioException catch (e) {
       if (e.response != null) {
         if (e.response?.data != null) {
-          change(null,
-              status: RxStatus.error("${e.response?.data['message']}"));
+          //change(null,status: RxStatus.error("${e.response?.data['message']}"));
+          log(e.response?.data['message'] ?? "");
+          Get.snackbar("Network", "No Internet Connection", backgroundColor: Colors.red);
         }
       } else {
-        change(null, status: RxStatus.error(e.message ?? ""));
+        log(e.message ?? "");
+        Get.snackbar("Network", "No Internet Connection", backgroundColor: Colors.red);
       }
     } catch (e) {
       change(null, status: RxStatus.error(e.toString()));

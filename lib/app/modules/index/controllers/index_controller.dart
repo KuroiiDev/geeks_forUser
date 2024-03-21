@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../../../data/constant/endpoint.dart';
@@ -10,10 +11,14 @@ import '../../../data/provider/api_provider.dart';
 class IndexController extends GetxController with StateMixin<List<DataBook>> {
   //TODO: Implement IndexController
 
+  final TextEditingController searchController = TextEditingController();
+  FocusNode searchBar = FocusNode();
+
   final count = 0.obs;
   @override
   void onInit() {
     super.onInit();
+    searchBar.requestFocus();
     getData();
   }
 
