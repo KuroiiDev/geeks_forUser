@@ -31,7 +31,7 @@ class DetailController extends GetxController with StateMixin<DataBook> {
       final response =
           await ApiProvider.instance().get("${Endpoint.book}/id/$bookId");
       if (response.statusCode == 200) {
-        final ResponseById responseBook = ResponseById.fromJson(response.data);
+        final ResponseByid responseBook = ResponseByid.fromJson(response.data);
         if (responseBook.data == null) {
           change(null, status: RxStatus.empty());
         } else {

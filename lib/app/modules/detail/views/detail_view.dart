@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:geek/app/widgets/base_64.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -40,9 +41,10 @@ class DetailView extends GetView<DetailController> {
                                         padding: EdgeInsets.symmetric(horizontal: 95),
                                         child: Container(
                                           decoration: BoxDecoration(
+                                            border: Border.all(width: 5, color: Colors.black),
                                             borderRadius: BorderRadius.circular(20),
                                             image: DecorationImage(
-                                              image: NetworkImage('https://marketplace.canva.com/EAFaQMYuZbo/1/0/1003w/canva-brown-rusty-mystery-novel-book-cover-hG1QhA7BiBU.jpg'),
+                                              image: base64widget(state?.cover ?? '-'),
                                               fit: BoxFit.cover
                                             )
                                           ),

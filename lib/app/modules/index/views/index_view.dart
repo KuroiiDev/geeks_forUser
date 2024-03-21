@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geek/app/widgets/base_64.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -25,7 +26,7 @@ class IndexView extends GetView<IndexController> {
                       Get.toNamed(
                           Routes.DETAIL,
                           parameters: {
-                            'id' : (state[index].id).toString(),
+                            'id' : (state[index].bookId).toString(),
                             //'title' : (state[index].title).toString(),
                             //'writer' : (state[index].writer).toString(),
                             //'publisher' : (state[index].publisher).toString(),
@@ -38,7 +39,7 @@ class IndexView extends GetView<IndexController> {
                 },
                 leading: ClipRRect(
                   borderRadius: BorderRadius.circular(7),
-                    child: Image.asset("assets/images/book_loading.png", fit: BoxFit.cover, width: 33, height: 44, alignment: Alignment.center,)
+                    child: Image(image: base64widget(state[index].cover ?? '-'),fit: BoxFit.cover, width: 33, height: 44, alignment: Alignment.center,)
                 ),
                 title: Text(
                     '${state[index].title.toString()}',

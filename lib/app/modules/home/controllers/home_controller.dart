@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/constant/endpoint.dart';
-import '../../../data/model/response_top_get.dart';
+import '../../../data/model/response_byid_get.dart';
 import '../../../data/provider/api_provider.dart';
 import '../../../data/provider/storage_provider.dart';
 
@@ -51,11 +51,11 @@ class HomeController extends GetxController {
     try{
       final response = await ApiProvider.instance().get("${Endpoint.book}/top");
       if (response.statusCode == 200) {
-        final ResponseTop responseBook = ResponseTop.fromJson(response.data);
+        final ResponseByid responseBook = ResponseByid.fromJson(response.data);
         if (responseBook.data!.isNull){
           log("Kosong bg");
         }else {
-          id = responseBook.data!.id.toString();
+          id = responseBook.data!.bookId.toString();
           log("Id: "+id);
           title = responseBook.data!.title.toString().obs;
           writer = responseBook.data!.writer.toString().obs;
