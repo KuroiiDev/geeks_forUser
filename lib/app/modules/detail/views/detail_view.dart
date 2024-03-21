@@ -93,12 +93,12 @@ class DetailView extends GetView<DetailController> {
                                 SizedBox(height: 40),
                                 Container(
                                   padding: EdgeInsets.symmetric(horizontal: 20),
-                                  color: Colors.black,
+                                  color: Color(0xff9585ff),
                                   child: Text(
                                       (state?.synopsis).toString(),
                                       overflow: TextOverflow.ellipsis,
                                       maxLines: 8,
-                                      style: GoogleFonts.alata(color: Color(0xff9585ff), fontSize: 18),
+                                      style: GoogleFonts.alata(color: Color(0xff11005b), fontSize: 18),
                                   ),
                                 )
                               ],
