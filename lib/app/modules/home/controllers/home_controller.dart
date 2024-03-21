@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -9,20 +10,13 @@ import '../../../data/model/response_byid_get.dart';
 import '../../../data/provider/api_provider.dart';
 import '../../../data/provider/storage_provider.dart';
 
-class HomeController extends GetxController {
+class HomeController extends GetxController with StateMixin<DataBook>{
   //TODO: Implement HomeController
 
   final TextEditingController searchController = TextEditingController();
   RxString name = "".obs;
 
   String id = "0";
-  RxString title = "Book Title".obs;
-  RxString writer = "Writer's Name".obs;
-  RxString synopsis = "(The Description) Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam dignissim velit quis diam scelerisque, a faucibus diam feugiat. Nunc semper tempor tortor id facilisis. Suspendisse vel risus at ex vestibulum porta. Fusce metus sapien, viverra in mauris non, lobortis facilisis nunc. Integer rhoncus diam laoreet libero sodales, vel rutrum libero.".obs;
-  String publisher = "";
-  String status = "";
-  String rented = "";
-  String publish_year = "";
 
   final count = 0.obs;
   @override
@@ -30,7 +24,6 @@ class HomeController extends GetxController {
     super.onInit();
     name = StorageProvider.read(StorageKey.name).obs;
     getData();
-    update();
   }
 
   @override
@@ -47,27 +40,34 @@ class HomeController extends GetxController {
     FocusScope.of(Get.context!).unfocus();
     Get.snackbar("Search", searchController.text.toString(), backgroundColor: Colors.green);
   }
-  getData() async{
-    try{
-      final response = await ApiProvider.instance().get("${Endpoint.book}/top");
+
+  Future<void> getData() async {
+    change(null, status: RxStatus.loading());
+    try {
+      final response =
+      await ApiProvider.instance().get("${Endpoint.book}/top");
       if (response.statusCode == 200) {
         final ResponseByid responseBook = ResponseByid.fromJson(response.data);
-        if (responseBook.data!.isNull){
-          log("Kosong bg");
-        }else {
-          id = responseBook.data!.bookId.toString();
-          log("Id: "+id);
-          title = responseBook.data!.title.toString().obs;
-          writer = responseBook.data!.writer.toString().obs;
-          publisher = responseBook.data!.publisher.toString();
-          synopsis = responseBook.data!.synopsis.toString().obs;
-          status = responseBook.data!.status.toString();
-          rented = responseBook.data!.rented.toString();
-          publish_year = responseBook.data!.publishYear.toString();
+        if (responseBook.data == null) {
+          change(null, status: RxStatus.empty());
+        } else {
+          change(responseBook.data, status: RxStatus.success());
+          id = (responseBook.data?.bookId).toString();
         }
+      } else {
+        change(null, status: RxStatus.error("Gagal mengambil data"));
       }
-    }catch(e){
-      log("Error bang: "+e.toString());
+    } on DioException catch (e) {
+      if (e.response != null) {
+        if (e.response?.data != null) {
+          change(null,
+              status: RxStatus.error("${e.response?.data['message']}"));
+        }
+      } else {
+        change(null, status: RxStatus.error(e.message ?? ""));
+      }
+    } catch (e) {
+      change(null, status: RxStatus.error(e.toString()));
     }
   }
 }

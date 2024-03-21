@@ -117,7 +117,7 @@ class RegisterView extends GetView<RegisterController> {
   Widget _buildPasswordValidator() {
     return FlutterPwValidator(
         width: 360,
-        height: 100,
+        height: 120,
         minLength: 8,
         uppercaseCharCount: 1,
         numericCharCount: 1,

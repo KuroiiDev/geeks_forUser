@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geek/app/widgets/base_64.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -36,13 +37,6 @@ class HomeView extends GetView<HomeController> {
                         Routes.DETAIL,
                         parameters: {
                           'id' : controller.id,
-                          //'title' : controller.title.value,
-                          //'writer' : controller.writer.value,
-                          //'publisher' : controller.publisher,
-                          //'synopsis' : controller.synopsis.value,
-                          //'status' : controller.status,
-                          //'rented' : controller.rented,
-                          //'publish_year' : controller.publish_year,
                         }
                     );
                   },
@@ -114,63 +108,65 @@ class HomeView extends GetView<HomeController> {
           decoration: BoxDecoration(
             color: Colors.transparent,
           ),
-          child: Row(
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Card(
-                  elevation: 5.0,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
-                  child: Container(
-                    height: 160,
-                    width: 120,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.0),
-                        image: DecorationImage(
-                            fit: BoxFit.fill,
-                            image: AssetImage("assets/images/book_loading.png")
-                        )
+          child: controller.obx(
+              (state) => Row(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Card(
+                    elevation: 5.0,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+                    child: Container(
+                      height: 160,
+                      width: 120,
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15.0),
+                          image: DecorationImage(
+                              fit: BoxFit.fill,
+                              image: base64widget(state?.cover ?? '-')
+                          )
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Container(
-                        height: 50,
-                        width: Get.width *0.50,
-                        child: Obx(()=>Text(
-                            controller.title.value,
-                            overflow: TextOverflow.ellipsis, maxLines: 1,
-                            style:GoogleFonts.creteRound(
-                                fontSize: 30,
-                                color: Color(0xff7055f8),
-                                fontWeight: FontWeight.w500,
-                                letterSpacing: 1
-                            )
-                        )),
-                      ),
-                        Obx(()=>Text(controller.writer.value,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Container(
+                          height: 50,
+                          width: Get.width *0.50,
+                          child: Text(
+                              state?.title ?? "-",
+                              overflow: TextOverflow.ellipsis, maxLines: 1,
+                              style:GoogleFonts.creteRound(
+                                  fontSize: 30,
+                                  color: Color(0xff7055f8),
+                                  fontWeight: FontWeight.w500,
+                                  letterSpacing: 1
+                              )
+                          ),
+                        ),
+                          Text(state?.writer ?? '-',
+                          style: GoogleFonts.alata(color: Colors.black54, fontSize: 15),
+                          textAlign: TextAlign.left,)
+                      ],
+                    ),
+                    Container(
+                      height: 100,
+                      width: Get.width *0.50,
+                      child: Text(state?.synopsis ?? '-',
+                        overflow: TextOverflow.ellipsis, maxLines: 4,
                         style: GoogleFonts.alata(color: Colors.black54, fontSize: 15),
-                        textAlign: TextAlign.left,))
-                    ],
-                  ),
-                  Container(
-                    height: 100,
-                    width: Get.width *0.57,
-                    child: Obx(()=>Text(controller.synopsis.value,
-                      overflow: TextOverflow.ellipsis, maxLines: 4,
-                      style: GoogleFonts.alata(color: Colors.black54, fontSize: 15),
-                      textAlign: TextAlign.left,)),
-                  )
-                ],
-              )
-            ],
+                        textAlign: TextAlign.left,),
+                    )
+                  ],
+                )
+              ],
+            ),
           )
       ),
     );

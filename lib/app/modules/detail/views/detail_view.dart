@@ -16,9 +16,7 @@ class DetailView extends GetView<DetailController> {
         child: SafeArea(
             child: Scaffold(
               body: Container(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20.0),
-                  child: SingleChildScrollView(
+                child: SingleChildScrollView(
                     child: controller.obx(
 
                             (state) => Column(
@@ -95,7 +93,7 @@ class DetailView extends GetView<DetailController> {
                                 SizedBox(height: 40),
                                 Container(
                                   padding: EdgeInsets.symmetric(horizontal: 20),
-                                  color: Color(0xff9585ff),
+                                  //color: Color(0xff9585ff),
                                   child: Text(
                                       (state?.synopsis).toString(),
                                       overflow: TextOverflow.ellipsis,
@@ -107,7 +105,6 @@ class DetailView extends GetView<DetailController> {
                             )
                     ),
                   ),
-                ),
               ),
             )
         )
