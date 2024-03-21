@@ -181,7 +181,6 @@ class RegisterView extends GetView<RegisterController> {
     );
   }
   Widget _buildPasswordField(){
-    var isObscured = true;
     return TextFormField(
       controller: controller.passwordController,
       style: GoogleFonts.alata(color: Colors.white, fontSize: 20),
