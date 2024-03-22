@@ -15,12 +15,23 @@ class DetailView extends GetView<DetailController> {
     return Container(
         child: SafeArea(
             child: Scaffold(
+              floatingActionButton: Padding(
+                padding: EdgeInsets.symmetric(vertical: 20),
+                child: FloatingActionButton.small(
+                  onPressed: ()=>Get.back(),
+                  child: Icon(Icons.close, color: Colors.white),
+                  backgroundColor: Colors.black38,
+                  elevation: 0,
+                  )
+              ),
+              floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
               body: Container(
                 child: SingleChildScrollView(
                     child: controller.obx(
 
                             (state) => Column(
                               children: [
+
                                 SizedBox(
                                   height: MediaQuery.sizeOf(context).height*0.45,
                                   width: double.infinity,
@@ -36,7 +47,7 @@ class DetailView extends GetView<DetailController> {
                                           )
                                       ),
                                       child: Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 95),
+                                        padding: EdgeInsets.symmetric(horizontal: 110, vertical: 10),
                                         child: Container(
                                           decoration: BoxDecoration(
                                             border: Border.all(width: 5, color: Colors.black),
@@ -60,7 +71,7 @@ class DetailView extends GetView<DetailController> {
                                       ),
                                       Text(
                                         state?.writer ?? '-',
-                                        style: GoogleFonts.alata(color: Color(0xff4a35bb), fontSize: 20),
+                                        style: GoogleFonts.alata(color: Color(0xff4a35bb), fontSize: 15),
                                       ),
                                     ],
                                   ),
@@ -81,24 +92,47 @@ class DetailView extends GetView<DetailController> {
                                     ),
                                     Row(
                                       children: [
-                                        Icon(Icons.download, size: 35, color: Color(0xff1d00bd)),
+                                        Icon(Icons.shopping_cart, size: 30, color: Color(0xff1d00bd)),
                                         Text(
                                             (state?.rented).toString(),
-                                            style: GoogleFonts.alata(color: Color(0xff9585ff), fontSize: 20)
+                                            style: GoogleFonts.dangrek(color: Color(0xff9585ff), fontSize: 23)
                                         )
                                       ],
                                     ),
                                   ],
                                 ),
-                                SizedBox(height: 40),
+                                SizedBox(height: 50),
                                 Container(
-                                  padding: EdgeInsets.symmetric(horizontal: 20),
-                                  //color: Color(0xff9585ff),
-                                  child: Text(
-                                      (state?.synopsis).toString(),
-                                      overflow: TextOverflow.ellipsis,
-                                      maxLines: 8,
-                                      style: GoogleFonts.alata(color: Color(0xff11005b), fontSize: 18),
+                                  padding: EdgeInsets.symmetric(vertical: 20),
+                                  decoration: BoxDecoration(
+                                    border: Border.symmetric(
+                                        horizontal: BorderSide(
+                                            width: 1,
+                                            color: Color(0x961d00bd)
+                                        )
+                                    ),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Container(
+                                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                        child: Text(
+                                          'Synopsis',
+                                          style: GoogleFonts.alata(color: Color(0xff1d00bd), fontSize: 20, fontWeight: FontWeight.bold),
+                                        ),
+                                      ),
+                                      Container(
+                                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                                        //color: Color(0xff9585ff),
+                                        child: Text(
+                                          (state?.synopsis).toString(),
+                                          overflow: TextOverflow.ellipsis,
+                                          maxLines: 8,
+                                          style: GoogleFonts.alata(color: Color(0xff4a35bb), fontSize: 18),
+                                        ),
+                                      ),
+                                    ]
                                   ),
                                 )
                               ],

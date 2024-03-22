@@ -15,8 +15,11 @@ class SplashscreenView extends GetView<SplashscreenController> {
     );
     return SafeArea(
       child: Container(
+        height: MediaQuery.sizeOf(context).height,
+        width: MediaQuery.sizeOf(context).width,
+          padding: EdgeInsets.all(0.5),
           child: Center(
-          child: Lottie.asset("splash/splash_screen2.json"),
+          child: Lottie.asset("splash/splash_screen.json"),
       ),
         decoration: BoxDecoration(
             gradient: LinearGradient(

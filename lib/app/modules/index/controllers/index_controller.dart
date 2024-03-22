@@ -61,4 +61,7 @@ class IndexController extends GetxController with StateMixin<List<DataBook>> {
       log(e.toString());
     }
   }
+  Future<String> refreshData() async {
+    return "halo";
+  }
 }

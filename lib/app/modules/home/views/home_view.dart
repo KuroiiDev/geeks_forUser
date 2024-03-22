@@ -19,34 +19,37 @@ class HomeView extends GetView<HomeController> {
               colors: [Color(0xff7055f8), Color(0xffe3dbff), Color(0xfff3f3f3)]
           )
       ),
-      child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
-              child: _buildUserData()
-            ),
-            Padding(
-              padding: EdgeInsets.all(10),
-              child:  _buildSearchBox(),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 18),
-              child: GestureDetector(
-                  onTap: (){
-                    if (controller.id != "0"){
-                      Get.toNamed(
-                          Routes.DETAIL,
-                          parameters: {
-                            'id' : controller.id,
-                          }
-                      );
-                    }
-                  },
-                  child: _buildTopBook()
-              )
-            )
-          ],
-        ),
+      child: SingleChildScrollView(
+        child: Column(
+            children: [
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
+                child: _buildUserData()
+              ),
+              Padding(
+                padding: EdgeInsets.all(10),
+                child:  _buildSearchBox(),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 18),
+                child: GestureDetector(
+                    onTap: (){
+                      if (controller.id != "0"){
+                        Get.toNamed(
+                            Routes.DETAIL,
+                            parameters: {
+                              'id' : controller.id,
+                            }
+                        );
+                      }
+                    },
+                    child: _buildTopBook()
+                )
+              ),
+              Container(height: 500)
+            ],
+          ),
+      ),
     );
   }
 

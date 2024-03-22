@@ -51,17 +51,26 @@ class DashboardView extends GetView<DashboardController> {
   }
 
   Widget _buildNavigationBar() {
-    return CurvedNavigationBar(
-      backgroundColor: Color(0xff11005b),
-      color: Color(0xff5947ff),
-      onTap: (index)=>controller.changeTabIndex(index),
-      index: controller.tabIndex.value,
-      animationDuration: Duration(milliseconds: 200),
-      items: [
-        Icon(Icons.bookmark, color: Colors.white,),
-        Icon(Icons.home, color: Colors.white,),
-        Icon(Icons.person, color: Colors.white,),
-      ],
+    return Container(
+
+      child: CurvedNavigationBar(
+        backgroundColor: Color(0xff11005b),
+        color: Color(0xff5947ff),
+        onTap: (index)=>controller.changeTabIndex(index),
+        index: controller.tabIndex.value,
+        animationDuration: Duration(milliseconds: 200),
+        items: [
+          _buildNavBarItem(Icon(Icons.bookmark, color: Colors.white)),
+          _buildNavBarItem(Icon(Icons.home, color: Colors.white)),
+          _buildNavBarItem(Icon(Icons.person, color: Colors.white)),
+        ],
+      ),
+    );
+  }
+  Widget _buildNavBarItem(Icon icon){
+    return Padding(
+        padding: EdgeInsets.all(5),
+        child: icon
     );
   }
 }
