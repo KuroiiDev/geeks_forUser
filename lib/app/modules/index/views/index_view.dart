@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geek/app/data/constant/global_color.dart';
 import 'package:geek/app/widgets/base_64.dart';
 
 import 'package:get/get.dart';
@@ -17,51 +18,61 @@ class IndexView extends GetView<IndexController> {
         backgroundColor: Colors.deepPurpleAccent,
         centerTitle: true,
       ),
-      body: controller.obx((state) => ListView.builder(
-            itemBuilder: (context, index) {
-              return Card(
-                elevation: 5.0,
-                child: ListTile(
-                  onTap: () {
-                    Get.toNamed(Routes.DETAIL, parameters: {
-                      'id': (state[index].bookId).toString(),
-                    });
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            Padding(padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),child: _buildSearchBox()),
+            Container(
+              width: Get.width,
+              height: Get.height *0.80,
+              child: controller.obx((state) => ListView.builder(
+                  itemBuilder: (context, index) {
+                    return Card(
+                      elevation: 5.0,
+                      child: ListTile(
+                        onTap: () {
+                          Get.toNamed(Routes.DETAIL, parameters: {
+                            'id': (state[index].bookId).toString(),
+                          });
+                        },
+                        leading: ClipRRect(
+                            borderRadius: BorderRadius.circular(7),
+                            child: Image(
+                              image: base64widget(state[index].cover ?? '-'),
+                              fit: BoxFit.cover,
+                              width: 33,
+                              height: 44,
+                              alignment: Alignment.center,
+                            )),
+                        title: Text('${state[index].title.toString()}',
+                            style: GoogleFonts.alata(
+                                color: Colors.purple,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold)),
+                        subtitle: Text(
+                            'Writer: ${state[index].writer}\nPublisher: ${state[index].publisher}\nYear: ${state[index].publishYear}\n${state[index].status}',
+                            style: GoogleFonts.alata(
+                                color: Colors.purple[200], fontSize: 13)),
+                        trailing: ElevatedButton(
+                          child: Icon(
+                            Icons.bookmark,
+                            color: Colors.white,
+                          ),
+                          onPressed: () {},
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.all(15.0),
+                            primary: GlobalColor.soft,
+                            elevation: 5,
+                            shape: StadiumBorder(),
+                          ),
+                        ),
+                      ),
+                    );
                   },
-                  leading: ClipRRect(
-                      borderRadius: BorderRadius.circular(7),
-                      child: Image(
-                        image: base64widget(state[index].cover ?? '-'),
-                        fit: BoxFit.cover,
-                        width: 33,
-                        height: 44,
-                        alignment: Alignment.center,
-                      )),
-                  title: Text('${state[index].title.toString()}',
-                      style: GoogleFonts.alata(
-                          color: Colors.purple,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold)),
-                  subtitle: Text(
-                      'Writer: ${state[index].writer}\nPublisher: ${state[index].publisher}\nYear: ${state[index].publishYear}\n${state[index].status}',
-                      style: GoogleFonts.alata(
-                          color: Colors.purple[200], fontSize: 13)),
-                  trailing: ElevatedButton(
-                    child: Icon(
-                      Icons.bookmark,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.all(15.0),
-                      primary: Color(0xff8534ff),
-                      elevation: 5,
-                      shape: StadiumBorder(),
-                    ),
-                  ),
-                ),
-              );
-            },
-            itemCount: state!.length)),
+                  itemCount: state!.length)),
+            ),
+          ]),
+      ),
     );
   }
   Widget _buildSearchBox() {

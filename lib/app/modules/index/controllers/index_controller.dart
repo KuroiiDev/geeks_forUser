@@ -18,13 +18,13 @@ class IndexController extends GetxController with StateMixin<List<DataBook>> {
   @override
   void onInit() {
     super.onInit();
-    searchBar.requestFocus();
     getData();
   }
 
   @override
   void onReady() {
     super.onReady();
+    searchBar.requestFocus();
   }
 
   @override

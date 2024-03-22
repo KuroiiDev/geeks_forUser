@@ -41,18 +41,23 @@ class DashboardView extends GetView<DashboardController> {
   }
 
   Widget _buildFloatingButton(){
-    return FloatingActionButton(
-      onPressed: (){
-        Get.toNamed(Routes.INDEX);
-      },
-      child: Icon(Icons.list_alt, color: Colors.white),
-      backgroundColor: Color(0xff5947ff),
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 20),
+      child: FloatingActionButton(
+        onPressed: (){
+          Get.toNamed(Routes.INDEX);
+        },
+        child: Icon(Icons.list_alt, color: Colors.white, size: 25,),
+        backgroundColor: Color(0xff5947ff),
+      ),
     );
   }
 
   Widget _buildNavigationBar() {
     return Container(
+      decoration: BoxDecoration(
 
+      ),
       child: CurvedNavigationBar(
         backgroundColor: Color(0xff11005b),
         color: Color(0xff5947ff),
@@ -60,17 +65,21 @@ class DashboardView extends GetView<DashboardController> {
         index: controller.tabIndex.value,
         animationDuration: Duration(milliseconds: 200),
         items: [
-          _buildNavBarItem(Icon(Icons.bookmark, color: Colors.white)),
-          _buildNavBarItem(Icon(Icons.home, color: Colors.white)),
-          _buildNavBarItem(Icon(Icons.person, color: Colors.white)),
+          _buildNavBarItem(Icons.bookmark),
+          _buildNavBarItem(Icons.home),
+          _buildNavBarItem(Icons.person),
         ],
       ),
     );
   }
-  Widget _buildNavBarItem(Icon icon){
+  Widget _buildNavBarItem(IconData icon){
     return Padding(
         padding: EdgeInsets.all(5),
-        child: icon
+        child: Icon(
+          icon,
+          color: Colors.white,
+          size: 30,
+        )
     );
   }
 }

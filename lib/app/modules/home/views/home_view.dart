@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geek/app/data/constant/global_color.dart';
 import 'package:geek/app/widgets/base_64.dart';
 
 import 'package:get/get.dart';
@@ -88,8 +89,10 @@ class HomeView extends GetView<HomeController> {
           Container(
             width: 300,
             child: TextFormField(
+              controller: controller.searchController,
               onChanged: (query){
                 FocusScope.of(Get.context!).unfocus();
+                controller.searchController.clear();
                 Get.toNamed(
                     Routes.INDEX,
                     parameters: {
@@ -157,14 +160,14 @@ class HomeView extends GetView<HomeController> {
                               overflow: TextOverflow.ellipsis, maxLines: 1,
                               style:GoogleFonts.creteRound(
                                   fontSize: 30,
-                                  color: Color(0xff7055f8),
+                                  color: GlobalColor.title,
                                   fontWeight: FontWeight.bold,
                                   letterSpacing: 1
                               )
                           ),
                         ),
                           Text(state?.writer ?? '-',
-                          style: GoogleFonts.alata(color: Colors.black54, fontSize: 15),
+                          style: GoogleFonts.alata(color: GlobalColor.soft, fontSize: 15),
                           textAlign: TextAlign.left,)
                       ],
                     ),
@@ -173,7 +176,7 @@ class HomeView extends GetView<HomeController> {
                       width: Get.width *0.50,
                       child: Text(state?.synopsis ?? '-',
                         overflow: TextOverflow.ellipsis, maxLines: 4,
-                        style: GoogleFonts.alata(color: Colors.black54, fontSize: 15),
+                        style: GoogleFonts.alata(color: GlobalColor.text, fontSize: 15),
                         textAlign: TextAlign.left,),
                     )
                   ],
