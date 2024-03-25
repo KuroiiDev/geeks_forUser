@@ -133,10 +133,11 @@ class HomeView extends GetView<HomeController> {
                     elevation: 5.0,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
                     child: Container(
-                      height: 160,
+                      height: 170,
                       width: 120,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(15.0),
+                          border: Border.all(width: 2, color: GlobalColor.darkTitle),
                           image: DecorationImage(
                               fit: BoxFit.fill,
                               image: base64widget(state?.cover ?? '-')

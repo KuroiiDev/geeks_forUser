@@ -16,131 +16,188 @@ class DetailView extends GetView<DetailController> {
     return Container(
         child: SafeArea(
             child: Scaffold(
-              floatingActionButton: Padding(
-                padding: EdgeInsets.symmetric(vertical: 20),
-                child: FloatingActionButton.small(
-                  onPressed: ()=>Get.back(),
-                  child: Icon(Icons.close, color: Colors.white),
-                  backgroundColor: Colors.black38,
-                  elevation: 0,
-                  )
-              ),
-              floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-              body: Container(
-                child: SingleChildScrollView(
-                    child: controller.obx(
-
-                            (state) => Column(
-                              children: [
-
-                                SizedBox(
-                                  height: MediaQuery.sizeOf(context).height*0.45,
-                                  width: double.infinity,
-                                  child: ClipPath(
-                                    clipper: CustomClipperWidget(),
-                                    child: Container(
-                                      padding: EdgeInsets.only(top: 20.0),
-                                      decoration: BoxDecoration(
-                                          gradient: GlobalColor.softLinear
-                                      ),
-                                      child: Padding(
-                                        padding: EdgeInsets.symmetric(horizontal: 110, vertical: 10),
-                                        child: Container(
-                                          decoration: BoxDecoration(
-                                            border: Border.all(width: 5, color: Colors.black),
-                                            borderRadius: BorderRadius.circular(20),
-                                            image: DecorationImage(
-                                              image: base64widget(state?.cover ?? '-'),
-                                              fit: BoxFit.cover
-                                            )
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                  )
-                                ),
-                                Container(
-                                  child: Column(
-                                    children: [
-                                      Text(
-                                        state?.title ?? '-',
-                                        style: GoogleFonts.alata(color: GlobalColor.title, fontSize: 35, fontWeight: FontWeight.bold),
-                                      ),
-                                      Text(
-                                        state?.writer ?? '-',
-                                        style: GoogleFonts.alata(color: GlobalColor.subtitle, fontSize: 15),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(height: 30),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    RatingBarIndicator(
-                                      rating: 1,
-                                      itemCount: 5,
-                                      itemSize: 35,
-                                      unratedColor: GlobalColor.soft,
-                                      itemBuilder: (context,index) => Icon(
-                                        Icons.star,
-                                        color: GlobalColor.title,
-                                      ),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Icon(Icons.shopping_cart, size: 30, color: GlobalColor.title),
-                                        Text(
-                                            (state?.rented).toString(),
-                                            style: GoogleFonts.dangrek(color: GlobalColor.soft, fontSize: 23)
-                                        )
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: 50),
-                                Container(
-                                  padding: EdgeInsets.symmetric(vertical: 20),
-                                  decoration: BoxDecoration(
-                                    border: Border.symmetric(
-                                        horizontal: BorderSide(
-                                            width: 1,
-                                            color: GlobalColor.soft
-                                        )
-                                    ),
-                                  ),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Container(
-                                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                                        child: Text(
-                                          'Synopsis',
-                                          style: GoogleFonts.alata(color: GlobalColor.subtitle, fontSize: 20, fontWeight: FontWeight.bold),
-                                        ),
-                                      ),
-                                      Container(
-                                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                                        //color: Color(0xff9585ff),
-                                        child: Text(
-                                          (state?.synopsis).toString(),
-                                          overflow: TextOverflow.ellipsis,
-                                          maxLines: 8,
-                                          style: GoogleFonts.alata(color: GlobalColor.text, fontSize: 18),
-                                        ),
-                                      ),
-                                    ]
-                                  ),
-                                )
-                              ],
-                            )
+      floatingActionButton: Padding(
+          padding: EdgeInsets.symmetric(vertical: 20),
+          child: FloatingActionButton.small(
+            onPressed: () => Get.back(),
+            child: Icon(Icons.close, color: Colors.white),
+            backgroundColor: Colors.black38,
+            elevation: 0,
+          )),
+      floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
+      body: Container(
+        child: SingleChildScrollView(
+          child: controller.obx((state) => Column(
+                children: [
+                  SizedBox(
+                      height: MediaQuery.sizeOf(context).height * 0.45,
+                      width: double.infinity,
+                      child: ClipPath(
+                        clipper: CustomClipperWidget(),
+                        child: Container(
+                          padding: EdgeInsets.only(top: 20.0),
+                          decoration:
+                              BoxDecoration(gradient: GlobalColor.softLinear),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 110, vertical: 10),
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  border:
+                                      Border.all(width: 5, color: Colors.black),
+                                  borderRadius: BorderRadius.circular(20),
+                                  image: DecorationImage(
+                                      image: base64widget(state?.cover ?? '-'),
+                                      fit: BoxFit.cover)),
+                            ),
+                          ),
+                        ),
+                      )),
+                  Container(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Text(
+                          state?.title ?? '-',
+                          style: GoogleFonts.alata(
+                              color: GlobalColor.title,
+                              fontSize: 45,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          state?.writer ?? '-',
+                          style: GoogleFonts.alata(
+                              color: GlobalColor.subtitle, fontSize: 15),
+                        ),
+                      ],
                     ),
                   ),
-              ),
-            )
-        )
-    );
+                  SizedBox(height: 35),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      RatingBarIndicator(
+                        rating: 1,
+                        itemCount: 5,
+                        itemSize: 35,
+                        unratedColor: GlobalColor.soft,
+                        itemBuilder: (context, index) => Icon(
+                          Icons.star,
+                          color: GlobalColor.title,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Icon(Icons.shopping_cart,
+                              size: 30, color: GlobalColor.title),
+                          Text((state?.rented).toString(),
+                              style: GoogleFonts.dangrek(
+                                  color: GlobalColor.soft, fontSize: 23))
+                        ],
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 50),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+                    width: Get.width,
+                    decoration: BoxDecoration(
+                      border: Border(
+                          top: BorderSide(width: 1, color: GlobalColor.soft)),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          (state?.publishYear ?? '-').toString(),
+                          style: GoogleFonts.alata(
+                              color: GlobalColor.subtitle,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                        Text(
+                          (state?.publisher ?? '-').toString(),
+                          style: GoogleFonts.alata(
+                              color: GlobalColor.subtitle,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(vertical: 20),
+                    decoration: BoxDecoration(
+                      border: Border.symmetric(
+                          horizontal:
+                              BorderSide(width: 1, color: GlobalColor.soft)),
+                    ),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            child: Text(
+                              'Synopsis',
+                              style: GoogleFonts.alata(
+                                  color: GlobalColor.subtitle,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 10),
+                            //color: Color(0xff9585ff),
+                            child: Text(
+                              (state?.synopsis).toString(),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 8,
+                              style: GoogleFonts.alata(
+                                  color: GlobalColor.text, fontSize: 18),
+                            ),
+                          ),
+                        ]),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {},
+                          child: Text(
+                            'Pinjam',
+                            style: GoogleFonts.alata(
+                                color: GlobalColor.subtitle,
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.all(20.0),
+                            primary: GlobalColor.soft,
+                            elevation: 5,
+                            shape: StadiumBorder(),
+                          ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {},
+                          child: Icon(Icons.bookmark_add, color: GlobalColor.subtitle,),
+                          style: ElevatedButton.styleFrom(
+                            padding: EdgeInsets.all(20.0),
+                            primary: GlobalColor.soft,
+                            elevation: 5,
+                            shape: StadiumBorder(),
+                          ),
+                        ),
+                      ],
+                    ),
+                  )
+                ],
+              )),
+        ),
+      ),
+    )));
   }
-
-
 }
