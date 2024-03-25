@@ -36,14 +36,12 @@ class DetailView extends GetView<DetailController> {
                         clipper: CustomClipperWidget(),
                         child: Container(
                           padding: EdgeInsets.only(top: 20.0),
-                          decoration:
-                              BoxDecoration(
-                                color: Colors.black,
-                                  image: DecorationImage(
-                                      image: base64widget(state?.cover ?? '-'),
-                                      fit: BoxFit.cover,
-                                      opacity: 450)
-                              ),
+                          decoration: BoxDecoration(
+                              color: Colors.black,
+                              image: DecorationImage(
+                                  image: base64widget(state?.cover ?? '-'),
+                                  fit: BoxFit.cover,
+                                  opacity: 450)),
                           child: Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 70, vertical: 10),
@@ -167,13 +165,17 @@ class DetailView extends GetView<DetailController> {
                         ]),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 15 , vertical: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         ElevatedButton.icon(
-                          onPressed: () {},
-                          icon: Icon(Icons.shopping_cart, color: GlobalColor.title, size: 25,),
+                          onPressed: ()=>_showDialog(context),
+                          icon: Icon(
+                            Icons.shopping_cart,
+                            color: GlobalColor.title,
+                            size: 25,
+                          ),
                           label: Text(
                             'Rent This Book',
                             style: GoogleFonts.alata(
@@ -182,7 +184,8 @@ class DetailView extends GetView<DetailController> {
                                 fontWeight: FontWeight.bold),
                           ),
                           style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(horizontal: 45, vertical: 25),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 45, vertical: 25),
                             primary: GlobalColor.soft,
                             elevation: 5,
                             shape: StadiumBorder(),
@@ -190,9 +193,14 @@ class DetailView extends GetView<DetailController> {
                         ),
                         ElevatedButton(
                           onPressed: () {},
-                          child: Icon(Icons.bookmark_add, color: GlobalColor.title, size: 25,),
+                          child: Icon(
+                            Icons.bookmark_add,
+                            color: GlobalColor.title,
+                            size: 25,
+                          ),
                           style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 25),
                             primary: GlobalColor.soft,
                             elevation: 5,
                             shape: StadiumBorder(),
@@ -206,5 +214,49 @@ class DetailView extends GetView<DetailController> {
         ),
       ),
     )));
+  }
+  void _showDialog(BuildContext context){
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(30)
+          )
+        ),
+        builder: (context) => DraggableScrollableSheet(
+          expand: false,
+          builder: (context, scrollController)=> SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 90),
+                  child: Container(
+                    height: 8,
+                    decoration: BoxDecoration(
+                        color: GlobalColor.darkTitle,
+                        borderRadius: BorderRadius.all(Radius.circular(20))
+                    ),
+                  ),
+                ),
+                Container(
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      Text(
+                          'Confirmation',
+                          style: GoogleFonts.alata(
+                              color: GlobalColor.subtitle,
+                              fontSize: 40,
+                              fontWeight: FontWeight.bold)
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            )
+          ),
+        )
+    );
   }
 }
