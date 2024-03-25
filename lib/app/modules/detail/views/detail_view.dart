@@ -30,17 +30,23 @@ class DetailView extends GetView<DetailController> {
           child: controller.obx((state) => Column(
                 children: [
                   SizedBox(
-                      height: MediaQuery.sizeOf(context).height * 0.45,
+                      height: MediaQuery.sizeOf(context).height * 0.5,
                       width: double.infinity,
                       child: ClipPath(
                         clipper: CustomClipperWidget(),
                         child: Container(
                           padding: EdgeInsets.only(top: 20.0),
                           decoration:
-                              BoxDecoration(gradient: GlobalColor.softLinear),
+                              BoxDecoration(
+                                color: Colors.black,
+                                  image: DecorationImage(
+                                      image: base64widget(state?.cover ?? '-'),
+                                      fit: BoxFit.cover,
+                                      opacity: 450)
+                              ),
                           child: Padding(
                             padding: EdgeInsets.symmetric(
-                                horizontal: 110, vertical: 10),
+                                horizontal: 70, vertical: 10),
                             child: Container(
                               decoration: BoxDecoration(
                                   border:
@@ -161,21 +167,22 @@ class DetailView extends GetView<DetailController> {
                         ]),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 20),
+                    padding: EdgeInsets.symmetric(horizontal: 15 , vertical: 20),
                     child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        ElevatedButton(
+                        ElevatedButton.icon(
                           onPressed: () {},
-                          child: Text(
-                            'Pinjam',
+                          icon: Icon(Icons.shopping_cart, color: GlobalColor.title, size: 25,),
+                          label: Text(
+                            'Rent This Book',
                             style: GoogleFonts.alata(
                                 color: GlobalColor.subtitle,
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold),
                           ),
                           style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.all(20.0),
+                            padding: EdgeInsets.symmetric(horizontal: 45, vertical: 25),
                             primary: GlobalColor.soft,
                             elevation: 5,
                             shape: StadiumBorder(),
@@ -183,9 +190,9 @@ class DetailView extends GetView<DetailController> {
                         ),
                         ElevatedButton(
                           onPressed: () {},
-                          child: Icon(Icons.bookmark_add, color: GlobalColor.subtitle,),
+                          child: Icon(Icons.bookmark_add, color: GlobalColor.title, size: 25,),
                           style: ElevatedButton.styleFrom(
-                            padding: EdgeInsets.all(20.0),
+                            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
                             primary: GlobalColor.soft,
                             elevation: 5,
                             shape: StadiumBorder(),
