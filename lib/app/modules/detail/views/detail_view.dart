@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:geek/app/data/constant/global_color.dart';
@@ -170,7 +172,7 @@ class DetailView extends GetView<DetailController> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         ElevatedButton.icon(
-                          onPressed: ()=>_showDialog(context),
+                          onPressed: ()=>_showDialog(context, _check(state?.status.toString() ?? "-")),
                           icon: Icon(
                             Icons.shopping_cart,
                             color: GlobalColor.title,
@@ -215,7 +217,7 @@ class DetailView extends GetView<DetailController> {
       ),
     )));
   }
-  void _showDialog(BuildContext context){
+  void _showDialog(BuildContext context, bool available){
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -230,7 +232,7 @@ class DetailView extends GetView<DetailController> {
             child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 90),
+                  padding: EdgeInsets.symmetric(vertical: 15, horizontal: 130),
                   child: Container(
                     height: 8,
                     decoration: BoxDecoration(
@@ -244,11 +246,39 @@ class DetailView extends GetView<DetailController> {
                   child: Column(
                     children: [
                       Text(
-                          'Confirmation',
+                          'Renting Confirmation',
                           style: GoogleFonts.alata(
                               color: GlobalColor.subtitle,
-                              fontSize: 40,
+                              fontSize: 30,
                               fontWeight: FontWeight.bold)
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(top: 40),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: GlobalColor.title.withOpacity(0.1),
+                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            border: Border.all(width: 2, color: GlobalColor.soft)
+                          ),
+                          child: TextField(
+                          style: GoogleFonts.alata(color: GlobalColor.darkTitle, fontSize: 20),
+                          controller: controller.dateController,
+                          readOnly: true,
+                          decoration: InputDecoration(
+                            hintText: "Return Date",
+                            hintStyle: GoogleFonts.alata(color: GlobalColor.darkTitle.withOpacity(0.4), fontSize: 20),
+                            prefixIcon: Icon(
+                              Icons.calendar_today,
+                              color: GlobalColor.soft,
+                            ),
+                            filled: false,
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide.none,
+                            ),
+                          ),
+                          onTap: ()=>_showDatePicker(context),
+                        ),
+                        ),
                       )
                     ],
                   ),
@@ -258,5 +288,28 @@ class DetailView extends GetView<DetailController> {
           ),
         )
     );
+  }
+
+  void _showDatePicker(BuildContext context){
+    showDatePicker(
+        context: context,
+        initialDate: DateTime.now().add(Duration(days: 1)),
+        firstDate: DateTime.now().add(Duration(days: 1)),
+        lastDate: DateTime.now().add(Duration(days: 30)),
+    ).then((value) {
+      controller.returnDate = value.toString();
+      log(controller.returnDate);
+      controller.dateController.text = "${value?.day.toString()}-${value?.month.toString()}-${value?.year.toString()}";
+      FocusScope.of(context).unfocus();
+    });
+  }
+
+  bool _check(String text){
+    if (text == "AVAILABLE"){
+      return true;
+    }else{
+      return false;
+    }
+    
   }
 }

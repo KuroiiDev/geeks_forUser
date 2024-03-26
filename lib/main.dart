@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geek/app/data/constant/global_color.dart';
 
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
@@ -12,6 +13,7 @@ void main() async{
       title: "Application",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
+      theme: ThemeData(primarySwatch: Colors.deepPurple),
     ),
   );
 }

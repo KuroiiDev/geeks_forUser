@@ -1,5 +1,6 @@
 
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:geek/app/data/model/response_byid_get.dart';
 import 'package:get/get.dart';
 
@@ -8,6 +9,9 @@ import '../../../data/provider/api_provider.dart';
 
 class DetailController extends GetxController with StateMixin<DataBook> {
   final count = 0.obs;
+  final TextEditingController dateController = TextEditingController();
+  String returnDate = "-";
+
   @override
   void onInit() {
     super.onInit();
