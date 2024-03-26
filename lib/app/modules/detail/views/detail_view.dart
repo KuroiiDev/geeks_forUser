@@ -172,14 +172,20 @@ class DetailView extends GetView<DetailController> {
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         ElevatedButton.icon(
-                          onPressed: ()=>_showDialog(context, _check(state?.status.toString() ?? "-")),
+                          onPressed: (){
+                            if (_check(state?.status.toString() ?? "-")){
+                              _showDialog(context);
+                            }else{
+                              Get.snackbar('Unavailable', 'This Book Is Curently Unavailable', backgroundColor: Colors.red);
+                            }
+                          },
                           icon: Icon(
-                            Icons.shopping_cart,
+                            _check(state?.status.toString() ?? "-") ? Icons.shopping_cart : Icons.close,
                             color: GlobalColor.title,
                             size: 25,
                           ),
                           label: Text(
-                            'Rent This Book',
+                            _check(state?.status.toString() ?? "-") ? 'Rent This Book' : 'Book Unavailable',
                             style: GoogleFonts.alata(
                                 color: GlobalColor.subtitle,
                                 fontSize: 20,
@@ -217,7 +223,7 @@ class DetailView extends GetView<DetailController> {
       ),
     )));
   }
-  void _showDialog(BuildContext context, bool available){
+  void _showDialog(BuildContext context){
     showModalBottomSheet(
         context: context,
         isScrollControlled: true,
@@ -265,7 +271,7 @@ class DetailView extends GetView<DetailController> {
                           controller: controller.dateController,
                           readOnly: true,
                           decoration: InputDecoration(
-                            hintText: "Return Date",
+                            hintText: "Click to assign Return Date",
                             hintStyle: GoogleFonts.alata(color: GlobalColor.darkTitle.withOpacity(0.4), fontSize: 20),
                             prefixIcon: Icon(
                               Icons.calendar_today,
