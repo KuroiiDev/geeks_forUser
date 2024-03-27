@@ -13,6 +13,7 @@ class IndexController extends GetxController with StateMixin<List<DataBook>> {
 
   final TextEditingController searchController = TextEditingController();
   FocusNode searchBar = FocusNode();
+  bool ready = false;
 
   final count = 0.obs;
   @override
@@ -24,7 +25,6 @@ class IndexController extends GetxController with StateMixin<List<DataBook>> {
   @override
   void onReady() {
     super.onReady();
-    searchBar.requestFocus();
   }
 
   @override
@@ -34,22 +34,27 @@ class IndexController extends GetxController with StateMixin<List<DataBook>> {
 
   Future<void> getData() async{
     change(null, status: RxStatus.loading());
+    ready = false;
     try {
       final response = await ApiProvider.instance().get("${Endpoint.book}/az");
       if (response.statusCode == 200) {
         final ResponseBook responseBook = ResponseBook.fromJson(response.data);
         if (responseBook.data!.isEmpty){
           change(null, status: RxStatus.empty());
+          ready = true;
         }else{
           change(responseBook.data, status: RxStatus.success());
+          ready = true;
         }
       } else {
         change(null, status: RxStatus.error("Internal Server Error"));
+        ready = true;
       }
     }on DioException catch(e) {
       if (e.response != null){
         if (e.response?.data != null){
           change(null, status: RxStatus.loading());
+          ready = true;
           log("${e.response?.data['message']}']");
         }
       } else {
@@ -58,10 +63,8 @@ class IndexController extends GetxController with StateMixin<List<DataBook>> {
       }
     }catch (e) {
       change(null, status: RxStatus.loading());
+      ready = true;
       log(e.toString());
     }
-  }
-  Future<String> refreshData() async {
-    return "halo";
   }
 }
