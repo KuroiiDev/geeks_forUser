@@ -9,10 +9,21 @@ class BookmarkView extends GetView<BookmarkController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text(
-          'Bookmark',
-          style: TextStyle(fontSize: 20),
+      body: Container(
+        height: Get.height,
+        width: Get.width,
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Color(0xff7055f8), Color(0xffe3dbff), Color(0xfff3f3f3)]
+            )
+        ),
+        child: Center(
+          child: Text(
+            'Bookmark',
+            style: TextStyle(fontSize: 20),
+          ),
         ),
       ),
     );

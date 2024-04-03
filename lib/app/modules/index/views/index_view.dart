@@ -21,14 +21,14 @@ class IndexView extends GetView<IndexController> {
             Container(
               color: GlobalColor.soft,
               child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  padding: EdgeInsets.only(top: 50, left: 10, right: 10, bottom: 10),
                   child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       ElevatedButton(
                           onPressed: ()=> Get.back(),
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
+                          backgroundColor: Colors.white,
                           shape: CircleBorder(),
                         ),
                           child: Padding(
@@ -45,6 +45,7 @@ class IndexView extends GetView<IndexController> {
               width: Get.width,
               height: Get.height *0.80,
               child: controller.obx((state) => LiquidPullToRefresh(
+                key: controller.refreshKey,
                 color: GlobalColor.soft,
                 onRefresh: controller.getData,
                 child: ListView.builder(
@@ -83,7 +84,7 @@ class IndexView extends GetView<IndexController> {
                             onPressed: () {},
                             style: ElevatedButton.styleFrom(
                               padding: EdgeInsets.all(15.0),
-                              primary: GlobalColor.soft,
+                              backgroundColor: GlobalColor.soft,
                               elevation: 5,
                               shape: StadiumBorder(),
                             ),

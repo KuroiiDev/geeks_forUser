@@ -7,10 +7,11 @@ import 'package:get/get.dart';
 import '../../../data/constant/endpoint.dart';
 import '../../../data/provider/api_provider.dart';
 
-class DetailController extends GetxController with StateMixin<DataBook> {
+class DetailController extends GetxController with StateMixin {
   final count = 0.obs;
   final TextEditingController dateController = TextEditingController();
   String returnDate = "-";
+  var bookDetail = Rxn<DataBook>();
 
   @override
   void onInit() {
@@ -32,14 +33,14 @@ class DetailController extends GetxController with StateMixin<DataBook> {
     change(null, status: RxStatus.loading());
     var bookId = Get.parameters['id'];
     try {
-      final response =
-          await ApiProvider.instance().get("${Endpoint.book}/id/$bookId");
+      final response = await ApiProvider.instance().get("${Endpoint.book}/id/$bookId");
       if (response.statusCode == 200) {
         final ResponseByid responseBook = ResponseByid.fromJson(response.data);
         if (responseBook.data == null) {
           change(null, status: RxStatus.empty());
         } else {
-          change(responseBook.data, status: RxStatus.success());
+          bookDetail(responseBook.data);
+          change(null, status: RxStatus.success());
         }
       } else {
         change(null, status: RxStatus.error("Gagal mengambil data"));

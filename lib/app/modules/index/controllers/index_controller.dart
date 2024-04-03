@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/constant/endpoint.dart';
@@ -12,6 +13,7 @@ class IndexController extends GetxController with StateMixin<List<DataBook>> {
   //TODO: Implement IndexController
 
   final TextEditingController searchController = TextEditingController();
+  GlobalKey<RefreshIndicatorState> refreshKey = GlobalKey<RefreshIndicatorState>();
   FocusNode searchBar = FocusNode();
   bool ready = false;
 

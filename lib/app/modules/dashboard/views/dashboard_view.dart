@@ -1,5 +1,6 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:geek/app/data/constant/global_color.dart';
 import 'package:geek/app/modules/account/views/account_view.dart';
 import 'package:geek/app/modules/bookmark/views/bookmark_view.dart';
 import 'package:geek/app/modules/home/views/home_view.dart';
@@ -59,11 +60,12 @@ class DashboardView extends GetView<DashboardController> {
 
       ),
       child: CurvedNavigationBar(
-        backgroundColor: Color(0xff11005b),
+        backgroundColor: Color(0xfff3f3f3),
         color: Color(0xff5947ff),
         onTap: (index)=>controller.changeTabIndex(index),
         index: controller.tabIndex.value,
         animationDuration: Duration(milliseconds: 200),
+        buttonBackgroundColor: Color(0xff6f1bff),
         items: [
           _buildNavBarItem(Icons.bookmark),
           _buildNavBarItem(Icons.home),

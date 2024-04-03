@@ -202,7 +202,7 @@ class LoginView extends GetView<LoginController> {
       icon: Icon(Icons.login, color: Colors.white),
       style: ElevatedButton.styleFrom(
         padding: EdgeInsets.all(20.0),
-        primary: Color(0xace2d1ff),
+        backgroundColor: Color(0xace2d1ff),
         elevation: 5,
         shape: StadiumBorder(),
       ),

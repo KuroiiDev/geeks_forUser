@@ -10,8 +10,10 @@ import '../../../data/model/response_byid_get.dart';
 import '../../../data/provider/api_provider.dart';
 import '../../../data/provider/storage_provider.dart';
 
-class HomeController extends GetxController with StateMixin<DataBook>{
+class HomeController extends GetxController with StateMixin{
   //TODO: Implement HomeController
+
+  var topBookData = Rxn<DataBook>();
 
   final TextEditingController searchController = TextEditingController();
   RxString name = "".obs;
@@ -51,7 +53,8 @@ class HomeController extends GetxController with StateMixin<DataBook>{
         if (responseBook.data == null) {
           change(null, status: RxStatus.empty());
         } else {
-          change(responseBook.data, status: RxStatus.success());
+          topBookData(responseBook.data);
+          change(null, status: RxStatus.success());
           id = (responseBook.data?.bookId).toString();
         }
       } else {
