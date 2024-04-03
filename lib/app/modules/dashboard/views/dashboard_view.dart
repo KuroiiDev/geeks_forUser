@@ -50,6 +50,7 @@ class DashboardView extends GetView<DashboardController> {
         },
         child: Icon(Icons.list_alt, color: Colors.white, size: 25,),
         backgroundColor: Color(0xff5947ff),
+        shape: CircleBorder()
       ),
     );
   }

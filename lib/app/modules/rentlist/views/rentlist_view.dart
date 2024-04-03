@@ -35,28 +35,15 @@ class RentlistView extends GetView<RentlistController> {
                             onTap: ()=> Get.toNamed(Routes.RENT, parameters: {
                               'rent_id': (state[index].id).toString(),
                             }),
-                            title: Text('${state[index].id.toString()}. ${state[index].book?.title.toString()}',
+                            title: Text('${state[index].book?.title.toString()}',
                                 style: GoogleFonts.alata(
                                     color: Colors.purple,
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold)),
                             subtitle: Text(
-                                'User: ${state[index].user?.name}',
+                                'Date: ${state[index].rentDate}-${state[index].returnDate}\n${state[index].status}',
                                 style: GoogleFonts.alata(
                                     color: Colors.purple[200], fontSize: 13)),
-                            trailing: ElevatedButton(
-                              child: Icon(
-                                Icons.bookmark,
-                                color: Colors.white,
-                              ),
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                padding: EdgeInsets.all(15.0),
-                                backgroundColor: GlobalColor.soft,
-                                elevation: 5,
-                                shape: StadiumBorder(),
-                              ),
-                            ),
                           ),
                         );
                       },

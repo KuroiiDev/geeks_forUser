@@ -4,6 +4,7 @@ import 'package:geek/app/routes/app_pages.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quickalert/quickalert.dart';
 
 import '../controllers/account_controller.dart';
 
@@ -15,10 +16,20 @@ class AccountView extends GetView<AccountController> {
         floatingActionButton: Padding(
             padding: EdgeInsets.symmetric(vertical: 30),
             child: FloatingActionButton.small(
-              onPressed: () => controller.logout(),
+              onPressed: () {
+                QuickAlert.show(
+                    context: context,
+                    type: QuickAlertType.confirm,
+                    onConfirmBtnTap: () => controller.logout(),
+                    text: 'By clicking Logout, you have to Login again to access the main Menu',
+                    confirmBtnText: 'Logout',
+                    title: 'Confirm Logout?'
+                );
+              },
               child: Icon(Icons.logout, color: GlobalColor.title),
               backgroundColor: Color(0xfff3f3f3),
               elevation: 0,
+              shape: CircleBorder()
             )),
         floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
       body: Container(

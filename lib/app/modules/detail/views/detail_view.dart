@@ -8,6 +8,7 @@ import 'package:geek/app/widgets/base_64.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:quickalert/quickalert.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../widgets/custom_clipper.dart';
@@ -26,6 +27,7 @@ class DetailView extends GetView<DetailController> {
             child: Icon(Icons.close, color: Colors.white),
             backgroundColor: Colors.black38,
             elevation: 0,
+            shape: CircleBorder(),
           )),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
       body: Container(
@@ -302,9 +304,13 @@ class DetailView extends GetView<DetailController> {
                       if (_check(bookDetail?.status.toString() ?? "-")) {
                         _showDialog(context);
                       } else {
-                        Get.snackbar(
-                            'Unavailable', 'This Book Is Curently Unavailable',
-                            backgroundColor: Colors.red);
+                        QuickAlert.show(
+                            context: context,
+                            type: QuickAlertType.error,
+                            title: 'Book Unavailable!',
+                            text: 'This Book is currently Rented by someone else',
+                            confirmBtnText: 'Okay'
+                        );
                       }
                     },
                     icon: Icon(

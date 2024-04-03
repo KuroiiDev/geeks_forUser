@@ -86,7 +86,7 @@ class IndexView extends GetView<IndexController> {
                               padding: EdgeInsets.all(15.0),
                               backgroundColor: GlobalColor.soft,
                               elevation: 5,
-                              shape: StadiumBorder(),
+                              shape: CircleBorder(),
                             ),
                           ),
                         ),
