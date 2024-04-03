@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:geek/app/data/constant/global_color.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../controllers/account_controller.dart';
 
@@ -31,24 +32,50 @@ class AccountView extends GetView<AccountController> {
         ),
         child: Padding(
           padding: const EdgeInsets.all(20.0),
-          child: controller.obx((state) => Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
-                child: Container(
-                  height: Get.width*0.45,
-                  width: Get.width*0.45,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: Colors.black, width: 5),
-                    shape: BoxShape.circle
+          child: Obx(() {
+            if (controller.accountData.value == null) {
+              return Text('false');
+            } else {
+              var state = controller.accountData.value;
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                    child: Container(
+                      height: Get.width*0.45,
+                      width: Get.width*0.45,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(color: Colors.black, width: 5),
+                          shape: BoxShape.circle
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              Text(state?.email ?? '-')
-            ],
-          ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Text(
+                      (state?.name).toString(),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 8,
+                      style: GoogleFonts.creteRound(
+                          color: GlobalColor.title, fontSize: 25),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Text(
+                      (state?.email).toString(),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 8,
+                      style: GoogleFonts.alata(
+                          color: Colors.black87, fontSize: 18),
+                    ),
+                  )
+                ],
+              );
+            }
+          }
         ),
       )
     ));

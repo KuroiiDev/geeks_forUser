@@ -12,6 +12,7 @@ abstract class Routes {
   static const INDEX = _Paths.INDEX;
   static const BOOKMARK = _Paths.BOOKMARK;
   static const DETAIL = _Paths.DETAIL;
+  static const RENT = _Paths.RENT;
 }
 
 abstract class _Paths {
@@ -25,4 +26,5 @@ abstract class _Paths {
   static const INDEX = '/index';
   static const BOOKMARK = '/bookmark';
   static const DETAIL = '/detail';
+  static const RENT = '/rent';
 }

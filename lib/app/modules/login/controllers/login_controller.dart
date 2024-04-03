@@ -80,7 +80,7 @@ class LoginController extends GetxController {
   skip() async{
     FocusScope.of(Get.context!).unfocus();
     await StorageProvider.write(StorageKey.idUser, "1");
-    await StorageProvider.write(StorageKey.name, "User Trial");
+    await StorageProvider.write(StorageKey.name, "Normal User");
     await StorageProvider.write(StorageKey.status, "logged");
     Get.offAllNamed(Routes.DASHBOARD);
   }

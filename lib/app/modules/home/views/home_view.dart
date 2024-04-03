@@ -214,7 +214,7 @@ class HomeView extends GetView<HomeController> {
                         RatingBarIndicator(
                           rating: 1,
                           itemCount: 5,
-                          itemSize: 35,
+                          itemSize: 30,
                           unratedColor: GlobalColor.soft,
                           itemBuilder: (context, index) => Icon(
                             Icons.star,
@@ -352,7 +352,7 @@ class HomeView extends GetView<HomeController> {
                 RatingBarIndicator(
                   rating: 1,
                   itemCount: 5,
-                  itemSize: 35,
+                  itemSize: 30,
                   unratedColor: GlobalColor.soft,
                   itemBuilder: (context, index) => Icon(
                     Icons.star,

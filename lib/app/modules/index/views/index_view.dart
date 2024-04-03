@@ -55,7 +55,7 @@ class IndexView extends GetView<IndexController> {
                         child: ListTile(
                           onTap: () {
                             Get.toNamed(Routes.DETAIL, parameters: {
-                              'id': (state[index].bookId).toString(),
+                              'id': (state[index].id).toString(),
                             });
                           },
                           leading: ClipRRect(

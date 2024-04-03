@@ -96,6 +96,27 @@ class DetailView extends GetView<DetailController> {
                               onTap: () => _showDatePicker(context),
                             ),
                           ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(top: 45),
+                          child: ElevatedButton(
+                            onPressed: (){
+                              if (controller.dateController.text.isEmpty){
+                                Get.snackbar('Error', 'Pick Your Date', backgroundColor: Colors.red);
+                              } else {
+                                controller.requestRent();
+                              }
+                            },
+                            child: Padding(
+                              padding: const EdgeInsets.all(30.0),
+                              child: Icon(Icons.shopping_cart_checkout, size: 90),
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: GlobalColor.soft,
+                              elevation: 8,
+                              shape: CircleBorder(),
+                            ),
+                          ),
                         )
                       ],
                     ),
