@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:geek/app/data/constant/global_color.dart';
+import 'package:geek/app/routes/app_pages.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -70,6 +71,25 @@ class AccountView extends GetView<AccountController> {
                       maxLines: 8,
                       style: GoogleFonts.alata(
                           color: Colors.black87, fontSize: 18),
+                    ),
+                  ),
+                  Padding(
+                      padding: EdgeInsets.only(top: 20, left: 20, right: 20),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        ElevatedButton(
+                            onPressed: ()=>Get.toNamed(Routes.RENTLIST),
+                            child: Text('Rents')
+                        ),
+                        SizedBox(height: 30,),
+                        ElevatedButton(
+                            onPressed: (){},
+                            child: Text('History')
+                        )
+                      ],
                     ),
                   )
                 ],

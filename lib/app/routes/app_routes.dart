@@ -13,6 +13,7 @@ abstract class Routes {
   static const BOOKMARK = _Paths.BOOKMARK;
   static const DETAIL = _Paths.DETAIL;
   static const RENT = _Paths.RENT;
+  static const RENTLIST = _Paths.RENTLIST;
 }
 
 abstract class _Paths {
@@ -27,4 +28,5 @@ abstract class _Paths {
   static const BOOKMARK = '/bookmark';
   static const DETAIL = '/detail';
   static const RENT = '/rent';
+  static const RENTLIST = '/rentlist';
 }

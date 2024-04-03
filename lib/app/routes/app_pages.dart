@@ -18,6 +18,8 @@ import '../modules/register/bindings/register_binding.dart';
 import '../modules/register/views/register_view.dart';
 import '../modules/rent/bindings/rent_binding.dart';
 import '../modules/rent/views/rent_view.dart';
+import '../modules/rentlist/bindings/rentlist_binding.dart';
+import '../modules/rentlist/views/rentlist_view.dart';
 import '../modules/splashscreen/bindings/splashscreen_binding.dart';
 import '../modules/splashscreen/views/splashscreen_view.dart';
 
@@ -78,6 +80,11 @@ class AppPages {
       name: _Paths.RENT,
       page: () => const RentView(),
       binding: RentBinding(),
+    ),
+    GetPage(
+      name: _Paths.RENTLIST,
+      page: () => const RentlistView(),
+      binding: RentlistBinding(),
     ),
   ];
 }
