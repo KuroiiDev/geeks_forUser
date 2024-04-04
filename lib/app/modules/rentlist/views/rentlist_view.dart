@@ -41,7 +41,7 @@ class RentlistView extends GetView<RentlistController> {
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold)),
                             subtitle: Text(
-                                'Date: ${state[index].rentDate}-${state[index].returnDate}\n${state[index].status}',
+                                'Rent: ${state[index].rentDate}\nReturn:${state[index].returnDate}\n${state[index].status}',
                                 style: GoogleFonts.alata(
                                     color: Colors.purple[200], fontSize: 13)),
                           ),
