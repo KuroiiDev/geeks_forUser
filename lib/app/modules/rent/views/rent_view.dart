@@ -3,6 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pretty_qr_code/pretty_qr_code.dart';
 
 import '../../../data/constant/global_color.dart';
 import '../../../widgets/base_64.dart';
@@ -72,22 +73,6 @@ class RentView extends GetView<RentController> {
                     ],
                   ),
                 ),
-                SizedBox(height: 35),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    RatingBar.builder(
-                      itemCount: 5,
-                      itemSize: 45,
-                      unratedColor: GlobalColor.soft,
-                      itemBuilder: (context, index) => Icon(
-                        Icons.star,
-                        color: GlobalColor.subtitle,
-                      ),
-                      onRatingUpdate: (double value) {},
-                    ),
-                  ],
-                ),
                 SizedBox(height: 50),
                 Container(
                   padding: EdgeInsets.symmetric(vertical: 25, horizontal: 20),
@@ -124,11 +109,53 @@ class RentView extends GetView<RentController> {
                     border: Border.symmetric(
                         horizontal: BorderSide(width: 1, color: GlobalColor.soft)),
                   ),
-                  child: Container(
-                    width: Get.width *0.9,
-                    height: Get.width *0.9,
-                    color: Colors.black,
+                  child: Center(
+                    child: (state?.status).toString() != "RETURNED" ?
+                    Container(
+                      width: Get.width *0.8,
+                      height: Get.width *0.8,
+                      child: PrettyQrView.data(
+                        data: (state?.id).toString(),
+                        decoration: const PrettyQrDecoration(
+                          shape: PrettyQrSmoothSymbol(
+                            color: const Color(0xff7b63ff)
+                          )
+                        ),
+                      ),
+                    )
+                        :
+                    Text(
+                      (state?.status ?? '-').toString(),
+                      style: GoogleFonts.alata(
+                          color: GlobalColor.subtitle,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
                   )
+                ),
+                SizedBox(height: 35),
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Text(
+                      'Rate This Book',
+                      style: GoogleFonts.alata(
+                          color: GlobalColor.subtitle,
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 20),
+                    RatingBar.builder(
+                      itemCount: 5,
+                      itemSize: 45,
+                      unratedColor: GlobalColor.soft,
+                      itemBuilder: (context, index) => Icon(
+                        Icons.star,
+                        color: GlobalColor.softDeep,
+                      ),
+                      onRatingUpdate: (double value) {},
+                    ),
+                  ],
                 ),
                 Container(
                   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
