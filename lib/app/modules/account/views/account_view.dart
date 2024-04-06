@@ -106,7 +106,7 @@ class AccountView extends GetView<AccountController> {
                                 child: Container(
                                   padding: EdgeInsets.all(20.0),
                                   width: Get.width *0.8,
-                                  height: 300,
+                                  height: 200,
                                   child: Row(
                                     children: [],
                                   ),
