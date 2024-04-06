@@ -82,7 +82,7 @@ class RentView extends GetView<RentController> {
                       unratedColor: GlobalColor.soft,
                       itemBuilder: (context, index) => Icon(
                         Icons.star,
-                        color: GlobalColor.title,
+                        color: GlobalColor.subtitle,
                       ),
                       onRatingUpdate: (double value) {},
                     ),
