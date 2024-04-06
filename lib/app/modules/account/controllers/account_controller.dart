@@ -1,4 +1,7 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
+import 'package:geek/app/data/model/response_rent_id_get.dart';
 import 'package:geek/app/data/model/response_user_get.dart';
 import 'package:get/get.dart';
 
@@ -11,6 +14,7 @@ class AccountController extends GetxController with StateMixin {
   //TODO: Implement AccountController
 
   var accountData = Rxn<DataUser>();
+  var rentData = Rxn<DataRent>();
 
   RxString email = "-".obs;
 
@@ -19,6 +23,7 @@ class AccountController extends GetxController with StateMixin {
   void onInit() {
     super.onInit();
     getData();
+    getRent();
   }
 
   @override
@@ -39,7 +44,6 @@ class AccountController extends GetxController with StateMixin {
   }
 
   Future<void> getData() async {
-    change(null, status: RxStatus.loading());
     var userId = StorageProvider.read(StorageKey.idUser);
     try {
       final response =
@@ -47,25 +51,53 @@ class AccountController extends GetxController with StateMixin {
       if (response.statusCode == 200) {
         final ResponseUser responseUser = ResponseUser.fromJson(response.data);
         if (responseUser.data == null) {
-          change(null, status: RxStatus.empty());
+          log('Data Empty');
         } else {
           accountData(responseUser.data);
-          change(null, status: RxStatus.success());
+          log('Data Success');
         }
       } else {
-        change(null, status: RxStatus.error("Gagal mengambil data"));
+        log("Data Failed");
       }
     } on DioException catch (e) {
       if (e.response != null) {
         if (e.response?.data != null) {
-          change(null,
-              status: RxStatus.error("${e.response?.data['message']}"));
+          log(e.response?.data['message']);
         }
       } else {
-        change(null, status: RxStatus.error(e.message ?? ""));
+        log(e.message ?? "");
       }
     } catch (e) {
-      change(null, status: RxStatus.error(e.toString()));
+      log(e.toString());
+    }
+  }
+
+  Future<void> getRent() async {
+    var userId = StorageProvider.read(StorageKey.idUser);
+    try {
+      final response =
+      await ApiProvider.instance().get("${Endpoint.rentCurrent}/$userId");
+      if (response.statusCode == 200) {
+        final ResponseRentId responseRentId = ResponseRentId.fromJson(response.data);
+        if (responseRentId.data == null) {
+          log('Rent Data Empty');
+        } else {
+          rentData(responseRentId.data);
+          log('Rent Data Success');
+        }
+      } else {
+        log("Rent Data Failed");
+      }
+    } on DioException catch (e) {
+      if (e.response != null) {
+        if (e.response?.data != null) {
+          log('Rent: '+e.response?.data['message']);
+        }
+      } else {
+        log('Rent: '+(e.message ?? ""));
+      }
+    } catch (e) {
+      log('Rent: '+e.toString());
     }
   }
 }

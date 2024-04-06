@@ -133,9 +133,7 @@ class HomeView extends GetView<HomeController> {
             color: Colors.transparent,
           ),
           child: Obx(() {
-            if (controller.topBookData.isNull) {
-              return _template();
-            } else if (controller.topBookData.value == null) {
+            if (controller.topBookData.value == null) {
               return _template();
             } else {
               var state = controller.topBookData.value;

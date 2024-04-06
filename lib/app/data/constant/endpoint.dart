@@ -10,6 +10,7 @@ class Endpoint {
   static const String request = "${baseUrlApi}rent/request";
   static const String rentId = "${baseUrlApi}rent/id";
   static const String rentUser = "${baseUrlApi}rent/user";
+  static const String rentCurrent = "${baseUrlApi}rent/current";
 
   /*
   static const String book = "${baseUrlApi}book";
