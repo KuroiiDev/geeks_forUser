@@ -14,39 +14,42 @@ class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-            Color(0xff7055f8),
-            Color(0xffe3dbff),
-            Color(0xfff3f3f3)
-          ])),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
-                child: _buildUserData()),
-            Padding(
-              padding: EdgeInsets.all(10),
-              child: _buildSearchBox(),
-            ),
-            Padding(
-                padding: EdgeInsets.symmetric(vertical: 18),
-                child: GestureDetector(
-                    onTap: () {
-                      if (controller.id != "0") {
-                        Get.toNamed(Routes.DETAIL, parameters: {
-                          'id': controller.id,
-                        });
-                      }
-                    },
-                    child: _buildTopBook())),
-            Container(height: 500)
-          ],
+    return Scaffold(
+      floatingActionButton: _buildFloatingButton(),
+      body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [
+              Color(0xff7055f8),
+              Color(0xffe3dbff),
+              Color(0xfff3f3f3)
+            ])),
+        child: SingleChildScrollView(
+          child: Column(
+            children: [
+              Padding(
+                  padding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
+                  child: _buildUserData()),
+              Padding(
+                padding: EdgeInsets.all(10),
+                child: _buildSearchBox(),
+              ),
+              Padding(
+                  padding: EdgeInsets.symmetric(vertical: 18),
+                  child: GestureDetector(
+                      onTap: () {
+                        if (controller.id != "0") {
+                          Get.toNamed(Routes.DETAIL, parameters: {
+                            'id': controller.id,
+                          });
+                        }
+                      },
+                      child: _buildTopBook())),
+              Container(height: 500)
+            ],
+          ),
         ),
       ),
     );
@@ -370,6 +373,19 @@ class HomeView extends GetView<HomeController> {
           ),
         ),
       ],
+    );
+  }
+  Widget _buildFloatingButton(){
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 20),
+      child: FloatingActionButton(
+          onPressed: (){
+            Get.toNamed(Routes.INDEX);
+          },
+          child: Icon(Icons.list_alt, color: Colors.white, size: 25,),
+          backgroundColor: Color(0xff5947ff),
+          shape: CircleBorder()
+      ),
     );
   }
 }

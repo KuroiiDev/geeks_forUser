@@ -19,7 +19,6 @@ class DashboardView extends GetView<DashboardController> {
           return Scaffold(
             body: _buildBody(),
             bottomNavigationBar: Obx(()=>_buildNavigationBar()),
-            floatingActionButton: _buildFloatingButton(),
           );
         }
     );
@@ -39,20 +38,6 @@ class DashboardView extends GetView<DashboardController> {
           },
         )
     ));
-  }
-
-  Widget _buildFloatingButton(){
-    return Padding(
-      padding: EdgeInsets.symmetric(vertical: 20),
-      child: FloatingActionButton(
-        onPressed: (){
-          Get.toNamed(Routes.INDEX);
-        },
-        child: Icon(Icons.list_alt, color: Colors.white, size: 25,),
-        backgroundColor: Color(0xff5947ff),
-        shape: CircleBorder()
-      ),
-    );
   }
 
   Widget _buildNavigationBar() {

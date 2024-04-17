@@ -337,8 +337,25 @@ class DetailView extends GetView<DetailController> {
                       shape: StadiumBorder(),
                     ),
                   ),
+                  controller.isSaved.value ?
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () => controller.removeBookmark(),
+                    child: Icon(
+                      Icons.bookmark_remove,
+                      color: Colors.white,
+                      size: 25,
+                    ),
+                    style: ElevatedButton.styleFrom(
+                      padding:
+                      EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+                      backgroundColor: Colors.red,
+                      elevation: 5,
+                      shape: StadiumBorder(),
+                    ),
+                  )
+                  :
+                  ElevatedButton(
+                    onPressed: () =>controller.addBookmark(),
                     child: Icon(
                       Icons.bookmark_add,
                       color: GlobalColor.title,
@@ -351,7 +368,8 @@ class DetailView extends GetView<DetailController> {
                       elevation: 5,
                       shape: StadiumBorder(),
                     ),
-                  ),
+                  )
+                  ,
                 ],
               ),
             )
@@ -544,44 +562,6 @@ class DetailView extends GetView<DetailController> {
             ),
           ]),
               ),
-        ),
-        Container(
-          padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              ElevatedButton(
-                onPressed: () {},
-                child: Text(
-                  'Rent This Book',
-                  style: GoogleFonts.alata(
-                      color: GlobalColor.subtitle,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold),
-                ),
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 45, vertical: 25),
-                  backgroundColor: GlobalColor.soft,
-                  elevation: 5,
-                  shape: StadiumBorder(),
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {},
-                child: Icon(
-                  Icons.bookmark_add,
-                  color: GlobalColor.title,
-                  size: 25,
-                ),
-                style: ElevatedButton.styleFrom(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-                  backgroundColor: GlobalColor.soft,
-                  elevation: 5,
-                  shape: StadiumBorder(),
-                ),
-              ),
-            ],
-          ),
         )
       ],
     );

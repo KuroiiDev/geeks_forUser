@@ -50,7 +50,8 @@ class DataBook {
       this.publisher, 
       this.synopsis, 
       this.rented, 
-      this.status, 
+      this.rating,
+      this.status,
       this.publishYear, 
       this.createdAt, 
       this.updatedAt,});
@@ -63,6 +64,7 @@ class DataBook {
     publisher = json['publisher'];
     synopsis = json['synopsis'];
     rented = json['rented'];
+    rating = json['rating'];
     status = json['status'];
     publishYear = json['publish_year'];
     createdAt = json['created_at'];
@@ -75,6 +77,7 @@ class DataBook {
   String? publisher;
   String? synopsis;
   int? rented;
+  int? rating;
   String? status;
   int? publishYear;
   String? createdAt;
@@ -89,6 +92,7 @@ class DataBook {
     map['publisher'] = publisher;
     map['synopsis'] = synopsis;
     map['rented'] = rented;
+    map['rating'] = rating;
     map['status'] = status;
     map['publish_year'] = publishYear;
     map['created_at'] = createdAt;
