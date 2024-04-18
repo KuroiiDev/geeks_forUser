@@ -43,6 +43,9 @@ class AccountController extends GetxController with StateMixin {
   }
 
   Future<void> getData() async {
+    accountData.value = null;
+    rentData.value = null;
+
     getRent();
     var userId = StorageProvider.read(StorageKey.idUser);
     try {

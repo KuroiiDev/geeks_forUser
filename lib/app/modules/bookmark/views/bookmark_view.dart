@@ -42,6 +42,7 @@ class BookmarkView extends GetView<BookmarkController> {
               return LiquidPullToRefresh(
                 backgroundColor: Color(0xff7055f8),
                 color: Colors.white,
+                showChildOpacityTransition: false,
                 onRefresh: ()=>controller.getData(),
                 child: Padding(
                   padding: const EdgeInsets.all(20.0),

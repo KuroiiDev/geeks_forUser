@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../data/constant/endpoint.dart';
+import '../../../data/model/response_book_get.dart';
 import '../../../data/model/response_book_id_get.dart';
 import '../../../data/provider/api_provider.dart';
 import '../../../data/provider/storage_provider.dart';
@@ -14,6 +15,7 @@ class HomeController extends GetxController with StateMixin{
   //TODO: Implement HomeController
 
   var topBookData = Rxn<DataBookId>();
+  var bookData = Rxn<List<DataBook>>();
 
   final TextEditingController searchController = TextEditingController();
   RxString name = StorageProvider.read(StorageKey.name).obs;
@@ -43,21 +45,20 @@ class HomeController extends GetxController with StateMixin{
   }
 
   Future<void> getData() async {
-    change(null, status: RxStatus.loading());
+    topBookData.value = null;
+    bookData.value = null;
     try {
       final response =
       await ApiProvider.instance().get("${Endpoint.book}/top");
       if (response.statusCode == 200) {
         final ResponseBookId responseBook = ResponseBookId.fromJson(response.data);
-        if (responseBook.data == null) {
-          change(null, status: RxStatus.empty());
-        } else {
+        if (responseBook.data != null) {
           topBookData(responseBook.data);
           change(null, status: RxStatus.success());
           id = (responseBook.data?.id).toString();
         }
       } else {
-        change(null, status: RxStatus.error("Gagal mengambil data"));
+        log("Gagal mengambil data");
       }
     } on DioException catch (e) {
       if (e.response != null) {
@@ -71,7 +72,31 @@ class HomeController extends GetxController with StateMixin{
         Get.snackbar("Network", "No Internet Connection", backgroundColor: Colors.red);
       }
     } catch (e) {
-      change(null, status: RxStatus.error(e.toString()));
+      log(e.toString());
+    }
+
+    try {
+      final response = await ApiProvider.instance().get("${Endpoint.book}/");
+      if (response.statusCode == 200) {
+        final ResponseBook responseBook = ResponseBook.fromJson(response.data);
+        if (responseBook.data!.isEmpty){
+          log("Empty Data!");
+        }else{
+          bookData(responseBook.data);
+        }
+      } else {
+        log("Internal Server Error");
+      }
+    }on DioException catch(e) {
+      if (e.response != null){
+        if (e.response?.data != null){
+          log("${e.response?.data['message']}']");
+        }
+      } else {
+        log(e.message ?? "");
+      }
+    }catch (e) {
+      log(e.toString());
     }
   }
 }

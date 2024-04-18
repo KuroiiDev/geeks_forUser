@@ -5,6 +5,7 @@ import 'package:geek/app/widgets/base_64.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../routes/app_pages.dart';
@@ -26,29 +27,64 @@ class HomeView extends GetView<HomeController> {
               Color(0xffe3dbff),
               Color(0xfff3f3f3)
             ])),
-        child: SingleChildScrollView(
-          child: Column(
+        child: LiquidPullToRefresh(
+          onRefresh: ()=> controller.getData(),
+          backgroundColor: Color(0xff7055f8),
+          color: Colors.white,
+          showChildOpacityTransition: false,
+          child: ListView(
             children: [
-              Padding(
-                  padding: EdgeInsets.symmetric(vertical: 18, horizontal: 10),
-                  child: _buildUserData()),
-              Padding(
-                padding: EdgeInsets.all(10),
-                child: _buildSearchBox(),
-              ),
-              Padding(
-                  padding: EdgeInsets.symmetric(vertical: 18),
-                  child: GestureDetector(
-                      onTap: () {
-                        if (controller.id != "0") {
-                          Get.toNamed(Routes.DETAIL, parameters: {
-                            'id': controller.id,
-                          });
-                        }
-                      },
-                      child: _buildTopBook())),
-              Container(height: 500)
-            ],
+                Padding(
+                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                    child: _buildUserData()),
+                Padding(
+                  padding: EdgeInsets.all(10),
+                  child: _buildSearchBox(),
+                ),
+                Padding(
+                    padding: EdgeInsets.symmetric(vertical: 18),
+                    child: Column(
+                      children: [
+                        Container(
+                          padding: EdgeInsets.only(bottom: 10),
+                          width: Get.width *0.9,
+                          child: Text(
+                            "Top Rented Book",
+                            style: GoogleFonts.alata(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),
+                            textAlign: TextAlign.left,
+                          ),
+                        ),
+                        InkWell(
+                            onTap: () {
+                              if (controller.id != "0") {
+                                Get.toNamed(Routes.DETAIL, parameters: {
+                                  'id': controller.id,
+                                });
+                              }
+                            },
+                            child: _buildTopBook()),
+                      ],
+                    )
+                ),
+                Column(
+                  children: [
+                    Container(
+                      padding: EdgeInsets.only(bottom: 10, top: 10),
+                      width: Get.width *0.9,
+                      child: Text(
+                        "Our Newest book",
+                        style: GoogleFonts.alata(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                    Container(
+                        height: Get.height*0.47,
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        child: _buildNewBook(),
+                    ),
+                  ],
+                )
+              ],
           ),
         ),
       ),
@@ -124,6 +160,70 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
+  Widget _buildNewBook() {
+    return Obx((){
+      var state = controller.bookData.value;
+      if (state == null) {
+        return _template2();
+      } else {
+        return GridView.builder(
+            gridDelegate:
+            const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              childAspectRatio: 4 / 6,
+              crossAxisSpacing: 5.0,
+              mainAxisSpacing: 5.0
+            ),
+            itemCount: state.length,
+            itemBuilder: (context, index) {
+              return InkWell(
+                onTap: (){
+                  Get.toNamed(Routes.DETAIL, parameters: {
+                    'id' : (state[index].id).toString(),
+                  });
+                },
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  elevation: 10,
+                  color: Colors.white,
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  image: DecorationImage(
+                                      image: base64widget(state[index].cover ?? '-'),
+                                      fit: BoxFit.cover
+                                  )
+                              ),
+                            )
+                        ),
+                        Container(
+                          padding: EdgeInsets.only(top: 10),
+                          child: Text(
+                            state[index].title ?? '-',
+                            overflow: TextOverflow.ellipsis,
+                            style: GoogleFonts.alata(
+                                color: GlobalColor.title,
+                                fontSize: 15,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ),
+              );
+            });
+      }
+    });
+  }
+
   Widget _buildTopBook() {
     return Card(
       elevation: 20,
@@ -136,10 +236,10 @@ class HomeView extends GetView<HomeController> {
             color: Colors.transparent,
           ),
           child: Obx(() {
-            if (controller.topBookData.value == null) {
+            var state = controller.topBookData.value;
+            if (state == null) {
               return _template();
             } else {
-              var state = controller.topBookData.value;
               return Column(
                 children: [
                   Row(
@@ -159,7 +259,7 @@ class HomeView extends GetView<HomeController> {
                                     width: 2, color: GlobalColor.darkTitle),
                                 image: DecorationImage(
                                     fit: BoxFit.fill,
-                                    image: base64widget(state?.cover ?? '-'))),
+                                    image: base64widget(state.cover ?? '-'))),
                           ),
                         ),
                       ),
@@ -172,18 +272,19 @@ class HomeView extends GetView<HomeController> {
                             children: [
                               Container(
                                 height: 50,
+                                padding: EdgeInsets.only(top: 10),
                                 width: Get.width * 0.50,
-                                child: Text(state?.title ?? "-",
+                                child: Text(state.title ?? "-",
                                     overflow: TextOverflow.ellipsis,
                                     maxLines: 1,
                                     style: GoogleFonts.creteRound(
-                                        fontSize: 30,
+                                        fontSize: 25,
                                         color: GlobalColor.title,
                                         fontWeight: FontWeight.bold,
                                         letterSpacing: 1)),
                               ),
                               Text(
-                                state?.writer ?? '-',
+                                state.writer ?? '-',
                                 style: GoogleFonts.alata(
                                     color: GlobalColor.soft, fontSize: 15),
                                 textAlign: TextAlign.left,
@@ -195,7 +296,7 @@ class HomeView extends GetView<HomeController> {
                             height: 100,
                             width: Get.width * 0.50,
                             child: Text(
-                              state?.synopsis ?? '-',
+                              state.synopsis ?? '-',
                               overflow: TextOverflow.ellipsis,
                               maxLines: 4,
                               style: GoogleFonts.alata(
@@ -213,7 +314,7 @@ class HomeView extends GetView<HomeController> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         RatingBarIndicator(
-                          rating: 1,
+                          rating: (state.rating ?? 0).toDouble(),
                           itemCount: 5,
                           itemSize: 30,
                           unratedColor: GlobalColor.soft,
@@ -226,7 +327,7 @@ class HomeView extends GetView<HomeController> {
                           children: [
                             Icon(Icons.shopping_cart,
                                 size: 30, color: GlobalColor.title),
-                            Text((state?.rented).toString(),
+                            Text((state.rented).toString(),
                                 style: GoogleFonts.dangrek(
                                     color: GlobalColor.soft, fontSize: 23))
                           ],
@@ -374,6 +475,52 @@ class HomeView extends GetView<HomeController> {
         ),
       ],
     );
+  }
+  Widget _template2() {
+    return GridView.builder(
+        gridDelegate:
+        const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          childAspectRatio: 4 / 6,
+            crossAxisSpacing: 5.0,
+            mainAxisSpacing: 5.0
+        ),
+        itemCount: 12,
+        itemBuilder: (context, index) {
+          return Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+              elevation: 10,
+              color: Colors.white,
+              child: Shimmer.fromColors(
+                baseColor: Color(0xffb6b6b6),
+                highlightColor: Color(0xffffffff),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Column(
+                    children: [
+                      Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.black
+                            ),
+                          )
+                      ),
+                      Container(
+                        padding: EdgeInsets.only(top: 5),
+                        child: Container(
+                            color: Colors.black,
+                            height: 10,
+                          ),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+          );
+        });
   }
   Widget _buildFloatingButton(){
     return Padding(

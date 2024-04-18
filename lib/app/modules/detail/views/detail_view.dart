@@ -153,12 +153,10 @@ class DetailView extends GetView<DetailController> {
 
   Widget _bookDetails(BuildContext context) {
     return Obx(() {
-      if (controller.bookDetail.isNull) {
-        return _template(context);
-      } else if (controller.bookDetail.value == null) {
+      var bookDetail = controller.bookDetail.value;
+      if (bookDetail == null) {
         return _template(context);
       } else {
-        var bookDetail = controller.bookDetail.value;
         return Column(
           children: [
             SizedBox(
@@ -171,7 +169,7 @@ class DetailView extends GetView<DetailController> {
                     decoration: BoxDecoration(
                         color: Colors.black,
                         image: DecorationImage(
-                            image: base64widget(bookDetail?.cover ?? '-'),
+                            image: base64widget(bookDetail.cover ?? '-'),
                             fit: BoxFit.cover,
                             opacity: 450)),
                     child: Padding(
@@ -182,7 +180,7 @@ class DetailView extends GetView<DetailController> {
                             border: Border.all(width: 5, color: Colors.black),
                             borderRadius: BorderRadius.circular(20),
                             image: DecorationImage(
-                                image: base64widget(bookDetail?.cover ?? '-'),
+                                image: base64widget(bookDetail.cover ?? '-'),
                                 fit: BoxFit.cover)),
                       ),
                     ),
@@ -193,14 +191,14 @@ class DetailView extends GetView<DetailController> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    bookDetail?.title ?? '-',
+                    bookDetail.title ?? '-',
                     style: GoogleFonts.alata(
                         color: GlobalColor.title,
                         fontSize: 45,
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    bookDetail?.writer ?? '-',
+                    bookDetail.writer ?? '-',
                     style: GoogleFonts.alata(
                         color: GlobalColor.subtitle, fontSize: 15),
                   ),
@@ -212,7 +210,7 @@ class DetailView extends GetView<DetailController> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 RatingBarIndicator(
-                  rating: 1,
+                  rating: (bookDetail.rating ?? 0).toDouble(),
                   itemCount: 5,
                   itemSize: 35,
                   unratedColor: GlobalColor.soft,
@@ -225,7 +223,7 @@ class DetailView extends GetView<DetailController> {
                   children: [
                     Icon(Icons.shopping_cart,
                         size: 30, color: GlobalColor.title),
-                    Text((bookDetail?.rented).toString(),
+                    Text((bookDetail.rented).toString(),
                         style: GoogleFonts.dangrek(
                             color: GlobalColor.soft, fontSize: 23))
                   ],
@@ -244,14 +242,14 @@ class DetailView extends GetView<DetailController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    (bookDetail?.publishYear ?? '-').toString(),
+                    (bookDetail.publishYear ?? '-').toString(),
                     style: GoogleFonts.alata(
                         color: GlobalColor.subtitle,
                         fontSize: 20,
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    (bookDetail?.publisher ?? '-').toString(),
+                    (bookDetail.publisher ?? '-').toString(),
                     style: GoogleFonts.alata(
                         color: GlobalColor.subtitle,
                         fontSize: 20,
@@ -285,7 +283,7 @@ class DetailView extends GetView<DetailController> {
                           EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       //color: Color(0xff9585ff),
                       child: Text(
-                        (bookDetail?.synopsis).toString(),
+                        (bookDetail.synopsis).toString(),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 8,
                         style: GoogleFonts.alata(
@@ -301,7 +299,7 @@ class DetailView extends GetView<DetailController> {
                 children: [
                   ElevatedButton.icon(
                     onPressed: () {
-                      if (_check(bookDetail?.status.toString() ?? "-")) {
+                      if (_check(bookDetail.status.toString() ?? "-")) {
                         _showDialog(context);
                       } else {
                         QuickAlert.show(
@@ -314,14 +312,14 @@ class DetailView extends GetView<DetailController> {
                       }
                     },
                     icon: Icon(
-                      _check(bookDetail?.status.toString() ?? "-")
+                      _check(bookDetail.status.toString() ?? "-")
                           ? Icons.shopping_cart
                           : Icons.close,
                       color: GlobalColor.title,
                       size: 25,
                     ),
                     label: Text(
-                      _check(bookDetail?.status.toString() ?? "-")
+                      _check(bookDetail.status.toString() ?? "-")
                           ? 'Rent This Book'
                           : 'Book Unavailable',
                       style: GoogleFonts.alata(
