@@ -23,7 +23,6 @@ class AccountController extends GetxController with StateMixin {
   void onInit() {
     super.onInit();
     getData();
-    getRent();
   }
 
   @override
@@ -44,6 +43,7 @@ class AccountController extends GetxController with StateMixin {
   }
 
   Future<void> getData() async {
+    getRent();
     var userId = StorageProvider.read(StorageKey.idUser);
     try {
       final response =

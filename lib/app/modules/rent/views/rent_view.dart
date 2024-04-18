@@ -148,7 +148,7 @@ class RentView extends GetView<RentController> {
                     RatingBar.builder(
                       itemCount: 5,
                       itemSize: 45,
-                      unratedColor: GlobalColor.soft,
+                      unratedColor: Colors.black26,
                       itemBuilder: (context, index) => Icon(
                         Icons.star,
                         color: GlobalColor.softDeep,

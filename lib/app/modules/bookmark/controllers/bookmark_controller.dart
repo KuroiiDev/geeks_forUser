@@ -38,11 +38,12 @@ class BookmarkController extends GetxController with StateMixin {
       if (response.statusCode == 200) {
         final ResponseBookmark responseBookmark = ResponseBookmark.fromJson(response.data);
         if (responseBookmark.data!.isEmpty){
+          log("Empty Data");
         }else {
           bookmarkDetail(responseBookmark.data);
         }
       }else {
-        change(null, status: RxStatus.error("Internal Server Error"));
+        log("Server Error");
       }
     }on DioException catch(e) {
       if (e.response != null){

@@ -1,10 +1,7 @@
-/// status : "success"
-/// data : {"name":"user","email":"user@example.com","role":"USER","updated_at":"2024-02-29T05:48:13.000000Z","created_at":"2024-02-29T05:48:13.000000Z","id":1}
-
 class ResponseRegisterPost {
   ResponseRegisterPost({
-      this.status, 
-      this.data,});
+    this.status,
+    this.data,});
 
   ResponseRegisterPost.fromJson(dynamic json) {
     status = json['status'];
@@ -24,21 +21,14 @@ class ResponseRegisterPost {
 
 }
 
-/// name : "user"
-/// email : "user@example.com"
-/// role : "USER"
-/// updated_at : "2024-02-29T05:48:13.000000Z"
-/// created_at : "2024-02-29T05:48:13.000000Z"
-/// id : 1
-
 class Data {
   Data({
-      this.name, 
-      this.email, 
-      this.role, 
-      this.updatedAt, 
-      this.createdAt, 
-      this.id,});
+    this.name,
+    this.email,
+    this.role,
+    this.updatedAt,
+    this.createdAt,
+    this.id,});
 
   Data.fromJson(dynamic json) {
     name = json['name'];

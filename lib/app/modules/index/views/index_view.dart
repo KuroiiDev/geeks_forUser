@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geek/app/data/constant/global_color.dart';
 import 'package:geek/app/widgets/base_64.dart';
@@ -44,56 +45,92 @@ class IndexView extends GetView<IndexController> {
             Container(
               width: Get.width,
               height: Get.height *0.80,
-              child: controller.obx((state) => LiquidPullToRefresh(
-                key: controller.refreshKey,
-                color: GlobalColor.soft,
-                onRefresh: controller.getData,
-                child: ListView.builder(
-                    itemBuilder: (context, index) {
-                      return Card(
-                        elevation: 5.0,
-                        child: ListTile(
-                          onTap: () {
-                            Get.toNamed(Routes.DETAIL, parameters: {
-                              'id': (state[index].id).toString(),
-                            });
-                          },
-                          leading: ClipRRect(
-                              borderRadius: BorderRadius.circular(7),
-                              child: Image(
-                                image: base64widget(state[index].cover ?? '-'),
-                                fit: BoxFit.cover,
-                                width: 33,
-                                height: 44,
-                                alignment: Alignment.center,
-                              )),
-                          title: Text('${state[index].title.toString()}',
-                              style: GoogleFonts.alata(
-                                  color: Colors.purple,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold)),
-                          subtitle: Text(
-                              'Writer: ${state[index].writer}\nPublisher: ${state[index].publisher}\nYear: ${state[index].publishYear}\n${state[index].status}',
-                              style: GoogleFonts.alata(
-                                  color: Colors.purple[200], fontSize: 13)),
-                          trailing: ElevatedButton(
-                            child: Icon(
-                              Icons.bookmark,
-                              color: Colors.white,
-                            ),
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                              padding: EdgeInsets.all(15.0),
-                              backgroundColor: GlobalColor.soft,
-                              elevation: 5,
-                              shape: CircleBorder(),
-                            ),
-                          ),
+              child: Obx(() {
+                var state = controller.bookData.value;
+
+                if (state == null){
+                  return Text('null');
+                } else {
+                  return LiquidPullToRefresh(
+                    key: controller.refreshKey,
+                    color: GlobalColor.soft,
+                    onRefresh: controller.getData,
+                    child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          childAspectRatio: 3 / 6,
+                          crossAxisSpacing: 10.0,
                         ),
-                      );
-                    },
-                    itemCount: state!.length),
-              )),
+                        itemBuilder: (context, index) {
+                          return InkWell(
+                            onTap: () {
+                              Get.toNamed(Routes.DETAIL, parameters: {
+                                'id' : state[index].id.toString()
+                              });
+                            },
+                            child: Card(
+                              elevation: 5.0,
+                              child: Column(
+                                children: [
+                                  Expanded(
+                                    child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(20),
+                                        child: Image(
+                                          image: base64widget(state[index].cover ?? '-'),
+                                          fit: BoxFit.cover,
+                                          alignment: Alignment.center,
+                                        )
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.only(top: 10),
+                                    child: Text(
+                                      state[index].title ?? '-',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.alata(
+                                          color: GlobalColor.title,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.only(top: 7),
+                                    child: Text(
+                                      state[index].publisher ?? '-',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.alata(
+                                          color: GlobalColor.subtitle,
+                                          fontSize: 12),
+                                    ),
+                                  ),
+                                  Container(
+                                    padding: EdgeInsets.only(top: 2, bottom: 10),
+                                    child: state[index].status == 'AVAILABLE' ?
+                                    Text(
+                                      state[index].status ?? '-',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.alata(
+                                          color: CupertinoColors.activeGreen,
+                                          fontSize: 12),
+                                    )
+                                    :
+                                    Text(
+                                      state[index].status ?? '-',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.alata(
+                                          color: Colors.red,
+                                          fontSize: 12),
+                                    ),
+                                  )
+                                ],
+                              )
+                            ),
+                          );
+                        },
+                        itemCount: state.length),
+                  );
+                }
+              }),
             ),
           ]),
       ),

@@ -121,7 +121,7 @@ class AccountView extends GetView<AccountController> {
                                 )),
                             SizedBox(height: 10),
                             rent != null
-                                ? GestureDetector(
+                                ? InkWell(
                                     onTap: () =>
                                         Get.toNamed(Routes.RENT, parameters: {
                                           'rent_id': (rent.id).toString(),
