@@ -59,11 +59,11 @@ class AccountView extends GetView<AccountController> {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: Obx(() {
-                    if (controller.accountData.value == null) {
+                  var state = controller.accountData.value;
+                  var rent = controller.rentData.value;
+                    if (state == null) {
                       return _template();
                     } else {
-                      var state = controller.accountData.value;
-                      var rent = controller.rentData.value;
                       return ListView(
                         children: [
                           Padding(
@@ -81,7 +81,7 @@ class AccountView extends GetView<AccountController> {
                           Padding(
                             padding: EdgeInsets.only(top: 10),
                             child: Text(
-                              (state?.name).toString(),
+                              (state.name).toString(),
                               overflow: TextOverflow.ellipsis,
                               maxLines: 8,
                               style: GoogleFonts.creteRound(
@@ -91,7 +91,7 @@ class AccountView extends GetView<AccountController> {
                           Padding(
                             padding: EdgeInsets.only(top: 10),
                             child: Text(
-                              (state?.email).toString(),
+                              (state.email).toString(),
                               overflow: TextOverflow.ellipsis,
                               maxLines: 8,
                               style: GoogleFonts.alata(
@@ -266,7 +266,9 @@ class AccountView extends GetView<AccountController> {
                                 ),
                                 SizedBox(height: 20),
                                 ElevatedButton.icon(
-                                  onPressed: () {},
+                                  onPressed: () {Get.toNamed(Routes.EDIT, parameters: {
+                                    'id' : state.id.toString()
+                                  });},
                                   style: ElevatedButton.styleFrom(
                                     padding: EdgeInsets.symmetric(
                                         vertical: 25, horizontal: 40),

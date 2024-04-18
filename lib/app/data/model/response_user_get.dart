@@ -33,7 +33,7 @@ class ResponseUser {
 
 class DataUser {
   DataUser({
-      this.userId, 
+      this.id, 
       this.email, 
       this.name, 
       this.role, 
@@ -41,14 +41,14 @@ class DataUser {
       this.updatedAt,});
 
   DataUser.fromJson(dynamic json) {
-    userId = json['user_id'];
+    id = json['id'];
     email = json['email'];
     name = json['name'];
     role = json['role'];
     createdAt = json['created_at'];
     updatedAt = json['updated_at'];
   }
-  int? userId;
+  int? id;
   String? email;
   String? name;
   String? role;
@@ -57,7 +57,7 @@ class DataUser {
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
-    map['user_id'] = userId;
+    map['id'] = id;
     map['email'] = email;
     map['name'] = name;
     map['role'] = role;
