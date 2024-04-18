@@ -189,7 +189,7 @@ class HomeView extends GetView<HomeController> {
   Widget _buildGenre() {
     return Obx((){
       var state = controller.genreData.value;
-      if (state == null || true) {
+      if (state == null) {
         return _template3();
       } else {
         return ListView.builder(

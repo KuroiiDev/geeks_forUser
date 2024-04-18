@@ -50,6 +50,7 @@ class HomeController extends GetxController with StateMixin{
   Future<void> getData() async {
     topBookData.value = null;
     bookData.value = null;
+    bookRateData.value = null;
     genreData.value = null;
 
     // Get Genre List
