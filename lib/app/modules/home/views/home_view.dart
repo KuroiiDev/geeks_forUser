@@ -42,7 +42,15 @@ class HomeView extends GetView<HomeController> {
                   child: _buildSearchBox(),
                 ),
                 Padding(
-                    padding: EdgeInsets.symmetric(vertical: 18),
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  child: Container(
+                    width: Get.width,
+                    height: 40,
+                    child: _buildGenre(),
+                  ),
+                ),
+                Padding(
+                    padding: EdgeInsets.symmetric(vertical: 15),
                     child: Column(
                       children: [
                         Container(
@@ -69,21 +77,39 @@ class HomeView extends GetView<HomeController> {
                 Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.only(bottom: 10, top: 10),
+                      padding: EdgeInsets.only(bottom: 15, top: 10),
                       width: Get.width *0.9,
                       child: Text(
-                        "Our Newest book",
+                        "Our Popular book",
                         style: GoogleFonts.alata(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),
                         textAlign: TextAlign.left,
                       ),
                     ),
                     Container(
-                        height: Get.height*0.47,
+                        height: 220,
                         padding: EdgeInsets.symmetric(horizontal: 10),
-                        child: _buildNewBook(),
+                        child: _buildRatedBook(),
                     ),
                   ],
-                )
+                ),
+              Column(
+                children: [
+                  Container(
+                    padding: EdgeInsets.only(bottom: 10, top: 15),
+                    width: Get.width *0.9,
+                    child: Text(
+                      "Our Newest book",
+                      style: GoogleFonts.alata(color: Colors.black, fontSize: 25, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                  Container(
+                    height: 220,
+                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    child: _buildNewBook(),
+                  ),
+                ],
+              )
               ],
           ),
         ),
@@ -160,66 +186,161 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
+  Widget _buildGenre() {
+    return Obx((){
+      var state = controller.genreData.value;
+      if (state == null || true) {
+        return _template3();
+      } else {
+        return ListView.builder(
+            scrollDirection: Axis.horizontal,
+            itemCount: state.length,
+            itemBuilder: (context, index) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 0),
+                child: Card(
+                  color: Colors.white,
+                  elevation: 10,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(7.0)),
+                  child: Container(
+                      height: 30,
+                      margin: EdgeInsets.symmetric(horizontal: 10),
+                      child: Text(
+                        state[index].genre.toString(),
+                        style: GoogleFonts.alata(
+                            color: GlobalColor.soft, fontSize: 20),
+                        textAlign: TextAlign.left,
+                      )
+                  ),
+                ),
+              );
+            }
+        );
+      }
+    });
+  }
+
   Widget _buildNewBook() {
     return Obx((){
       var state = controller.bookData.value;
       if (state == null) {
         return _template2();
       } else {
-        return GridView.builder(
-            gridDelegate:
-            const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              childAspectRatio: 4 / 6,
-              crossAxisSpacing: 5.0,
-              mainAxisSpacing: 5.0
-            ),
-            itemCount: state.length,
-            itemBuilder: (context, index) {
-              return InkWell(
-                onTap: (){
-                  Get.toNamed(Routes.DETAIL, parameters: {
-                    'id' : (state[index].id).toString(),
-                  });
-                },
-                child: Card(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  elevation: 10,
-                  color: Colors.white,
-                  child: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Column(
-                      children: [
-                        Expanded(
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  image: DecorationImage(
-                                      image: base64widget(state[index].cover ?? '-'),
-                                      fit: BoxFit.cover
-                                  )
+        return Container(
+          width: Get.width,
+          height: 20,
+          child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: state.length,
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: (){
+                    Get.toNamed(Routes.DETAIL, parameters: {
+                      'id' : (state[index].id).toString(),
+                    });
+                  },
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    elevation: 10,
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        children: [
+                          Container(
+                                height: 160,
+                                width: 100,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    image: DecorationImage(
+                                        image: base64widget(state[index].cover ?? '-'),
+                                        fit: BoxFit.cover
+                                    )
+                                ),
                               ),
-                            )
-                        ),
-                        Container(
-                          padding: EdgeInsets.only(top: 10),
-                          child: Text(
-                            state[index].title ?? '-',
-                            overflow: TextOverflow.ellipsis,
-                            style: GoogleFonts.alata(
-                                color: GlobalColor.title,
-                                fontSize: 15,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        )
-                      ],
+                          Container(
+                            padding: EdgeInsets.only(top: 10),
+                            child: Text(
+                              state[index].title ?? '-',
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.alata(
+                                  color: GlobalColor.title,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              );
-            });
+                );
+              }),
+        );
+      }
+    });
+  }
+
+  Widget _buildRatedBook() {
+    return Obx((){
+      var state = controller.bookRateData.value;
+      if (state == null) {
+        return _template2();
+      } else {
+        return Container(
+          width: Get.width,
+          height: 20,
+          child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: state.length,
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: (){
+                    Get.toNamed(Routes.DETAIL, parameters: {
+                      'id' : (state[index].id).toString(),
+                    });
+                  },
+                  child: Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    elevation: 10,
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(10.0),
+                      child: Column(
+                        children: [
+                          Container(
+                            height: 160,
+                            width: 100,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                image: DecorationImage(
+                                    image: base64widget(state[index].cover ?? '-'),
+                                    fit: BoxFit.cover
+                                )
+                            ),
+                          ),
+                          Container(
+                            padding: EdgeInsets.only(top: 10),
+                            child: Text(
+                              state[index].title ?? '-',
+                              overflow: TextOverflow.ellipsis,
+                              style: GoogleFonts.alata(
+                                  color: GlobalColor.title,
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }),
+        );
       }
     });
   }
@@ -317,16 +438,16 @@ class HomeView extends GetView<HomeController> {
                           rating: (state.rating ?? 0).toDouble(),
                           itemCount: 5,
                           itemSize: 30,
-                          unratedColor: GlobalColor.soft,
+                          unratedColor: Colors.black12,
                           itemBuilder: (context, index) => Icon(
                             Icons.star,
-                            color: GlobalColor.title,
+                            color: GlobalColor.softDeep,
                           ),
                         ),
                         Row(
                           children: [
                             Icon(Icons.shopping_cart,
-                                size: 30, color: GlobalColor.title),
+                                size: 30, color: GlobalColor.softDeep),
                             Text((state.rented).toString(),
                                 style: GoogleFonts.dangrek(
                                     color: GlobalColor.soft, fontSize: 23))
@@ -477,51 +598,75 @@ class HomeView extends GetView<HomeController> {
     );
   }
   Widget _template2() {
-    return GridView.builder(
-        gridDelegate:
-        const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 3,
-          childAspectRatio: 4 / 6,
-            crossAxisSpacing: 5.0,
-            mainAxisSpacing: 5.0
-        ),
-        itemCount: 12,
-        itemBuilder: (context, index) {
-          return Card(
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              elevation: 10,
-              color: Colors.white,
-              child: Shimmer.fromColors(
-                baseColor: Color(0xffb6b6b6),
-                highlightColor: Color(0xffffffff),
-                child: Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Column(
-                    children: [
-                      Expanded(
-                          child: Container(
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                color: Colors.black
-                            ),
-                          )
-                      ),
-                      Container(
-                        padding: EdgeInsets.only(top: 5),
-                        child: Container(
-                            color: Colors.black,
-                            height: 10,
+    return Container(
+      width: Get.width,
+      height: 20,
+      child: ListView.builder(
+          scrollDirection: Axis.horizontal,
+          itemCount: 8,
+          itemBuilder: (context, index) {
+            return Card(
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                elevation: 10,
+                color: Colors.white,
+                child: Shimmer.fromColors(
+                  baseColor: Color(0xffb6b6b6),
+                  highlightColor: Color(0xffffffff),
+                  child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        Container(
+                          height: 160,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: Colors.black
                           ),
-                      )
-                    ],
+                        ),
+                        SizedBox(height: 10),
+                        Container(
+                          height: 15,
+                          width: 100,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(5),
+                              color: Colors.black
+                          ),
+                        )
+                      ],
+                    ),
                   ),
+                ),
+              );
+          }),
+    );
+  }
+
+  Widget _template3() {
+    return ListView.builder(
+        scrollDirection: Axis.horizontal,
+        itemCount: 10,
+        itemBuilder: (context, index) {
+          return Shimmer.fromColors(
+            baseColor: Color(0xffb6b6b6),
+            highlightColor: Color(0xffffffff),
+              child: Card(
+                color: Colors.white,
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(7.0)),
+                child: Container(
+                    height: 50,
+                    width: 85,
                 ),
               ),
           );
-        });
+        }
+    );
   }
+
   Widget _buildFloatingButton(){
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 20),

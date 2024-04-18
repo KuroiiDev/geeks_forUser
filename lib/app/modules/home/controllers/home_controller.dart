@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:geek/app/data/model/response_genre_get.dart';
 import 'package:get/get.dart';
 
 import '../../../data/constant/endpoint.dart';
@@ -16,6 +17,8 @@ class HomeController extends GetxController with StateMixin{
 
   var topBookData = Rxn<DataBookId>();
   var bookData = Rxn<List<DataBook>>();
+  var bookRateData = Rxn<List<DataBook>>();
+  var genreData = Rxn<List<DataGenre>>();
 
   final TextEditingController searchController = TextEditingController();
   RxString name = StorageProvider.read(StorageKey.name).obs;
@@ -47,6 +50,34 @@ class HomeController extends GetxController with StateMixin{
   Future<void> getData() async {
     topBookData.value = null;
     bookData.value = null;
+    genreData.value = null;
+
+    // Get Genre List
+    try {
+      final response = await ApiProvider.instance().get("${Endpoint.genre}/");
+      if (response.statusCode == 200) {
+        final ResponseGenre responseGenre = ResponseGenre.fromJson(response.data);
+        if (responseGenre.data!.isEmpty){
+          log("Empty Data!");
+        }else{
+          genreData(responseGenre.data);
+        }
+      } else {
+        log("Internal Server Error");
+      }
+    }on DioException catch(e) {
+      if (e.response != null){
+        if (e.response?.data != null){
+          log("${e.response?.data['message']}']");
+        }
+      } else {
+        log(e.message ?? "");
+      }
+    }catch (e) {
+      log(e.toString());
+    }
+
+    // Get Top Book
     try {
       final response =
       await ApiProvider.instance().get("${Endpoint.book}/top");
@@ -75,6 +106,7 @@ class HomeController extends GetxController with StateMixin{
       log(e.toString());
     }
 
+    // Get Book
     try {
       final response = await ApiProvider.instance().get("${Endpoint.book}/");
       if (response.statusCode == 200) {
@@ -98,5 +130,32 @@ class HomeController extends GetxController with StateMixin{
     }catch (e) {
       log(e.toString());
     }
+
+    // Get Book By Rating
+    try {
+      final response = await ApiProvider.instance().get("${Endpoint.book}/rating");
+      if (response.statusCode == 200) {
+        final ResponseBook responseBook = ResponseBook.fromJson(response.data);
+        if (responseBook.data!.isEmpty){
+          log("Empty Data!");
+        }else{
+          bookRateData(responseBook.data);
+        }
+      } else {
+        log("Internal Server Error");
+      }
+    }on DioException catch(e) {
+      if (e.response != null){
+        if (e.response?.data != null){
+          log("${e.response?.data['message']}']");
+        }
+      } else {
+        log(e.message ?? "");
+      }
+    }catch (e) {
+      log(e.toString());
+    }
+
   }
+
 }

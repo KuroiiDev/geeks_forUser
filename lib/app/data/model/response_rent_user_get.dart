@@ -160,7 +160,7 @@ class Book {
   String? publisher;
   String? synopsis;
   int? rented;
-  int? rating;
+  double? rating;
   String? status;
   int? publishYear;
   String? createdAt;

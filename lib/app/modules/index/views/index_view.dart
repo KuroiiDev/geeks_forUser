@@ -33,7 +33,7 @@ class IndexView extends GetView<IndexController> {
                           shape: CircleBorder(),
                         ),
                           child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 17),
+                            padding: const EdgeInsets.symmetric(vertical: 10),
                             child: Icon(Icons.arrow_back, color: GlobalColor.soft),
                           ),
                       ),
@@ -141,7 +141,7 @@ class IndexView extends GetView<IndexController> {
       elevation: 10,
       color: Colors.white,
       child: Container(
-        height: 60,
+        height: 50,
         margin: EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(10)
@@ -149,7 +149,7 @@ class IndexView extends GetView<IndexController> {
         child: Row(children: [
           Icon(Icons.search),
           Container(
-            width: 250,
+            width: 240,
             child: TextFormField(
               onFieldSubmitted: (query)=>Get.snackbar("Not Found", "can't find book: $query", backgroundColor: GlobalColor.soft),
               controller: controller.searchController,

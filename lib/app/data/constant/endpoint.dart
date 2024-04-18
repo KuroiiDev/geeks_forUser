@@ -1,5 +1,8 @@
 class Endpoint {
-  static const String baseUrlApi = "http://127.0.0.1:8000/api/user/";
+
+  static const String ip = "192.168.1.18:8000";
+
+  static const String baseUrlApi = "http://$ip/api/user/";
 
 
 
@@ -15,10 +18,5 @@ class Endpoint {
   static const String removeBookmark = "${baseUrlApi}bookmark/remove";
   static const String addBookmark = "${baseUrlApi}bookmark/add";
   static const String checkBookmark = "${baseUrlApi}bookmark/check";
-
-  /*
-  static const String book = "${baseUrlApi}book";
-  static const String koleksi = "${baseUrlApi}koleksi";
-  static const String pinjam = "${baseUrlApi}pinjam";
-  */
+  static const String genre = "${baseUrlApi}genre";
 }
