@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geek/app/data/model/response_genre_get.dart';
+import 'package:geek/app/data/model/response_user_get.dart';
 import 'package:get/get.dart';
 
 import '../../../data/constant/endpoint.dart';
@@ -21,7 +22,7 @@ class HomeController extends GetxController with StateMixin{
   var genreData = Rxn<List<DataGenre>>();
 
   final TextEditingController searchController = TextEditingController();
-  RxString name = StorageProvider.read(StorageKey.name).obs;
+  RxString name = " ".obs;
 
   String id = "0";
 
@@ -53,6 +54,25 @@ class HomeController extends GetxController with StateMixin{
     bookRateData.value = null;
     genreData.value = null;
 
+    try {
+      final response = await ApiProvider.instance().get("${Endpoint.user}/${StorageProvider.read(StorageKey.idUser)}");
+      if (response.statusCode == 200) {
+        final ResponseUser responseUser = ResponseUser.fromJson(response.data);
+        name = (responseUser.data?.name).toString().obs;
+      } else {
+        log("Internal Server Error");
+      }
+    }on DioException catch(e) {
+      if (e.response != null){
+        if (e.response?.data != null){
+          log("${e.response?.data['message']}']");
+        }
+      } else {
+        log(e.message ?? "");
+      }
+    }catch (e) {
+      log(e.toString());
+    }
     // Get Genre List
     try {
       final response = await ApiProvider.instance().get("${Endpoint.genre}/");

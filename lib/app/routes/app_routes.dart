@@ -14,6 +14,7 @@ abstract class Routes {
   static const DETAIL = _Paths.DETAIL;
   static const RENT = _Paths.RENT;
   static const RENTLIST = _Paths.RENTLIST;
+  static const EDIT = _Paths.EDIT;
 }
 
 abstract class _Paths {
@@ -29,4 +30,5 @@ abstract class _Paths {
   static const DETAIL = '/detail';
   static const RENT = '/rent';
   static const RENTLIST = '/rentlist';
+  static const EDIT = '/edit';
 }

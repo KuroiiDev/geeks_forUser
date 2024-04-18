@@ -8,6 +8,8 @@ import '../modules/dashboard/bindings/dashboard_binding.dart';
 import '../modules/dashboard/views/dashboard_view.dart';
 import '../modules/detail/bindings/detail_binding.dart';
 import '../modules/detail/views/detail_view.dart';
+import '../modules/edit/bindings/edit_binding.dart';
+import '../modules/edit/views/edit_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/index/bindings/index_binding.dart';
@@ -85,6 +87,11 @@ class AppPages {
       name: _Paths.RENTLIST,
       page: () => const RentlistView(),
       binding: RentlistBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDIT,
+      page: () => const EditView(),
+      binding: EditBinding(),
     ),
   ];
 }
