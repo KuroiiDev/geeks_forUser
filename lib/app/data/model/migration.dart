@@ -1,17 +1,14 @@
-/// status : "success"
-/// data : {"user_id":1,"email":"user@example.com","name":"Normal User","role":"USER","created_at":"2024-04-01T02:23:36.000000Z","updated_at":"2024-04-01T02:23:36.000000Z"}
-
-class ResponseUser {
-  ResponseUser({
+class Migration {
+  Migration({
       this.status, 
       this.data,});
 
-  ResponseUser.fromJson(dynamic json) {
+  Migration.fromJson(dynamic json) {
     status = json['status'];
-    data = json['data'] != null ? DataUser.fromJson(json['data']) : null;
+    data = json['data'] != null ? Data.fromJson(json['data']) : null;
   }
   String? status;
-  DataUser? data;
+  Data? data;
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
@@ -24,24 +21,17 @@ class ResponseUser {
 
 }
 
-/// user_id : 1
-/// email : "user@example.com"
-/// name : "Normal User"
-/// role : "USER"
-/// created_at : "2024-04-01T02:23:36.000000Z"
-/// updated_at : "2024-04-01T02:23:36.000000Z"
-
-class DataUser {
-  DataUser({
+class Data {
+  Data({
       this.id, 
-      this.email,
-    this.profile,
-    this.name,
+      this.email, 
+      this.profile, 
+      this.name, 
       this.role, 
       this.createdAt, 
       this.updatedAt,});
 
-  DataUser.fromJson(dynamic json) {
+  Data.fromJson(dynamic json) {
     id = json['id'];
     email = json['email'];
     profile = json['profile'];

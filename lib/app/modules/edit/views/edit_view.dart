@@ -14,6 +14,8 @@ class EditView extends GetView<EditController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+      ),
         body: SingleChildScrollView(
           child: Column(
             children: [
@@ -100,7 +102,7 @@ class EditView extends GetView<EditController> {
                                 }
                               }
                           ),
-                          SizedBox(width: Get.width *0.8, child: controller.isName.value ? _buildNameField() : const Text('Click To Enable Name'))
+                          SizedBox(width: Get.width *0.75, child: controller.isName.value ? _buildNameField() : const Text('Click To Enable Name'))
                         ],
                       ),
 
@@ -126,7 +128,7 @@ class EditView extends GetView<EditController> {
                                         }
                                       }
                                   ),
-                                  SizedBox(width: Get.width *0.8, child: controller.isPass.value ? _buildPasswordField() : const Text('Click To Enable Password'))
+                                  SizedBox(width: Get.width *0.75, child: controller.isPass.value ? _buildPasswordField() : const Text('Click To Enable Password'))
                                 ],
                               ),
                               const SizedBox(height: 5),
