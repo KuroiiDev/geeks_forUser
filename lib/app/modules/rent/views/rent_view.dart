@@ -20,10 +20,10 @@ class RentView extends GetView<RentController> {
         centerTitle: true,
       ),
       body: SingleChildScrollView(child: Obx(() {
-        if (controller.rentData.value == null) {
+        var state = controller.rentData.value;
+        if (state == null) {
           return const Text('Kosong');
         } else {
-          var state = controller.rentData.value;
           return Column(
             children: [
               SizedBox(
@@ -36,7 +36,7 @@ class RentView extends GetView<RentController> {
                       decoration: BoxDecoration(
                           color: Colors.black,
                           image: DecorationImage(
-                              image: ImageConverter.base64ToImage(state?.book?.cover ?? '-'),
+                              image: ImageConverter.base64ToImage(state.book?.cover ?? '-'),
                               fit: BoxFit.cover,
                               opacity: 450)),
                       child: Padding(
@@ -48,7 +48,7 @@ class RentView extends GetView<RentController> {
                               borderRadius: BorderRadius.circular(20),
                               image: DecorationImage(
                                   image:
-                                  ImageConverter.base64ToImage(state?.book?.cover ?? '-'),
+                                  ImageConverter.base64ToImage(state.book?.cover ?? '-'),
                                   fit: BoxFit.cover)),
                         ),
                       ),
@@ -58,14 +58,14 @@ class RentView extends GetView<RentController> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   Text(
-                    state?.book?.title ?? '-',
+                    state.book?.title ?? '-',
                     style: GoogleFonts.alata(
                         color: GlobalColor.title,
                         fontSize: 45,
                         fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    state?.book?.writer ?? '-',
+                    state.book?.writer ?? '-',
                     style: GoogleFonts.alata(
                         color: GlobalColor.subtitle, fontSize: 15),
                   ),
@@ -85,14 +85,14 @@ class RentView extends GetView<RentController> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      'Rent: ${(state?.rentDate ?? '-').toString()}',
+                      'Rent: ${(state.rentDate ?? '-').toString()}',
                       style: GoogleFonts.alata(
                           color: GlobalColor.subtitle,
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      'Return: ${(state?.returnDate ?? '-').toString()}',
+                      'Return: ${(state.returnDate ?? '-').toString()}',
                       style: GoogleFonts.alata(
                           color: GlobalColor.subtitle,
                           fontSize: 20,
@@ -111,13 +111,13 @@ class RentView extends GetView<RentController> {
                             BorderSide(width: 1, color: GlobalColor.soft)),
                   ),
                   child: Center(
-                    child: (state?.status).toString() != "RETURNED"
+                    child: (state.status).toString() != "RETURNED"
                         ? false
                             ? SizedBox(
                                 width: Get.width * 0.8,
                                 height: Get.width * 0.8,
                                 child: PrettyQrView.data(
-                                  data: (state?.id).toString(),
+                                  data: (state.id).toString(),
                                   decoration: const PrettyQrDecoration(
                                       shape: PrettyQrSmoothSymbol(
                                           color: Color(0xff7b63ff))),
@@ -134,7 +134,7 @@ class RentView extends GetView<RentController> {
                                         fontWeight: FontWeight.bold),
                                   ),
                                 Text(
-                                  (state?.id ?? '-').toString(),
+                                  (state.id ?? '-').toString(),
                                   style: GoogleFonts.alata(
                                       color: GlobalColor.soft,
                                       fontSize: 30,
@@ -143,7 +143,7 @@ class RentView extends GetView<RentController> {
                               ],
                             )
                         : Text(
-                            (state?.status ?? '-').toString(),
+                            (state.status ?? '-').toString(),
                             style: GoogleFonts.alata(
                                 color: GlobalColor.subtitle,
                                 fontSize: 20,
@@ -170,8 +170,22 @@ class RentView extends GetView<RentController> {
                       Icons.star,
                       color: GlobalColor.softDeep,
                     ),
-                    onRatingUpdate: (double value) {},
+                    onRatingUpdate: (double value) {
+                      controller.ratingVal = value;
+                    },
                   ),
+                  const SizedBox(height: 20),
+                  ElevatedButton.icon(
+                    onPressed: ()=>controller.rating(state.book?.id.toString()),
+                    label: Text("Submit", style: GoogleFonts.alata(color: Colors.white, fontSize: 20)),
+                    icon: const Icon(Icons.transit_enterexit, color: Colors.white),
+                    style: ElevatedButton.styleFrom(
+                      padding: const EdgeInsets.all(10.0),
+                      backgroundColor: GlobalColor.softDeep,
+                      elevation: 5,
+                      shape: const StadiumBorder(),
+                    ),
+                  )
                 ],
               ),
               Container(

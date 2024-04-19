@@ -16,7 +16,6 @@ class GenreView extends GetView<GenreController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
       body: SingleChildScrollView(
         child: Column(children: [
           Container(
@@ -25,7 +24,7 @@ class GenreView extends GetView<GenreController> {
                 padding: const EdgeInsets.only(
                     top: 50, left: 10, right: 10, bottom: 10),
                 child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     ElevatedButton(
                       onPressed: () => Get.back(),
@@ -38,7 +37,6 @@ class GenreView extends GetView<GenreController> {
                         child: Icon(Icons.arrow_back, color: GlobalColor.soft),
                       ),
                     ),
-                    SizedBox(width: 40)
                   ],
                 )),
           ),

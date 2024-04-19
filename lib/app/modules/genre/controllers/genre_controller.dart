@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:geek/app/data/model/response_genre_genre_get.dart';
 import 'package:get/get.dart';
 
@@ -10,9 +11,9 @@ import '../../../data/provider/api_provider.dart';
 class GenreController extends GetxController with StateMixin {
   var genreData = Rxn<List<DataGenre>>();
 
-  final count = 0.obs;
   @override
   void onInit() {
+    getData();
     super.onInit();
   }
 
@@ -38,6 +39,8 @@ class GenreController extends GetxController with StateMixin {
         }else{
           genreData(responseBook.data);
         }
+      } else if (response.statusCode == 203) {
+        Get.snackbar("Empty", "No Data!", backgroundColor: Colors.red);
       } else {
         log("Internal Server Error");
       }

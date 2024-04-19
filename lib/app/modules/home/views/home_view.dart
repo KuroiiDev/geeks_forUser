@@ -208,20 +208,27 @@ class HomeView extends GetView<HomeController> {
             itemBuilder: (context, index) {
               return Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 0),
-                child: Card(
-                  color: Colors.white,
-                  elevation: 5,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(7.0)),
-                  child: Container(
-                      height: 30,
-                      margin: const EdgeInsets.symmetric(horizontal: 10),
-                      child: Text(
-                        state[index].genre.toString(),
-                        style: GoogleFonts.alata(
-                            color: GlobalColor.soft, fontSize: 20),
-                        textAlign: TextAlign.left,
-                      )
+                child: InkWell(
+                  onTap: () {
+                    Get.toNamed(Routes.GENRE, parameters: {
+                      'id' : state[index].id.toString()
+                    });
+                  },
+                  child: Card(
+                    color: Colors.white,
+                    elevation: 5,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(7.0)),
+                    child: Container(
+                        height: 30,
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Text(
+                          state[index].genre.toString(),
+                          style: GoogleFonts.alata(
+                              color: GlobalColor.soft, fontSize: 20),
+                          textAlign: TextAlign.left,
+                        )
+                    ),
                   ),
                 ),
               );
