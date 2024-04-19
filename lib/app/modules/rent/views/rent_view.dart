@@ -127,6 +127,7 @@ class RentView extends GetView<RentController> {
                               children: [
                                 Text(
                                     ('Rent Id: ').toString(),
+                                    //hi
                                     style: GoogleFonts.alata(
                                         color: GlobalColor.subtitle,
                                         fontSize: 20,
