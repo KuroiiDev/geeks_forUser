@@ -45,7 +45,6 @@ class IndexView extends GetView<IndexController> {
               width: Get.width,
               height: Get.height * 0.80,
               child: LiquidPullToRefresh(
-                  key: controller.refreshKey,
                   color: GlobalColor.soft,
                   onRefresh: controller.getData,
                   showChildOpacityTransition: false,

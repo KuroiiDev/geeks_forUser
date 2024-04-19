@@ -12,7 +12,6 @@ import '../../../data/provider/api_provider.dart';
 class IndexController extends GetxController with StateMixin {
 
   final TextEditingController searchController = TextEditingController();
-  GlobalKey<RefreshIndicatorState> refreshKey = GlobalKey<RefreshIndicatorState>();
   FocusNode searchBar = FocusNode();
   var bookData = Rxn<List<DataBook>>();
 
