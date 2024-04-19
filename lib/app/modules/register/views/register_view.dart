@@ -35,7 +35,7 @@ class RegisterView extends GetView<RegisterController> {
     return ClipPath(
       clipper: CustomClipperWidget(),
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topLeft,
                 end: Alignment.bottomRight,
@@ -48,7 +48,7 @@ class RegisterView extends GetView<RegisterController> {
             children: [
               SizedBox(height: Get.height * 0.002),
               Image(
-                image: AssetImage("assets/images/logo_white.png"),
+                image: const AssetImage("assets/images/logo_white.png"),
                 height: Get.height * 0.15,
               ),
               Text(
@@ -60,23 +60,23 @@ class RegisterView extends GetView<RegisterController> {
                       letterSpacing: 1
                   )
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               Form(
                   key: controller.formKey,
                   child:Column(
                     children: [
                       _buildEmailField(),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       _buildNameField(),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Obx(() =>
                           _buildPasswordField()
                       ),
-                      SizedBox(height: 5),
+                      const SizedBox(height: 5),
                       _buildPasswordValidator(),
-                      SizedBox(height: 30),
-                      _BuildButtonRegister(),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 30),
+                      _buildButtonRegister(),
+                      const SizedBox(height: 15),
                     ],
                   )
               ),
@@ -87,28 +87,26 @@ class RegisterView extends GetView<RegisterController> {
     );
   }
   Widget _buildRegister(){
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          TextButton(
-              onPressed: ()=>Get.to(Get.toNamed(Routes.LOGIN), transition: Transition.rightToLeftWithFade),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Already a Geeks? ",
-                    style: GoogleFonts.alata(color: Color(0xff1d00bd), fontSize: 23),
-                  ),
-                  Text(
-                    "Login Now",
-                    style: GoogleFonts.alata(color: Color(0xff9585ff), fontSize: 23),
-                  ),
-                ],
-              )
-          )
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        TextButton(
+            onPressed: ()=>Get.to(Get.toNamed(Routes.LOGIN), transition: Transition.rightToLeftWithFade),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Already a Geeks? ",
+                  style: GoogleFonts.alata(color: const Color(0xff1d00bd), fontSize: 23),
+                ),
+                Text(
+                  "Login Now",
+                  style: GoogleFonts.alata(color: const Color(0xff9585ff), fontSize: 23),
+                ),
+              ],
+            )
+        )
+      ],
     );
   }
 
@@ -137,13 +135,13 @@ class RegisterView extends GetView<RegisterController> {
       decoration: InputDecoration(
         hintText: "Email",
         hintStyle: GoogleFonts.alata(color: Colors.white.withOpacity(0.4), fontSize: 20),
-        prefixIcon: Icon(
+        prefixIcon: const Icon(
           Icons.email,
           color: Colors.white,
         ),
         filled: true,
         fillColor: Colors.white.withOpacity(0.1),
-        border: OutlineInputBorder(borderSide: BorderSide.none),
+        border: const OutlineInputBorder(borderSide: BorderSide.none),
       ),
       obscureText: false,
       validator: (value){
@@ -163,13 +161,13 @@ class RegisterView extends GetView<RegisterController> {
       decoration: InputDecoration(
         hintText: "Full Name",
         hintStyle: GoogleFonts.alata(color: Colors.white.withOpacity(0.4), fontSize: 20),
-        prefixIcon: Icon(
+        prefixIcon: const Icon(
           Icons.person,
           color: Colors.white,
         ),
         filled: true,
         fillColor: Colors.white.withOpacity(0.1),
-        border: OutlineInputBorder(borderSide: BorderSide.none),
+        border: const OutlineInputBorder(borderSide: BorderSide.none),
       ),
       obscureText: false,
       validator: (value){
@@ -186,35 +184,35 @@ class RegisterView extends GetView<RegisterController> {
       style: GoogleFonts.alata(color: Colors.white, fontSize: 20),
       decoration: InputDecoration(
         suffixIcon: IconButton(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
-          icon: controller.isObs.value ? Icon(Icons.visibility, color: Colors.white,) : Icon(Icons.visibility_off, color: Colors.white,),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          icon: controller.isObs.value ? const Icon(Icons.visibility, color: Colors.white,) : const Icon(Icons.visibility_off, color: Colors.white,),
           onPressed: () {
             controller.obscurePass();
           },
         ),
         hintText: "Create a Password",
         hintStyle: GoogleFonts.alata(color: Colors.white.withOpacity(0.4), fontSize: 20),
-        prefixIcon: Icon(
+        prefixIcon: const Icon(
           Icons.lock,
           color: Colors.white,
         ),
         filled: true,
         fillColor: Colors.white.withOpacity(0.1),
-        border: OutlineInputBorder(borderSide: BorderSide.none),
+        border: const OutlineInputBorder(borderSide: BorderSide.none),
       ),
       obscureText: controller.isObs.value,
     );
   }
-  Widget _BuildButtonRegister(){
+  Widget _buildButtonRegister(){
     return ElevatedButton.icon(
       onPressed: (){controller.register();},
       label: Text("Register", style: GoogleFonts.alata(color: Colors.white, fontSize: 25)),
-      icon: Icon(Icons.app_registration, color: Colors.white),
+      icon: const Icon(Icons.app_registration, color: Colors.white),
       style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.all(17.0),
-        primary: Color(0xace2d1ff),
+        padding: const EdgeInsets.all(17.0),
+        backgroundColor: const Color(0xace2d1ff),
         elevation: 5,
-        shape: StadiumBorder(),
+        shape: const StadiumBorder(),
       ),
     );
   }

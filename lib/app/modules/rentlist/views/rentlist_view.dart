@@ -6,7 +6,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 
-import '../../../widgets/base_64.dart';
 import '../controllers/rentlist_controller.dart';
 
 class RentlistView extends GetView<RentlistController> {
@@ -21,7 +20,7 @@ class RentlistView extends GetView<RentlistController> {
       ),
       body: SingleChildScrollView(
         child: Column(children: [
-          Container(
+          SizedBox(
             width: Get.width,
             height: Get.height,
             child: controller.obx((state) => LiquidPullToRefresh(

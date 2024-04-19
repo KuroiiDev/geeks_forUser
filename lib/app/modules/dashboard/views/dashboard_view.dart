@@ -1,13 +1,10 @@
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:geek/app/data/constant/global_color.dart';
 import 'package:geek/app/modules/account/views/account_view.dart';
 import 'package:geek/app/modules/bookmark/views/bookmark_view.dart';
 import 'package:geek/app/modules/home/views/home_view.dart';
 
 import 'package:get/get.dart';
-
-import '../../../routes/app_pages.dart';
 import '../controllers/dashboard_controller.dart';
 
 class DashboardView extends GetView<DashboardController> {
@@ -28,7 +25,7 @@ class DashboardView extends GetView<DashboardController> {
     return SafeArea(
         child: Obx(()=>PageView(
            controller: controller.pageController.value,
-          children: [
+          children: const [
             BookmarkView(),
             HomeView(),
             AccountView(),
@@ -42,16 +39,16 @@ class DashboardView extends GetView<DashboardController> {
 
   Widget _buildNavigationBar() {
     return Container(
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
 
       ),
       child: CurvedNavigationBar(
-        backgroundColor: Color(0xfff3f3f3),
-        color: Color(0xff5947ff),
+        backgroundColor: const Color(0xfff3f3f3),
+        color: const Color(0xff5947ff),
         onTap: (index)=>controller.changeTabIndex(index),
         index: controller.tabIndex.value,
-        animationDuration: Duration(milliseconds: 200),
-        buttonBackgroundColor: Color(0xff6f1bff),
+        animationDuration: const Duration(milliseconds: 200),
+        buttonBackgroundColor: const Color(0xff6f1bff),
         items: [
           _buildNavBarItem(Icons.bookmark),
           _buildNavBarItem(Icons.home),
@@ -62,7 +59,7 @@ class DashboardView extends GetView<DashboardController> {
   }
   Widget _buildNavBarItem(IconData icon){
     return Padding(
-        padding: EdgeInsets.all(5),
+        padding: const EdgeInsets.all(5),
         child: Icon(
           icon,
           color: Colors.white,

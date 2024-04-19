@@ -17,7 +17,7 @@ class AccountView extends GetView<AccountController> {
   Widget build(BuildContext context) {
     return Scaffold(
         floatingActionButton: Padding(
-            padding: EdgeInsets.symmetric(vertical: 30),
+            padding: const EdgeInsets.symmetric(vertical: 30),
             child: FloatingActionButton.small(
                 onPressed: () {
                   QuickAlert.show(
@@ -35,15 +35,15 @@ class AccountView extends GetView<AccountController> {
                     animType: QuickAlertAnimType.scale,
                   );
                 },
-                backgroundColor: Color(0xfff3f3f3),
+                backgroundColor: const Color(0xfff3f3f3),
                 elevation: 0,
-                shape: CircleBorder(),
+                shape: const CircleBorder(),
                 child: Icon(Icons.logout, color: GlobalColor.title))),
         floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
         body: Container(
           height: Get.height,
           width: Get.width,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
               gradient: LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
@@ -54,7 +54,7 @@ class AccountView extends GetView<AccountController> {
               ])),
             child: LiquidPullToRefresh(
               onRefresh: ()=> controller.getData(),
-              backgroundColor: Color(0xff7055f8),
+              backgroundColor: const Color(0xff7055f8),
               color: Colors.white,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -68,7 +68,7 @@ class AccountView extends GetView<AccountController> {
                         children: [
                           Padding(
                             padding:
-                                EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                                const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
                             child: Container(
                               height: Get.width * 0.45,
                               width: Get.width * 0.45,
@@ -79,7 +79,7 @@ class AccountView extends GetView<AccountController> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top: 10),
+                            padding: const EdgeInsets.only(top: 10),
                             child: Text(
                               (state.name).toString(),
                               overflow: TextOverflow.ellipsis,
@@ -89,7 +89,7 @@ class AccountView extends GetView<AccountController> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top: 10),
+                            padding: const EdgeInsets.only(top: 10),
                             child: Text(
                               (state.email).toString(),
                               overflow: TextOverflow.ellipsis,
@@ -98,7 +98,7 @@ class AccountView extends GetView<AccountController> {
                                   color: Colors.black87, fontSize: 18),
                             ),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
                           Container(
                             decoration: BoxDecoration(
                                 border: Border(
@@ -106,7 +106,7 @@ class AccountView extends GetView<AccountController> {
                                         color: GlobalColor.soft, width: 2))),
                           ),
                           Padding(
-                            padding: EdgeInsets.only(top: 20, left: 5, right: 5),
+                            padding: const EdgeInsets.only(top: 20, left: 5, right: 5),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -122,7 +122,7 @@ class AccountView extends GetView<AccountController> {
                                       fontWeight: FontWeight.bold,
                                       letterSpacing: 1,
                                     )),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 rent != null
                                     ? InkWell(
                                         onTap: () =>
@@ -136,13 +136,13 @@ class AccountView extends GetView<AccountController> {
                                                   BorderRadius.circular(25.0)),
                                           color: Colors.white,
                                           child: Container(
-                                            padding: EdgeInsets.all(10.0),
+                                            padding: const EdgeInsets.all(10.0),
                                             width: Get.width * 0.90,
                                             //height: 200,
                                             child: Row(
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsets.all(5.0),
+                                                  padding: const EdgeInsets.all(5.0),
                                                   child: Card(
                                                     elevation: 5.0,
                                                     shape: RoundedRectangleBorder(
@@ -179,7 +179,7 @@ class AccountView extends GetView<AccountController> {
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment.start,
                                                       children: [
-                                                        Container(
+                                                        SizedBox(
                                                           height: 50,
                                                           width: Get.width * 0.45,
                                                           child: Text(
@@ -233,7 +233,7 @@ class AccountView extends GetView<AccountController> {
                                         color: Colors.white,
                                         child: Container(
                                           padding:
-                                              EdgeInsets.symmetric(vertical: 30),
+                                              const EdgeInsets.symmetric(vertical: 30),
                                           width: Get.width * 0.90,
                                           child: Center(
                                             child: Text(
@@ -245,11 +245,11 @@ class AccountView extends GetView<AccountController> {
                                             ),
                                           ),
                                         )),
-                                SizedBox(height: 50),
+                                const SizedBox(height: 30),
                                 ElevatedButton.icon(
                                   onPressed: () => Get.toNamed(Routes.RENTLIST),
                                   style: ElevatedButton.styleFrom(
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                         vertical: 25, horizontal: 40),
                                     elevation: 20,
                                     backgroundColor: Colors.white,
@@ -264,13 +264,13 @@ class AccountView extends GetView<AccountController> {
                                           color: GlobalColor.subtitle,
                                           fontSize: 25)),
                                 ),
-                                SizedBox(height: 20),
+                                const SizedBox(height: 20),
                                 ElevatedButton.icon(
                                   onPressed: () {Get.toNamed(Routes.EDIT, parameters: {
                                     'id' : state.id.toString()
                                   });},
                                   style: ElevatedButton.styleFrom(
-                                    padding: EdgeInsets.symmetric(
+                                    padding: const EdgeInsets.symmetric(
                                         vertical: 25, horizontal: 40),
                                     elevation: 20,
                                     backgroundColor: Colors.white,
@@ -299,13 +299,13 @@ class AccountView extends GetView<AccountController> {
 
   Widget _template() {
     return Shimmer.fromColors(
-      baseColor: Color(0xffb6b6b6),
-      highlightColor: Color(0xffffffff),
+      baseColor: const Color(0xffb6b6b6),
+      highlightColor: const Color(0xffffffff),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Padding(
-            padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
             child: Container(
               height: Get.width * 0.45,
               width: Get.width * 0.45,
@@ -316,7 +316,7 @@ class AccountView extends GetView<AccountController> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 10),
             child: Container(
               height: 30,
               width: Get.width * 0.7,
@@ -327,7 +327,7 @@ class AccountView extends GetView<AccountController> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 10),
             child: Container(
               height: 25,
               width: Get.width * 0.50,
@@ -338,7 +338,7 @@ class AccountView extends GetView<AccountController> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.only(top: 50),
+            padding: const EdgeInsets.only(top: 50),
             child: Column(
               children: [
                 Container(
@@ -349,7 +349,7 @@ class AccountView extends GetView<AccountController> {
                     color: Colors.black,
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 Container(
                   height: 60,
                   width: Get.width * 0.65,

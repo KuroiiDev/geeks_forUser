@@ -20,9 +20,9 @@ class HomeController extends GetxController with StateMixin{
   var bookData = Rxn<List<DataBook>>();
   var bookRateData = Rxn<List<DataBook>>();
   var genreData = Rxn<List<DataGenre>>();
+  var userData = Rxn<DataUser>();
 
   final TextEditingController searchController = TextEditingController();
-  RxString name = " ".obs;
 
   String id = "0";
 
@@ -53,12 +53,13 @@ class HomeController extends GetxController with StateMixin{
     bookData.value = null;
     bookRateData.value = null;
     genreData.value = null;
+    userData.value = null;
 
     try {
       final response = await ApiProvider.instance().get("${Endpoint.user}/${StorageProvider.read(StorageKey.idUser)}");
       if (response.statusCode == 200) {
         final ResponseUser responseUser = ResponseUser.fromJson(response.data);
-        name = (responseUser.data?.name).toString().obs;
+        userData(responseUser.data);
       } else {
         log("Internal Server Error");
       }

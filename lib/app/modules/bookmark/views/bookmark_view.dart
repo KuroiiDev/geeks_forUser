@@ -4,9 +4,6 @@ import 'package:geek/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
-import 'package:quickalert/models/quickalert_animtype.dart';
-import 'package:quickalert/models/quickalert_type.dart';
-import 'package:quickalert/widgets/quickalert_dialog.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../data/constant/global_color.dart';
@@ -22,7 +19,7 @@ class BookmarkView extends GetView<BookmarkController> {
         body: Container(
       height: Get.height,
       width: Get.width,
-      decoration: BoxDecoration(
+      decoration: const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
@@ -31,7 +28,7 @@ class BookmarkView extends GetView<BookmarkController> {
             Color(0xffe3dbff),
             Color(0xfff3f3f3)
           ])),
-      child: Container(
+      child: SizedBox(
           width: Get.width,
           height: Get.height,
           child: Obx(() {
@@ -40,7 +37,7 @@ class BookmarkView extends GetView<BookmarkController> {
               return _template();
             }else {
               return LiquidPullToRefresh(
-                backgroundColor: Color(0xff7055f8),
+                backgroundColor: const Color(0xff7055f8),
                 color: Colors.white,
                 showChildOpacityTransition: false,
                 onRefresh: ()=>controller.getData(),
@@ -86,7 +83,7 @@ class BookmarkView extends GetView<BookmarkController> {
                                       )
                                   ),
                                   Container(
-                                      padding: EdgeInsets.only(top: 10),
+                                      padding: const EdgeInsets.only(top: 10),
                                       child: Text(
                                         state[index].book?.title ?? '-',
                                         overflow: TextOverflow.ellipsis,
@@ -112,7 +109,7 @@ class BookmarkView extends GetView<BookmarkController> {
 
   Widget _template() {
     return LiquidPullToRefresh(
-      backgroundColor: Color(0xff7055f8),
+      backgroundColor: const Color(0xff7055f8),
       color: Colors.white,
       onRefresh: ()=>controller.getData(),
       child: Padding(
@@ -135,8 +132,8 @@ class BookmarkView extends GetView<BookmarkController> {
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Shimmer.fromColors(
-                      baseColor: Color(0xffb6b6b6),
-                      highlightColor: Color(0xffffffff),
+                      baseColor: const Color(0xffb6b6b6),
+                      highlightColor: const Color(0xffffffff),
                       child: Column(
                         children: [
                           Expanded(

@@ -36,7 +36,7 @@ class LoginView extends GetView<LoginController> {
     return ClipPath(
       clipper: CustomClipperWidget(),
       child: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
@@ -49,7 +49,7 @@ class LoginView extends GetView<LoginController> {
             children: [
               SizedBox(height: Get.height * 0.002),
               Image(
-                image: AssetImage("assets/images/logo_white.png"),
+                image: const AssetImage("assets/images/logo_white.png"),
                 height: Get.height * 0.2,
               ),
               Text(
@@ -61,19 +61,19 @@ class LoginView extends GetView<LoginController> {
                     letterSpacing: 1
                   )
               ),
-              SizedBox(height: 60),
+              const SizedBox(height: 60),
               Form(
                 key: controller.formKey,
                   child:Column(
                     children: [
                       _buildEmailField(),
-                      SizedBox(height: 20),
+                      const SizedBox(height: 20),
                       Obx(() =>
                       _buildPasswordField()
                       ),
-                      SizedBox(height: 30),
-                      _BuildButtonLogin(),
-                      SizedBox(height: 15),
+                      const SizedBox(height: 30),
+                      _buildButtonLogin(),
+                      const SizedBox(height: 15),
                       TextButton(
                           onPressed: (){
                             Color color = Colors.deepOrangeAccent;
@@ -111,28 +111,26 @@ class LoginView extends GetView<LoginController> {
     );
   }
   Widget _buildRegister(){
-    return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          TextButton(
-              onPressed: ()=>Get.to(Get.toNamed(Routes.REGISTER), transition: Transition.leftToRightWithFade),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Not a Geeks? ",
-                    style: GoogleFonts.alata(color: Color(0xff1d00bd), fontSize: 23),
-                  ),
-                  Text(
-                    "Join Us",
-                    style: GoogleFonts.alata(color: Color(0xff9585ff), fontSize: 23),
-                  ),
-                ],
-              )
-          )
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        TextButton(
+            onPressed: ()=>Get.to(Get.toNamed(Routes.REGISTER), transition: Transition.leftToRightWithFade),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Not a Geeks? ",
+                  style: GoogleFonts.alata(color: const Color(0xff1d00bd), fontSize: 23),
+                ),
+                Text(
+                  "Join Us",
+                  style: GoogleFonts.alata(color: const Color(0xff9585ff), fontSize: 23),
+                ),
+              ],
+            )
+        )
+      ],
     );
   }
 
@@ -145,13 +143,13 @@ class LoginView extends GetView<LoginController> {
       decoration: InputDecoration(
         hintText: "Email",
         hintStyle: GoogleFonts.alata(color: Colors.white.withOpacity(0.4), fontSize: 20),
-        prefixIcon: Icon(
+        prefixIcon: const Icon(
           Icons.email,
           color: Colors.white,
         ),
         filled: true,
         fillColor: Colors.white.withOpacity(0.1),
-        border: OutlineInputBorder(borderSide: BorderSide.none),
+        border: const OutlineInputBorder(borderSide: BorderSide.none),
       ),
       obscureText: false,
       validator: (value){
@@ -170,21 +168,21 @@ class LoginView extends GetView<LoginController> {
       style: GoogleFonts.alata(color: Colors.white, fontSize: 20),
       decoration: InputDecoration(
         suffixIcon: IconButton(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
-          icon: controller.isObs.value ? Icon(Icons.visibility, color: Colors.white,) : Icon(Icons.visibility_off, color: Colors.white,),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          icon: controller.isObs.value ? const Icon(Icons.visibility, color: Colors.white,) : const Icon(Icons.visibility_off, color: Colors.white,),
           onPressed: () {
             controller.obscurePass();
           },
         ),
         hintText: "Password",
         hintStyle: GoogleFonts.alata(color: Colors.white.withOpacity(0.4), fontSize: 20),
-        prefixIcon: Icon(
+        prefixIcon: const Icon(
           Icons.lock,
           color: Colors.white,
         ),
         filled: true,
         fillColor: Colors.white.withOpacity(0.1),
-        border: OutlineInputBorder(borderSide: BorderSide.none),
+        border: const OutlineInputBorder(borderSide: BorderSide.none),
       ),
       obscureText: controller.isObs.value,
       validator: (value){
@@ -195,16 +193,16 @@ class LoginView extends GetView<LoginController> {
       },
     );
   }
-  Widget _BuildButtonLogin(){
+  Widget _buildButtonLogin(){
     return ElevatedButton.icon(
       onPressed: ()=>controller.login(),
       label: Text("Login", style: GoogleFonts.alata(color: Colors.white, fontSize: 25)),
-      icon: Icon(Icons.login, color: Colors.white),
+      icon: const Icon(Icons.login, color: Colors.white),
       style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.all(20.0),
-        backgroundColor: Color(0xace2d1ff),
+        padding: const EdgeInsets.all(20.0),
+        backgroundColor: const Color(0xace2d1ff),
         elevation: 5,
-        shape: StadiumBorder(),
+        shape: const StadiumBorder(),
       ),
     );
   }

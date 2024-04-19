@@ -1,13 +1,14 @@
 class Endpoint {
 
-  static const String ip = "192.168.1.18:8000";
+  static const String ipPort = "127.0.0.1:8000";
 
-  static const String baseUrlApi = "http://$ip/api/user/";
+  static const String baseUrlApi = "http://$ipPort/api/user/";
 
 
 
   static const String register = "${baseUrlApi}register";
   static const String login = "${baseUrlApi}login";
+  static const String edit = "${baseUrlApi}edit";
   static const String book = "${baseUrlApi}book";
   static const String user = "${baseUrlApi}id";
   static const String request = "${baseUrlApi}rent/request";

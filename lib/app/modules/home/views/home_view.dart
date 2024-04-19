@@ -18,7 +18,7 @@ class HomeView extends GetView<HomeController> {
     return Scaffold(
       floatingActionButton: _buildFloatingButton(),
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
@@ -29,32 +29,32 @@ class HomeView extends GetView<HomeController> {
             ])),
         child: LiquidPullToRefresh(
           onRefresh: ()=> controller.getData(),
-          backgroundColor: Color(0xff7055f8),
+          backgroundColor: const Color(0xff7055f8),
           color: Colors.white,
           showChildOpacityTransition: false,
           child: ListView(
             children: [
                 Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20, horizontal: 10),
+                    padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 10),
                     child: _buildUserData()),
                 Padding(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   child: _buildSearchBox(),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: SizedBox(
                     width: Get.width,
-                    height: 40,
+                    height: 43,
                     child: _buildGenre(),
                   ),
                 ),
                 Padding(
-                    padding: EdgeInsets.symmetric(vertical: 15),
+                    padding: const EdgeInsets.symmetric(vertical: 10),
                     child: Column(
                       children: [
                         Container(
-                          padding: EdgeInsets.only(bottom: 10),
+                          padding: const EdgeInsets.only(bottom: 10),
                           width: Get.width *0.9,
                           child: Text(
                             "Top Rented Book",
@@ -77,7 +77,7 @@ class HomeView extends GetView<HomeController> {
                 Column(
                   children: [
                     Container(
-                      padding: EdgeInsets.only(bottom: 15, top: 10),
+                      padding: const EdgeInsets.only(bottom: 15, top: 10),
                       width: Get.width *0.9,
                       child: Text(
                         "Our Popular book",
@@ -87,7 +87,7 @@ class HomeView extends GetView<HomeController> {
                     ),
                     Container(
                         height: 220,
-                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: _buildRatedBook(),
                     ),
                   ],
@@ -95,7 +95,7 @@ class HomeView extends GetView<HomeController> {
               Column(
                 children: [
                   Container(
-                    padding: EdgeInsets.only(bottom: 10, top: 15),
+                    padding: const EdgeInsets.only(bottom: 10, top: 15),
                     width: Get.width *0.9,
                     child: Text(
                       "Our Newest book",
@@ -105,7 +105,7 @@ class HomeView extends GetView<HomeController> {
                   ),
                   Container(
                     height: 220,
-                    padding: EdgeInsets.symmetric(horizontal: 10),
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: _buildNewBook(),
                   ),
                 ],
@@ -118,38 +118,45 @@ class HomeView extends GetView<HomeController> {
   }
 
   Widget _buildUserData() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+    return Obx((){
+      var state = controller.userData.value;
+      if (state == null){
+        return _template4();
+      } else {
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Obx(() => Text(
-                  "Hello, ${controller.name}!",
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Hello, ${state.name}!",
                   style: GoogleFonts.dangrek(
                       color: Colors.white,
                       fontSize: 30,
                       fontWeight: FontWeight.w500),
                   textAlign: TextAlign.left,
-                )),
-            Text(
-              "What to read today?",
-              style: GoogleFonts.alata(color: Colors.white70, fontSize: 15),
-              textAlign: TextAlign.left,
-            )
+                ),
+                Text(
+                  "What to read today?",
+                  style: GoogleFonts.alata(color: Colors.white70, fontSize: 15),
+                  textAlign: TextAlign.left,
+                )
+              ],
+            ),
+            Container(
+              height: 75,
+              width: 75,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+                border: Border.all(color: Colors.black, width: 2),
+              ),
+            ),
           ],
-        ),
-        Container(
-          height: 75,
-          width: 75,
-          decoration: BoxDecoration(
-            color: Colors.white,
-            shape: BoxShape.circle,
-            border: Border.all(color: Colors.black, width: 2),
-          ),
-        ),
-      ],
-    );
+        );
+      }
+    });
   }
 
   Widget _buildSearchBox() {
@@ -158,11 +165,11 @@ class HomeView extends GetView<HomeController> {
       color: Colors.white,
       child: Container(
         height: 60,
-        margin: EdgeInsets.symmetric(horizontal: 10),
+        margin: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(borderRadius: BorderRadius.circular(10)),
         child: Row(children: [
-          Icon(Icons.search),
-          Container(
+          const Icon(Icons.search),
+          SizedBox(
             width: 300,
             child: TextFormField(
               controller: controller.searchController,
@@ -200,12 +207,12 @@ class HomeView extends GetView<HomeController> {
                 padding: const EdgeInsets.symmetric(horizontal: 0),
                 child: Card(
                   color: Colors.white,
-                  elevation: 10,
+                  elevation: 5,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(7.0)),
                   child: Container(
                       height: 30,
-                      margin: EdgeInsets.symmetric(horizontal: 10),
+                      margin: const EdgeInsets.symmetric(horizontal: 10),
                       child: Text(
                         state[index].genre.toString(),
                         style: GoogleFonts.alata(
@@ -227,7 +234,7 @@ class HomeView extends GetView<HomeController> {
       if (state == null) {
         return _template2();
       } else {
-        return Container(
+        return SizedBox(
           width: Get.width,
           height: 20,
           child: ListView.builder(
@@ -262,7 +269,7 @@ class HomeView extends GetView<HomeController> {
                                 ),
                               ),
                           Container(
-                            padding: EdgeInsets.only(top: 10),
+                            padding: const EdgeInsets.only(top: 10),
                             child: Text(
                               state[index].title ?? '-',
                               overflow: TextOverflow.ellipsis,
@@ -289,7 +296,7 @@ class HomeView extends GetView<HomeController> {
       if (state == null) {
         return _template2();
       } else {
-        return Container(
+        return SizedBox(
           width: Get.width,
           height: 20,
           child: ListView.builder(
@@ -324,7 +331,7 @@ class HomeView extends GetView<HomeController> {
                             ),
                           ),
                           Container(
-                            padding: EdgeInsets.only(top: 10),
+                            padding: const EdgeInsets.only(top: 10),
                             child: Text(
                               state[index].title ?? '-',
                               overflow: TextOverflow.ellipsis,
@@ -353,7 +360,7 @@ class HomeView extends GetView<HomeController> {
       child: Container(
           height: 250.0,
           width: Get.width * 0.9,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colors.transparent,
           ),
           child: Obx(() {
@@ -366,7 +373,7 @@ class HomeView extends GetView<HomeController> {
                   Row(
                     children: [
                       Padding(
-                        padding: EdgeInsets.only(left: 10, right: 10, top: 10),
+                        padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
                         child: Card(
                           elevation: 5.0,
                           shape: RoundedRectangleBorder(
@@ -393,7 +400,7 @@ class HomeView extends GetView<HomeController> {
                             children: [
                               Container(
                                 height: 50,
-                                padding: EdgeInsets.only(top: 10),
+                                padding: const EdgeInsets.only(top: 10),
                                 width: Get.width * 0.50,
                                 child: Text(state.title ?? "-",
                                     overflow: TextOverflow.ellipsis,
@@ -412,8 +419,8 @@ class HomeView extends GetView<HomeController> {
                               )
                             ],
                           ),
-                          SizedBox(height: 10),
-                          Container(
+                          const SizedBox(height: 10),
+                          SizedBox(
                             height: 100,
                             width: Get.width * 0.50,
                             child: Text(
@@ -467,12 +474,12 @@ class HomeView extends GetView<HomeController> {
     return Column(
       children: [
         Shimmer.fromColors(
-          baseColor: Color(0xffb6b6b6),
-          highlightColor: Color(0xffffffff),
+          baseColor: const Color(0xffb6b6b6),
+          highlightColor: const Color(0xffffffff),
           child: Row(
             children: [
               Padding(
-                padding: EdgeInsets.only(left: 10, right: 10, top: 10),
+                padding: const EdgeInsets.only(left: 10, right: 10, top: 10),
                 child: Card(
                   elevation: 5.0,
                   shape: RoundedRectangleBorder(
@@ -495,7 +502,7 @@ class HomeView extends GetView<HomeController> {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Container(
                         height: 30,
                         width: Get.width * 0.50,
@@ -504,7 +511,7 @@ class HomeView extends GetView<HomeController> {
                           color: Colors.black,
                         ),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       Container(
                         height: 20,
                         width: Get.width * 0.50,
@@ -515,9 +522,9 @@ class HomeView extends GetView<HomeController> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 10),
+                  const SizedBox(height: 10),
                   Container(
-                      padding: EdgeInsets.only(top: 15),
+                      padding: const EdgeInsets.only(top: 15),
                       height: 100,
                       width: Get.width * 0.50,
                       child: Column(
@@ -530,7 +537,7 @@ class HomeView extends GetView<HomeController> {
                               color: Colors.black,
                             ),
                           ),
-                          SizedBox(height: 3),
+                          const SizedBox(height: 3),
                           Container(
                             height: 15,
                             width: Get.width * 0.85,
@@ -539,7 +546,7 @@ class HomeView extends GetView<HomeController> {
                               color: Colors.black,
                             ),
                           ),
-                          SizedBox(height: 3),
+                          const SizedBox(height: 3),
                           Container(
                             height: 15,
                             width: Get.width * 0.85,
@@ -548,7 +555,7 @@ class HomeView extends GetView<HomeController> {
                               color: Colors.black,
                             ),
                           ),
-                          SizedBox(height: 3),
+                          const SizedBox(height: 3),
                           Container(
                             height: 15,
                             width: Get.width * 0.85,
@@ -567,8 +574,8 @@ class HomeView extends GetView<HomeController> {
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Shimmer.fromColors(
-            baseColor: Color(0xffb6b6b6),
-            highlightColor: Color(0xffffffff),
+            baseColor: const Color(0xffb6b6b6),
+            highlightColor: const Color(0xffffffff),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -598,7 +605,7 @@ class HomeView extends GetView<HomeController> {
     );
   }
   Widget _template2() {
-    return Container(
+    return SizedBox(
       width: Get.width,
       height: 20,
       child: ListView.builder(
@@ -612,8 +619,8 @@ class HomeView extends GetView<HomeController> {
                 elevation: 10,
                 color: Colors.white,
                 child: Shimmer.fromColors(
-                  baseColor: Color(0xffb6b6b6),
-                  highlightColor: Color(0xffffffff),
+                  baseColor: const Color(0xffb6b6b6),
+                  highlightColor: const Color(0xffffffff),
                   child: Padding(
                     padding: const EdgeInsets.all(10.0),
                     child: Column(
@@ -626,7 +633,7 @@ class HomeView extends GetView<HomeController> {
                               color: Colors.black
                           ),
                         ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         Container(
                           height: 15,
                           width: 100,
@@ -650,14 +657,14 @@ class HomeView extends GetView<HomeController> {
         itemCount: 10,
         itemBuilder: (context, index) {
           return Shimmer.fromColors(
-            baseColor: Color(0xffb6b6b6),
-            highlightColor: Color(0xffffffff),
+            baseColor: const Color(0xffb6b6b6),
+            highlightColor: const Color(0xffffffff),
               child: Card(
                 color: Colors.white,
                 elevation: 10,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(7.0)),
-                child: Container(
+                child: const SizedBox(
                     height: 50,
                     width: 85,
                 ),
@@ -667,16 +674,58 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
+  Widget _template4() {
+    return Shimmer.fromColors(
+      baseColor: const Color(0xffb6b6b6),
+      highlightColor: const Color(0xffffffff),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                height: 30,
+                width: Get.width *0.7,
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(5)
+                ),
+              ),
+              const SizedBox(height: 5),
+              Container(
+                height: 20,
+                width: Get.width *0.5,
+                decoration: BoxDecoration(
+                    color: Colors.black,
+                    borderRadius: BorderRadius.circular(5)
+                ),
+              ),
+            ],
+          ),
+          Container(
+            height: 75,
+            width: 75,
+            decoration: const BoxDecoration(
+              color: Colors.black,
+              shape: BoxShape.circle,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget _buildFloatingButton(){
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 20),
+      padding: const EdgeInsets.symmetric(vertical: 20),
       child: FloatingActionButton(
           onPressed: (){
             Get.toNamed(Routes.INDEX);
           },
-          child: Icon(Icons.list_alt, color: Colors.white, size: 25,),
-          backgroundColor: Color(0xff5947ff),
-          shape: CircleBorder()
+          backgroundColor: const Color(0xff5947ff),
+          shape: const CircleBorder(),
+          child: const Icon(Icons.list_alt, color: Colors.white, size: 25,)
       ),
     );
   }

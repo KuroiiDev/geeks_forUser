@@ -16,13 +16,13 @@ class RentView extends GetView<RentController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('RentView'),
+        title: const Text('RentView'),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Obx((){
           if (controller.rentData.value == null) {
-            return Text('Kosong');
+            return const Text('Kosong');
           }else {
             var state = controller.rentData.value;
             return Column(
@@ -33,7 +33,7 @@ class RentView extends GetView<RentController> {
                     child: ClipPath(
                       clipper: CustomClipperWidget(),
                       child: Container(
-                        padding: EdgeInsets.only(top: 20.0),
+                        padding: const EdgeInsets.only(top: 20.0),
                         decoration: BoxDecoration(
                             color: Colors.black,
                             image: DecorationImage(
@@ -42,7 +42,7 @@ class RentView extends GetView<RentController> {
                                 opacity: 450)),
                         child: Padding(
                           padding:
-                          EdgeInsets.symmetric(horizontal: 70, vertical: 10),
+                          const EdgeInsets.symmetric(horizontal: 70, vertical: 10),
                           child: Container(
                             decoration: BoxDecoration(
                                 border: Border.all(width: 5, color: Colors.black),
@@ -54,28 +54,26 @@ class RentView extends GetView<RentController> {
                         ),
                       ),
                     )),
-                Container(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Text(
-                        state?.book?.title ?? '-',
-                        style: GoogleFonts.alata(
-                            color: GlobalColor.title,
-                            fontSize: 45,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Text(
-                        state?.book?.writer ?? '-',
-                        style: GoogleFonts.alata(
-                            color: GlobalColor.subtitle, fontSize: 15),
-                      ),
-                    ],
-                  ),
+                Column(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                      state?.book?.title ?? '-',
+                      style: GoogleFonts.alata(
+                          color: GlobalColor.title,
+                          fontSize: 45,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      state?.book?.writer ?? '-',
+                      style: GoogleFonts.alata(
+                          color: GlobalColor.subtitle, fontSize: 15),
+                    ),
+                  ],
                 ),
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 Container(
-                  padding: EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+                  padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
                   width: Get.width,
                   decoration: BoxDecoration(
                     border:
@@ -104,21 +102,21 @@ class RentView extends GetView<RentController> {
                 ),
                 Container(
                   width: Get.width,
-                  padding: EdgeInsets.symmetric(vertical: 20, horizontal: 20),
+                  padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
                   decoration: BoxDecoration(
                     border: Border.symmetric(
                         horizontal: BorderSide(width: 1, color: GlobalColor.soft)),
                   ),
                   child: Center(
                     child: (state?.status).toString() != "RETURNED" ?
-                    Container(
+                    SizedBox(
                       width: Get.width *0.8,
                       height: Get.width *0.8,
                       child: PrettyQrView.data(
                         data: (state?.id).toString(),
                         decoration: const PrettyQrDecoration(
                           shape: PrettyQrSmoothSymbol(
-                            color: const Color(0xff7b63ff)
+                            color: Color(0xff7b63ff)
                           )
                         ),
                       ),
@@ -133,7 +131,7 @@ class RentView extends GetView<RentController> {
                     ),
                   )
                 ),
-                SizedBox(height: 35),
+                const SizedBox(height: 35),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -144,7 +142,7 @@ class RentView extends GetView<RentController> {
                           fontSize: 20,
                           fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 20),
+                    const SizedBox(height: 20),
                     RatingBar.builder(
                       itemCount: 5,
                       itemSize: 45,
@@ -158,8 +156,8 @@ class RentView extends GetView<RentController> {
                   ],
                 ),
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                  child: Row(
+                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+                  child: const Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                     ],

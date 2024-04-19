@@ -6,7 +6,6 @@ import 'package:geek/app/data/constant/global_color.dart';
 import 'package:geek/app/widgets/base_64.dart';
 
 import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:shimmer/shimmer.dart';
@@ -21,18 +20,16 @@ class DetailView extends GetView<DetailController> {
     return SafeArea(
         child: Scaffold(
       floatingActionButton: Padding(
-          padding: EdgeInsets.symmetric(vertical: 20),
+          padding: const EdgeInsets.symmetric(vertical: 20),
           child: FloatingActionButton.small(
             onPressed: () => Get.back(),
-            child: Icon(Icons.close, color: Colors.white),
             backgroundColor: Colors.black38,
             elevation: 0,
-            shape: CircleBorder(),
+            shape: const CircleBorder(),
+            child: const Icon(Icons.close, color: Colors.white),
           )),
       floatingActionButtonLocation: FloatingActionButtonLocation.startTop,
-      body: Container(
-        child: SingleChildScrollView(child: _bookDetails(context)),
-      ),
+      body: SingleChildScrollView(child: _bookDetails(context)),
     ));
   }
 
@@ -49,16 +46,16 @@ class DetailView extends GetView<DetailController> {
                 children: [
                   Container(
                     padding:
-                        EdgeInsets.symmetric(vertical: 15, horizontal: 130),
+                        const EdgeInsets.symmetric(vertical: 15, horizontal: 130),
                     child: Container(
                       height: 8,
                       decoration: BoxDecoration(
                           color: GlobalColor.darkTitle,
-                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                          borderRadius: const BorderRadius.all(Radius.circular(20))),
                     ),
                   ),
                   Container(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     child: Column(
                       children: [
                         Text('Renting Confirmation',
@@ -67,12 +64,12 @@ class DetailView extends GetView<DetailController> {
                                 fontSize: 30,
                                 fontWeight: FontWeight.bold)),
                         Padding(
-                          padding: EdgeInsets.only(top: 40),
+                          padding: const EdgeInsets.only(top: 40),
                           child: Container(
                             decoration: BoxDecoration(
                                 color: GlobalColor.title.withOpacity(0.1),
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(10)),
+                                    const BorderRadius.all(Radius.circular(10)),
                                 border: Border.all(
                                     width: 2, color: GlobalColor.soft)),
                             child: TextField(
@@ -91,7 +88,7 @@ class DetailView extends GetView<DetailController> {
                                   color: GlobalColor.soft,
                                 ),
                                 filled: false,
-                                border: OutlineInputBorder(
+                                border: const OutlineInputBorder(
                                   borderSide: BorderSide.none,
                                 ),
                               ),
@@ -100,7 +97,7 @@ class DetailView extends GetView<DetailController> {
                           ),
                         ),
                         Padding(
-                          padding: EdgeInsets.only(top: 45),
+                          padding: const EdgeInsets.only(top: 45),
                           child: ElevatedButton(
                             onPressed: (){
                               if (controller.dateController.text.isEmpty){
@@ -109,14 +106,14 @@ class DetailView extends GetView<DetailController> {
                                 controller.requestRent();
                               }
                             },
-                            child: Padding(
-                              padding: const EdgeInsets.all(30.0),
-                              child: Icon(Icons.shopping_cart_checkout, size: 90),
-                            ),
                             style: ElevatedButton.styleFrom(
                               backgroundColor: GlobalColor.soft,
                               elevation: 8,
-                              shape: CircleBorder(),
+                              shape: const CircleBorder(),
+                            ),
+                            child: const Padding(
+                              padding: EdgeInsets.all(30.0),
+                              child: Icon(Icons.shopping_cart_checkout, size: 90),
                             ),
                           ),
                         )
@@ -131,9 +128,9 @@ class DetailView extends GetView<DetailController> {
   void _showDatePicker(BuildContext context) {
     showDatePicker(
       context: context,
-      initialDate: DateTime.now().add(Duration(days: 1)),
-      firstDate: DateTime.now().add(Duration(days: 1)),
-      lastDate: DateTime.now().add(Duration(days: 30)),
+      initialDate: DateTime.now().add(const Duration(days: 1)),
+      firstDate: DateTime.now().add(const Duration(days: 1)),
+      lastDate: DateTime.now().add(const Duration(days: 30)),
     ).then((value) {
       controller.returnDate = value.toString();
       log(controller.returnDate);
@@ -165,7 +162,7 @@ class DetailView extends GetView<DetailController> {
                 child: ClipPath(
                   clipper: CustomClipperWidget(),
                   child: Container(
-                    padding: EdgeInsets.only(top: 20.0),
+                    padding: const EdgeInsets.only(top: 20.0),
                     decoration: BoxDecoration(
                         color: Colors.black,
                         image: DecorationImage(
@@ -174,7 +171,7 @@ class DetailView extends GetView<DetailController> {
                             opacity: 450)),
                     child: Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 70, vertical: 10),
+                          const EdgeInsets.symmetric(horizontal: 70, vertical: 10),
                       child: Container(
                         decoration: BoxDecoration(
                             border: Border.all(width: 5, color: Colors.black),
@@ -186,26 +183,24 @@ class DetailView extends GetView<DetailController> {
                     ),
                   ),
                 )),
-            Container(
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Text(
-                    bookDetail.title ?? '-',
-                    style: GoogleFonts.alata(
-                        color: GlobalColor.title,
-                        fontSize: 45,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    bookDetail.writer ?? '-',
-                    style: GoogleFonts.alata(
-                        color: GlobalColor.subtitle, fontSize: 15),
-                  ),
-                ],
-              ),
+            Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Text(
+                  bookDetail.title ?? '-',
+                  style: GoogleFonts.alata(
+                      color: GlobalColor.title,
+                      fontSize: 45,
+                      fontWeight: FontWeight.bold),
+                ),
+                Text(
+                  bookDetail.writer ?? '-',
+                  style: GoogleFonts.alata(
+                      color: GlobalColor.subtitle, fontSize: 15),
+                ),
+              ],
             ),
-            SizedBox(height: 35),
+            const SizedBox(height: 35),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -230,9 +225,9 @@ class DetailView extends GetView<DetailController> {
                 ),
               ],
             ),
-            SizedBox(height: 50),
+            const SizedBox(height: 50),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+              padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
               width: Get.width,
               decoration: BoxDecoration(
                 border:
@@ -259,7 +254,7 @@ class DetailView extends GetView<DetailController> {
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(vertical: 20),
+              padding: const EdgeInsets.symmetric(vertical: 20),
               decoration: BoxDecoration(
                 border: Border.symmetric(
                     horizontal: BorderSide(width: 1, color: GlobalColor.soft)),
@@ -269,7 +264,7 @@ class DetailView extends GetView<DetailController> {
                   children: [
                     Container(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       child: Text(
                         'Synopsis',
                         style: GoogleFonts.alata(
@@ -280,7 +275,7 @@ class DetailView extends GetView<DetailController> {
                     ),
                     Container(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                       //color: Color(0xff9585ff),
                       child: Text(
                         (bookDetail.synopsis).toString(),
@@ -293,13 +288,13 @@ class DetailView extends GetView<DetailController> {
                   ]),
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 15, vertical: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   ElevatedButton.icon(
                     onPressed: () {
-                      if (_check(bookDetail.status.toString() ?? "-")) {
+                      if (_check(bookDetail.status.toString())) {
                         _showDialog(context);
                       } else {
                         QuickAlert.show(
@@ -312,14 +307,14 @@ class DetailView extends GetView<DetailController> {
                       }
                     },
                     icon: Icon(
-                      _check(bookDetail.status.toString() ?? "-")
+                      _check(bookDetail.status.toString())
                           ? Icons.shopping_cart
                           : Icons.close,
                       color: GlobalColor.title,
                       size: 25,
                     ),
                     label: Text(
-                      _check(bookDetail.status.toString() ?? "-")
+                      _check(bookDetail.status.toString())
                           ? 'Rent This Book'
                           : 'Book Unavailable',
                       style: GoogleFonts.alata(
@@ -329,42 +324,42 @@ class DetailView extends GetView<DetailController> {
                     ),
                     style: ElevatedButton.styleFrom(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 45, vertical: 25),
+                          const EdgeInsets.symmetric(horizontal: 45, vertical: 25),
                       backgroundColor: GlobalColor.soft,
                       elevation: 5,
-                      shape: StadiumBorder(),
+                      shape: const StadiumBorder(),
                     ),
                   ),
                   controller.isSaved.value ?
                   ElevatedButton(
                     onPressed: () => controller.removeBookmark(),
-                    child: Icon(
+                    style: ElevatedButton.styleFrom(
+                      padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+                      backgroundColor: Colors.red,
+                      elevation: 5,
+                      shape: const StadiumBorder(),
+                    ),
+                    child: const Icon(
                       Icons.bookmark_remove,
                       color: Colors.white,
                       size: 25,
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      padding:
-                      EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-                      backgroundColor: Colors.red,
-                      elevation: 5,
-                      shape: StadiumBorder(),
                     ),
                   )
                   :
                   ElevatedButton(
                     onPressed: () =>controller.addBookmark(),
+                    style: ElevatedButton.styleFrom(
+                      padding:
+                          const EdgeInsets.symmetric(horizontal: 20, vertical: 25),
+                      backgroundColor: GlobalColor.soft,
+                      elevation: 5,
+                      shape: const StadiumBorder(),
+                    ),
                     child: Icon(
                       Icons.bookmark_add,
                       color: GlobalColor.title,
                       size: 25,
-                    ),
-                    style: ElevatedButton.styleFrom(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 20, vertical: 25),
-                      backgroundColor: GlobalColor.soft,
-                      elevation: 5,
-                      shape: StadiumBorder(),
                     ),
                   )
                   ,
@@ -386,10 +381,10 @@ class DetailView extends GetView<DetailController> {
             child: ClipPath(
               clipper: CustomClipperWidget(),
               child: Shimmer.fromColors(
-                baseColor: Color(0xffb6b6b6),
-                highlightColor: Color(0xffffffff),
+                baseColor: const Color(0xffb6b6b6),
+                highlightColor: const Color(0xffffffff),
                 child: Container(
-                  padding: EdgeInsets.only(top: 20.0),
+                  padding: const EdgeInsets.only(top: 20.0),
                   decoration: BoxDecoration(
                     color: GlobalColor.soft,
                   ),
@@ -397,8 +392,8 @@ class DetailView extends GetView<DetailController> {
               ),
             )),
         Shimmer.fromColors(
-          baseColor: Color(0xffb6b6b6),
-          highlightColor: Color(0xffffffff),
+          baseColor: const Color(0xffb6b6b6),
+          highlightColor: const Color(0xffffffff),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
@@ -410,7 +405,7 @@ class DetailView extends GetView<DetailController> {
                   color: Colors.black,
                 ),
               ),
-              SizedBox(height: 10),
+              const SizedBox(height: 10),
               Container(
                 height: 20,
                 width: Get.width * 0.6,
@@ -422,10 +417,10 @@ class DetailView extends GetView<DetailController> {
             ],
           ),
         ),
-        SizedBox(height: 35),
+        const SizedBox(height: 35),
         Shimmer.fromColors(
-          baseColor: Color(0xffb6b6b6),
-          highlightColor: Color(0xffffffff),
+          baseColor: const Color(0xffb6b6b6),
+          highlightColor: const Color(0xffffffff),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -450,12 +445,12 @@ class DetailView extends GetView<DetailController> {
             ],
           ),
         ),
-        SizedBox(height: 50),
+        const SizedBox(height: 50),
         Shimmer.fromColors(
-          baseColor: Color(0xffb6b6b6),
-          highlightColor: Color(0xffffffff),
+          baseColor: const Color(0xffb6b6b6),
+          highlightColor: const Color(0xffffffff),
           child: Container(
-            padding: EdgeInsets.symmetric(vertical: 25, horizontal: 20),
+            padding: const EdgeInsets.symmetric(vertical: 25, horizontal: 20),
             width: Get.width,
             decoration: BoxDecoration(
               border:
@@ -485,18 +480,18 @@ class DetailView extends GetView<DetailController> {
           ),
         ),
         Container(
-          padding: EdgeInsets.symmetric(vertical: 20),
+          padding: const EdgeInsets.symmetric(vertical: 20),
           decoration: BoxDecoration(
             border: Border.symmetric(
                 horizontal: BorderSide(width: 1, color: GlobalColor.soft)),
           ),
           child:
           Shimmer.fromColors(
-            baseColor: Color(0xffb6b6b6),
-            highlightColor: Color(0xffffffff),
+            baseColor: const Color(0xffb6b6b6),
+            highlightColor: const Color(0xffffffff),
                 child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Container(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 child: Container(
                     height: 25,
                     width: Get.width * 0.3,
@@ -507,7 +502,7 @@ class DetailView extends GetView<DetailController> {
                   ),
             ),
             Container(
-                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                 //color: Color(0xff9585ff),
                 child: Column(
                     children: [
@@ -519,7 +514,7 @@ class DetailView extends GetView<DetailController> {
                           color: Colors.black,
                         ),
                       ),
-                      SizedBox(height: 3),
+                      const SizedBox(height: 3),
                       Container(
                         height: 15,
                         width: Get.width * 0.85,
@@ -528,7 +523,7 @@ class DetailView extends GetView<DetailController> {
                           color: Colors.black,
                         ),
                       ),
-                      SizedBox(height: 3),
+                      const SizedBox(height: 3),
                       Container(
                         height: 15,
                         width: Get.width * 0.85,
@@ -537,7 +532,7 @@ class DetailView extends GetView<DetailController> {
                           color: Colors.black,
                         ),
                       ),
-                      SizedBox(height: 3),
+                      const SizedBox(height: 3),
                       Container(
                         height: 15,
                         width: Get.width * 0.85,
@@ -546,7 +541,7 @@ class DetailView extends GetView<DetailController> {
                           color: Colors.black,
                         ),
                       ),
-                      SizedBox(height: 3),
+                      const SizedBox(height: 3),
                       Container(
                         height: 15,
                         width: Get.width * 0.85,

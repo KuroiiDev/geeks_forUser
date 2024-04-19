@@ -33,6 +33,7 @@ class IndexController extends GetxController with StateMixin {
   }
 
   Future<void> getData() async{
+    bookData.value = null;
     try {
       final response = await ApiProvider.instance().get("${Endpoint.book}/az");
       if (response.statusCode == 200) {
