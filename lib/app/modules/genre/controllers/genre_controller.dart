@@ -1,7 +1,14 @@
+import 'dart:developer';
+
+import 'package:dio/dio.dart';
+import 'package:geek/app/data/model/response_genre_genre_get.dart';
 import 'package:get/get.dart';
 
-class GenreController extends GetxController {
-  //TODO: Implement GenreController
+import '../../../data/constant/endpoint.dart';
+import '../../../data/provider/api_provider.dart';
+
+class GenreController extends GetxController with StateMixin {
+  var genreData = Rxn<List<DataGenre>>();
 
   final count = 0.obs;
   @override
@@ -19,5 +26,30 @@ class GenreController extends GetxController {
     super.onClose();
   }
 
-  void increment() => count.value++;
+  Future<void> getData() async{
+    genreData.value = null;
+    try {
+      final response = await ApiProvider.instance().get("${Endpoint.genreGenre}/${Get.parameters}");
+      if (response.statusCode == 200) {
+        final ResponseGenreGenre responseBook = ResponseGenreGenre.fromJson(response.data);
+        if (responseBook.data!.isEmpty){
+          log("Empty Data!");
+        }else{
+          genreData(responseBook.data);
+        }
+      } else {
+        log("Internal Server Error");
+      }
+    }on DioException catch(e) {
+      if (e.response != null){
+        if (e.response?.data != null){
+          log("${e.response?.data['message']}']");
+        }
+      } else {
+        log(e.message ?? "");
+      }
+    }catch (e) {
+      log(e.toString());
+    }
+  }
 }
