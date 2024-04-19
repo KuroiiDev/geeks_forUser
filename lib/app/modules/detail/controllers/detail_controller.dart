@@ -5,12 +5,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geek/app/data/model/response_book_id_get.dart';
 import 'package:geek/app/data/model/response_bookmark_post.dart';
+import 'package:geek/app/data/model/response_rating_get.dart';
 import 'package:geek/app/data/model/response_request_post.dart';
 import 'package:geek/app/data/provider/storage_provider.dart';
 import 'package:geek/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:dio/dio.dart' as dio;
-import 'package:get_storage/get_storage.dart';
 import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 
@@ -22,8 +22,11 @@ class DetailController extends GetxController with StateMixin {
   final count = 0.obs;
   final TextEditingController dateController = TextEditingController();
   String returnDate = "-";
+
   var bookDetail = Rxn<DataBookId>();
   var genreData = Rxn<List<DataGenre>>();
+  var ratingData = Rxn<List<DataRating>>();
+
   var userId = StorageProvider.read(StorageKey.idUser);
   var bookmarkId = 0;
   RxBool isSaved = false.obs;
@@ -48,6 +51,33 @@ class DetailController extends GetxController with StateMixin {
     checkBookmark();
     var bookId = Get.parameters['id'];
 
+    // Get Rating
+    try {
+      final response = await ApiProvider.instance().get("${Endpoint.ratingBook}/$bookId");
+      if (response.statusCode == 200) {
+        final ResponseRatingGet responseRating = ResponseRatingGet.fromJson(response.data);
+        if (responseRating.data!.isEmpty){
+          log("Empty Data!");
+        }else{
+          ratingData(responseRating.data);
+        }
+      } else {
+        log("Internal Server Error");
+      }
+    }on DioException catch(e) {
+      if (e.response != null){
+        if (e.response?.data != null){
+          log("${e.response?.data['message']}']");
+        }
+      } else {
+        log(e.message ?? "");
+      }
+    }catch (e) {
+      log(e.toString());
+    }
+
+
+    // Get Genres
     try {
       final response = await ApiProvider.instance().get("${Endpoint.genreBook}/$bookId");
       if (response.statusCode == 200) {
@@ -72,6 +102,7 @@ class DetailController extends GetxController with StateMixin {
       log(e.toString());
     }
 
+    // Get Book Data
     try {
       final response =
           await ApiProvider.instance().get("${Endpoint.book}/id/$bookId");

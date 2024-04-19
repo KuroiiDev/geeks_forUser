@@ -23,4 +23,5 @@ class Endpoint {
   static const String genreBook = "${baseUrlApi}genre/book";
   static const String genreGenre = "${baseUrlApi}genre/genre";
   static const String rating = "${baseUrlApi}rating";
+  static const String ratingBook = "${baseUrlApi}rating/book";
 }

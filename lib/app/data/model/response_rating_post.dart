@@ -33,14 +33,14 @@ class DataRating {
   DataRating.fromJson(dynamic json) {
     userId = json['user_id'];
     bookId = json['book_id'];
-    rating = json['rating'];
+    rating = json['rating'].toDouble();
     updatedAt = json['updated_at'];
     createdAt = json['created_at'];
     id = json['id'];
   }
   String? userId;
   String? bookId;
-  String? rating;
+  double? rating;
   String? updatedAt;
   String? createdAt;
   int? id;

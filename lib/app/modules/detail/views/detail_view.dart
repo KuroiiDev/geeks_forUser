@@ -152,6 +152,7 @@ class DetailView extends GetView<DetailController> {
     return Obx(() {
       var bookDetail = controller.bookDetail.value;
       var state = controller.genreData.value;
+      var ratingDat = controller.ratingData.value;
       if (bookDetail == null) {
         return _template(context);
       } else {
@@ -209,10 +210,10 @@ class DetailView extends GetView<DetailController> {
                   rating: (bookDetail.rating ?? 0).toDouble(),
                   itemCount: 5,
                   itemSize: 35,
-                  unratedColor: GlobalColor.soft,
+                  unratedColor: Colors.black12,
                   itemBuilder: (context, index) => Icon(
                     Icons.star,
-                    color: GlobalColor.title,
+                    color: GlobalColor.softDeep,
                   ),
                 ),
                 Row(
@@ -288,8 +289,10 @@ class DetailView extends GetView<DetailController> {
                     ),
                   ]),
             ),
+
+            // Genre Build
             state != null ? Container(
-              padding: const EdgeInsets.symmetric(vertical: 20),
+              padding: const EdgeInsets.symmetric(vertical: 5),
               decoration: BoxDecoration(
                 border: Border.symmetric(
                     horizontal: BorderSide(width: 1, color: GlobalColor.soft)),
@@ -344,6 +347,80 @@ class DetailView extends GetView<DetailController> {
                     ),
                   ]),
             ) : SizedBox(),
+
+            // Rating Build
+            ratingDat != null ? Container(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              decoration: BoxDecoration(
+                border: Border.symmetric(
+                    horizontal: BorderSide(width: 1, color: GlobalColor.soft)),
+              ),
+              child: Container(
+                      padding:
+                      const EdgeInsets.symmetric(horizontal: 20),
+                      //color: Color(0xff9585ff),
+                      child: SizedBox(
+                          width: Get.width,
+                          height: 200,
+                          child: ListView.builder(
+                              //scrollDirection: Axis.horizontal,
+                              itemCount: ratingDat.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(vertical: 10),
+                                  child: Card(
+                                    color: Colors.white,
+                                    elevation: 5,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(7.0)),
+                                    child: Container(
+                                        margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+                                        child: Row(
+                                          children: [
+                                            Container(
+                                              height: 60,
+                                              width: 60,
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  border: Border.all(color: Colors.black, width: 2),
+                                                  image: DecorationImage(
+                                                    image: ImageConverter.base64ToImage(ratingDat[index].user?.profile?? '-'),
+                                                    fit: BoxFit.cover,
+                                                  )
+                                              ),
+                                            ),
+                                            SizedBox(width: 10),
+                                            Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  ratingDat[index].user!.name.toString(),
+                                                  style: GoogleFonts.alata(
+                                                      color: GlobalColor.subtitle, fontSize: 20),
+                                                  textAlign: TextAlign.left,
+                                                ),
+                                                RatingBarIndicator(
+                                                  rating: (ratingDat[index].rating ?? 1),
+                                                  itemCount: 5,
+                                                  itemSize: 35,
+                                                  unratedColor: Colors.black12,
+                                                  itemBuilder: (context, index) => Icon(
+                                                    Icons.star,
+                                                    color: GlobalColor.softDeep,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        )
+                                    ),
+                                  ),
+                                );
+                              }
+                          )
+                      ),
+                    )
+            ) : SizedBox(child: Text('no rating')),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
               child: Row(
