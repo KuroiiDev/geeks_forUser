@@ -28,8 +28,9 @@ class GenreController extends GetxController with StateMixin {
 
   Future<void> getData() async{
     genreData.value = null;
+    var genreId = Get.parameters['id'];
     try {
-      final response = await ApiProvider.instance().get("${Endpoint.genreGenre}/${Get.parameters}");
+      final response = await ApiProvider.instance().get("${Endpoint.genreGenre}/$genreId");
       if (response.statusCode == 200) {
         final ResponseGenreGenre responseBook = ResponseGenreGenre.fromJson(response.data);
         if (responseBook.data!.isEmpty){

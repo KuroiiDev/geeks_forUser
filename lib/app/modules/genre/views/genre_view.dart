@@ -1,16 +1,22 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
+import 'package:shimmer/shimmer.dart';
 
 import '../../../data/constant/global_color.dart';
+import '../../../routes/app_pages.dart';
+import '../../../widgets/base_64_converter.dart';
 import '../controllers/genre_controller.dart';
 
 class GenreView extends GetView<GenreController> {
   const GenreView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    return return Scaffold(
+    return Scaffold(
+      appBar: AppBar(),
       body: SingleChildScrollView(
         child: Column(children: [
           Container(
@@ -44,7 +50,7 @@ class GenreView extends GetView<GenreController> {
                   onRefresh: controller.getData,
                   showChildOpacityTransition: false,
                   child: Obx(() {
-                    var state = controller.bookData.value;
+                    var state = controller.genreData.value;
 
                     if (state == null) {
                       return _template();
@@ -73,7 +79,7 @@ class GenreView extends GetView<GenreController> {
                                             BorderRadius.circular(20),
                                             child: Image(
                                               image: ImageConverter.base64ToImage(
-                                                  state[index].cover ?? '-'),
+                                                  state[index].book?.cover ?? '-'),
                                               fit: BoxFit.cover,
                                               alignment: Alignment.center,
                                             )),
@@ -81,7 +87,7 @@ class GenreView extends GetView<GenreController> {
                                       Container(
                                         padding: const EdgeInsets.only(top: 10),
                                         child: Text(
-                                          state[index].title ?? '-',
+                                          state[index].book?.title ?? '-',
                                           overflow: TextOverflow.ellipsis,
                                           style: GoogleFonts.alata(
                                               color: GlobalColor.title,
@@ -92,7 +98,7 @@ class GenreView extends GetView<GenreController> {
                                       Container(
                                         padding: const EdgeInsets.only(top: 7),
                                         child: Text(
-                                          state[index].publisher ?? '-',
+                                          state[index].book?.publisher ?? '-',
                                           overflow: TextOverflow.ellipsis,
                                           style: GoogleFonts.alata(
                                               color: GlobalColor.subtitle,
@@ -102,10 +108,10 @@ class GenreView extends GetView<GenreController> {
                                       Container(
                                         padding: const EdgeInsets.only(
                                             top: 2, bottom: 10),
-                                        child: state[index].status ==
+                                        child: state[index].book?.status ==
                                             'AVAILABLE'
                                             ? Text(
-                                          state[index].status ?? '-',
+                                          state[index].book?.status ?? '-',
                                           overflow: TextOverflow.ellipsis,
                                           style: GoogleFonts.alata(
                                               color: CupertinoColors
@@ -113,7 +119,7 @@ class GenreView extends GetView<GenreController> {
                                               fontSize: 12),
                                         )
                                             : Text(
-                                          state[index].status ?? '-',
+                                          state[index].book?.status ?? '-',
                                           overflow: TextOverflow.ellipsis,
                                           style: GoogleFonts.alata(
                                               color: Colors.red,
@@ -130,5 +136,46 @@ class GenreView extends GetView<GenreController> {
         ]),
       ),
     );
+  }
+
+  Widget _template() {
+    return GridView.builder(
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          childAspectRatio: 3 / 6,
+          crossAxisSpacing: 10.0,
+        ),
+        itemBuilder: (context, index) {
+          return Card(
+              elevation: 5.0,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Shimmer.fromColors(
+                  baseColor: const Color(0xffb6b6b6),
+                  highlightColor: const Color(0xffffffff),
+                  child: Column(
+                    children: [
+                      Expanded(
+                          child: Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                color: Colors.black),
+                          )),
+                      Container(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: Container(height: 20, width: 60, color: Colors.black)),
+                      Container(
+                          padding: const EdgeInsets.only(top: 7),
+                          child: Container(height: 10, width: 60, color: Colors.black)),
+                      Container(
+                          padding: const EdgeInsets.only(top: 2, bottom: 10),
+                          child:
+                          Container(height: 10, width: 60, color: Colors.black))
+                    ],
+                  ),
+                ),
+              ));
+        },
+        itemCount: 21);
   }
 }
