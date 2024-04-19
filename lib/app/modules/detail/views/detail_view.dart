@@ -152,7 +152,7 @@ class DetailView extends GetView<DetailController> {
     return Obx(() {
       var bookDetail = controller.bookDetail.value;
       var state = controller.genreData.value;
-      if (bookDetail == null || state == null) {
+      if (bookDetail == null) {
         return _template(context);
       } else {
         return Column(
@@ -288,7 +288,7 @@ class DetailView extends GetView<DetailController> {
                     ),
                   ]),
             ),
-            Container(
+            state != null ? Container(
               padding: const EdgeInsets.symmetric(vertical: 20),
               decoration: BoxDecoration(
                 border: Border.symmetric(
@@ -328,9 +328,9 @@ class DetailView extends GetView<DetailController> {
                                       borderRadius: BorderRadius.circular(7.0)),
                                   child: Container(
                                       height: 30,
-                                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                                      margin: const EdgeInsets.symmetric(horizontal: 5),
                                       child: Text(
-                                        state[index].genre.toString(),
+                                        state[index].genre!.genre.toString(),
                                         style: GoogleFonts.alata(
                                             color: GlobalColor.soft, fontSize: 20),
                                         textAlign: TextAlign.left,
@@ -339,11 +339,11 @@ class DetailView extends GetView<DetailController> {
                                 ),
                               );
                             }
-                        ),
+                        )
                       ),
                     ),
                   ]),
-            ),
+            ) : SizedBox(),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
               child: Row(
