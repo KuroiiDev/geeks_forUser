@@ -25,11 +25,9 @@ class SplashscreenView extends GetView<SplashscreenController> {
             ),
         ),
           child: Center(
-          child: ClipOval(
-              child: FittedBox(
-                fit: BoxFit.fill,
-                child: Image.asset("assets/images/logo_white.png"),
-              )
+          child: Image(
+            image: const AssetImage("assets/images/logo_white.png"),
+            width: Get.width * 0.8,
           ),
       ),
       ),

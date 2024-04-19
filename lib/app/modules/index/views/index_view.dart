@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:geek/app/data/constant/global_color.dart';
-import 'package:geek/app/widgets/base_64.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,6 +8,7 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../routes/app_pages.dart';
+import '../../../widgets/base_64_converter.dart';
 import '../controllers/index_controller.dart';
 
 class IndexView extends GetView<IndexController> {
@@ -77,7 +77,7 @@ class IndexView extends GetView<IndexController> {
                                             borderRadius:
                                                 BorderRadius.circular(20),
                                             child: Image(
-                                              image: base64widget(
+                                              image: ImageConverter.base64ToImage(
                                                   state[index].cover ?? '-'),
                                               fit: BoxFit.cover,
                                               alignment: Alignment.center,

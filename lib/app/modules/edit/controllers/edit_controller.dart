@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
+import 'package:geek/app/widgets/base_64_converter.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:quickalert/models/quickalert_type.dart';
@@ -24,6 +25,8 @@ class EditController extends GetxController {
 
   var imagePath = ''.obs;
   var imageSize = ''.obs;
+
+  String profilePict = 'NONE';
 
   @override
   void onInit() {
@@ -52,7 +55,7 @@ class EditController extends GetxController {
     if (image != null) {
       imagePath.value = image.path;
       imageSize.value =
-      "${((File(imagePath.value)).lengthSync() / 1024 / 1024).toStringAsFixed(2)}Mb";
+      "${((File(imagePath.value)).lengthSync() / 512 / 512).toStringAsFixed(2)}Mb";
       Get.snackbar("Success", "Selected!", backgroundColor: Colors.green);
     } else {
       Get.snackbar("Sorry", "Canceled", backgroundColor: Colors.orange);
@@ -60,30 +63,43 @@ class EditController extends GetxController {
   }
 
   data() async{
+
+    if (imagePath.value.isNotEmpty ||
+        imagePath.value.trim() != "" ||
+        imagePath.value != "") {
+      profilePict = (await ImageConverter.imageToBase64(imagePath.value))!;
+    } else {
+    }
+
     FocusScope.of(Get.context!).unfocus();
-    if (isName.value || isPass.value){
+    if (profilePict != 'NONE'){
       log("Name: ${nameController.text}");
       log("Pass: ${passwordController.text}");
       try {
         final response;
         String url = "${Endpoint.edit}/${StorageProvider.read(StorageKey.idUser)}";
         FocusScope.of(Get.context!).unfocus();
-        if (!isPass.value){
-          response = await ApiProvider.instance().post(url,data:
-          {
-            "name": nameController.text.toString(),
-          });
+        if (!isName.value && !isPass.value){
+
+          response = await ApiProvider.instance().post(url,data:{"profile" : profilePict});
+
+        }else if (!isPass.value){
+
+          response = await ApiProvider.instance().post(url,data:{"name": nameController.text.toString(), "profile" : profilePict});
+
         } else if (!isName.value) {
-          response = await ApiProvider.instance().post(url,data:
-          {
-            "password": passwordController.text.toString(),
-          });
+
+          response = await ApiProvider.instance().post(url,data:{"password": passwordController.text.toString(), "profile" : profilePict});
+
         } else {
+
           response = await ApiProvider.instance().post(url,data:
           {
             "name": nameController.text.toString(),
             "password": passwordController.text.toString(),
+            "profile" : profilePict
           });
+
         }
         if (response.statusCode == 201) {
           Get.snackbar("Success", "Profile Edited!", backgroundColor: Colors.green);
@@ -106,7 +122,7 @@ class EditController extends GetxController {
           context: Get.context!,
           type: QuickAlertType.error,
           title: 'Forbidden!',
-          text: "Please Enable At least 1 Option!",
+          text: "Image Is Required!",
           confirmBtnText: 'I Understand');
     }
 

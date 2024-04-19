@@ -10,6 +10,8 @@ import '../modules/detail/bindings/detail_binding.dart';
 import '../modules/detail/views/detail_view.dart';
 import '../modules/edit/bindings/edit_binding.dart';
 import '../modules/edit/views/edit_view.dart';
+import '../modules/genre/bindings/genre_binding.dart';
+import '../modules/genre/views/genre_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/index/bindings/index_binding.dart';
@@ -92,6 +94,11 @@ class AppPages {
       name: _Paths.EDIT,
       page: () => const EditView(),
       binding: EditBinding(),
+    ),
+    GetPage(
+      name: _Paths.GENRE,
+      page: () => const GenreView(),
+      binding: GenreBinding(),
     ),
   ];
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:geek/app/data/constant/global_color.dart';
 import 'package:geek/app/routes/app_pages.dart';
+import 'package:geek/app/widgets/base_64_converter.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -8,7 +9,6 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:shimmer/shimmer.dart';
 
-import '../../../widgets/base_64.dart';
 import '../controllers/account_controller.dart';
 
 class AccountView extends GetView<AccountController> {
@@ -73,9 +73,13 @@ class AccountView extends GetView<AccountController> {
                               height: Get.width * 0.45,
                               width: Get.width * 0.45,
                               decoration: BoxDecoration(
-                                  color: Colors.white,
                                   border: Border.all(color: Colors.black, width: 5),
-                                  shape: BoxShape.circle),
+                                  shape: BoxShape.circle,
+                                  image: DecorationImage(
+                                      image: ImageConverter.base64ToImage(state.profile ?? '-'),
+                                      fit: BoxFit.cover,
+                                  )
+                              ),
                             ),
                           ),
                           Padding(
@@ -162,7 +166,7 @@ class AccountView extends GetView<AccountController> {
                                                                   .darkTitle),
                                                           image: DecorationImage(
                                                               fit: BoxFit.fill,
-                                                              image: base64widget(
+                                                              image: ImageConverter.base64ToImage(
                                                                   rent.book
                                                                           ?.cover ??
                                                                       '-'))),

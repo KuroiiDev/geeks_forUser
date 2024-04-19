@@ -7,7 +7,7 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../data/constant/global_color.dart';
-import '../../../widgets/base_64.dart';
+import '../../../widgets/base_64_converter.dart';
 import '../controllers/bookmark_controller.dart';
 
 class BookmarkView extends GetView<BookmarkController> {
@@ -76,7 +76,7 @@ class BookmarkView extends GetView<BookmarkController> {
                                         decoration: BoxDecoration(
                                           borderRadius: BorderRadius.circular(10),
                                           image: DecorationImage(
-                                              image: base64widget(state[index].book?.cover ?? '-'),
+                                              image: ImageConverter.base64ToImage(state[index].book?.cover ?? '-'),
                                               fit: BoxFit.cover
                                           )
                                         ),

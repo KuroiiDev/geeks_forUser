@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 
 import '../../../data/constant/global_color.dart';
-import '../../../widgets/base_64.dart';
+import '../../../widgets/base_64_converter.dart';
 import '../../../widgets/custom_clipper.dart';
 import '../controllers/rent_controller.dart';
 
@@ -36,7 +36,7 @@ class RentView extends GetView<RentController> {
                       decoration: BoxDecoration(
                           color: Colors.black,
                           image: DecorationImage(
-                              image: base64widget(state?.book?.cover ?? '-'),
+                              image: ImageConverter.base64ToImage(state?.book?.cover ?? '-'),
                               fit: BoxFit.cover,
                               opacity: 450)),
                       child: Padding(
@@ -48,7 +48,7 @@ class RentView extends GetView<RentController> {
                               borderRadius: BorderRadius.circular(20),
                               image: DecorationImage(
                                   image:
-                                      base64widget(state?.book?.cover ?? '-'),
+                                  ImageConverter.base64ToImage(state?.book?.cover ?? '-'),
                                   fit: BoxFit.cover)),
                         ),
                       ),

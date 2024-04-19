@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:geek/app/data/constant/global_color.dart';
-import 'package:geek/app/widgets/base_64.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -9,6 +8,7 @@ import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../routes/app_pages.dart';
+import '../../../widgets/base_64_converter.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
@@ -148,9 +148,12 @@ class HomeView extends GetView<HomeController> {
               height: 75,
               width: 75,
               decoration: BoxDecoration(
-                color: Colors.white,
                 shape: BoxShape.circle,
                 border: Border.all(color: Colors.black, width: 2),
+                  image: DecorationImage(
+                    image: ImageConverter.base64ToImage(state.profile ?? '-'),
+                    fit: BoxFit.cover,
+                  )
               ),
             ),
           ],
@@ -263,7 +266,7 @@ class HomeView extends GetView<HomeController> {
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10),
                                     image: DecorationImage(
-                                        image: base64widget(state[index].cover ?? '-'),
+                                        image: ImageConverter.base64ToImage(state[index].cover ?? '-'),
                                         fit: BoxFit.cover
                                     )
                                 ),
@@ -325,7 +328,7 @@ class HomeView extends GetView<HomeController> {
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10),
                                 image: DecorationImage(
-                                    image: base64widget(state[index].cover ?? '-'),
+                                    image: ImageConverter.base64ToImage(state[index].cover ?? '-'),
                                     fit: BoxFit.cover
                                 )
                             ),
@@ -387,7 +390,7 @@ class HomeView extends GetView<HomeController> {
                                     width: 2, color: GlobalColor.darkTitle),
                                 image: DecorationImage(
                                     fit: BoxFit.fill,
-                                    image: base64widget(state.cover ?? '-'))),
+                                    image: ImageConverter.base64ToImage(state.cover ?? '-'))),
                           ),
                         ),
                       ),

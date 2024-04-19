@@ -3,13 +3,13 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:geek/app/data/constant/global_color.dart';
-import 'package:geek/app/widgets/base_64.dart';
 
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../widgets/base_64_converter.dart';
 import '../../../widgets/custom_clipper.dart';
 import '../controllers/detail_controller.dart';
 
@@ -167,7 +167,7 @@ class DetailView extends GetView<DetailController> {
                     decoration: BoxDecoration(
                         color: Colors.black,
                         image: DecorationImage(
-                            image: base64widget(bookDetail.cover ?? '-'),
+                            image: ImageConverter.base64ToImage(bookDetail.cover ?? '-'),
                             fit: BoxFit.cover,
                             opacity: 450)),
                     child: Padding(
@@ -178,7 +178,7 @@ class DetailView extends GetView<DetailController> {
                             border: Border.all(width: 5, color: Colors.black),
                             borderRadius: BorderRadius.circular(20),
                             image: DecorationImage(
-                                image: base64widget(bookDetail.cover ?? '-'),
+                                image: ImageConverter.base64ToImage(bookDetail.cover ?? '-'),
                                 fit: BoxFit.cover)),
                       ),
                     ),
