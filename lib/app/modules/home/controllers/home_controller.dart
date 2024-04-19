@@ -76,7 +76,7 @@ class HomeController extends GetxController with StateMixin{
     }
     // Get Genre List
     try {
-      final response = await ApiProvider.instance().get("${Endpoint.genre}/");
+      final response = await ApiProvider.instance().get("${Endpoint.genreList}/");
       if (response.statusCode == 200) {
         final ResponseGenre responseGenre = ResponseGenre.fromJson(response.data);
         if (responseGenre.data!.isEmpty){

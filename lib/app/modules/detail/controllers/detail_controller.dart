@@ -15,6 +15,7 @@ import 'package:quickalert/models/quickalert_type.dart';
 import 'package:quickalert/widgets/quickalert_dialog.dart';
 
 import '../../../data/constant/endpoint.dart';
+import '../../../data/model/response_genre_book_get.dart';
 import '../../../data/provider/api_provider.dart';
 
 class DetailController extends GetxController with StateMixin {
@@ -22,6 +23,7 @@ class DetailController extends GetxController with StateMixin {
   final TextEditingController dateController = TextEditingController();
   String returnDate = "-";
   var bookDetail = Rxn<DataBookId>();
+  var genreData = Rxn<List<DataGenre>>();
   var userId = StorageProvider.read(StorageKey.idUser);
   var bookmarkId = 0;
   RxBool isSaved = false.obs;
@@ -45,6 +47,31 @@ class DetailController extends GetxController with StateMixin {
   Future<void> getData() async {
     checkBookmark();
     var bookId = Get.parameters['id'];
+
+    try {
+      final response = await ApiProvider.instance().get("${Endpoint.genreBook}/$bookId");
+      if (response.statusCode == 200) {
+        final ResponseGenreBook responseGenre = ResponseGenreBook.fromJson(response.data);
+        if (responseGenre.data!.isEmpty){
+          log("Empty Data!");
+        }else{
+          genreData(responseGenre.data);
+        }
+      } else {
+        log("Internal Server Error");
+      }
+    }on DioException catch(e) {
+      if (e.response != null){
+        if (e.response?.data != null){
+          log("${e.response?.data['message']}']");
+        }
+      } else {
+        log(e.message ?? "");
+      }
+    }catch (e) {
+      log(e.toString());
+    }
+
     try {
       final response =
           await ApiProvider.instance().get("${Endpoint.book}/id/$bookId");

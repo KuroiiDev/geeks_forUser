@@ -151,7 +151,8 @@ class DetailView extends GetView<DetailController> {
   Widget _bookDetails(BuildContext context) {
     return Obx(() {
       var bookDetail = controller.bookDetail.value;
-      if (bookDetail == null) {
+      var state = controller.genreData.value;
+      if (bookDetail == null || state == null) {
         return _template(context);
       } else {
         return Column(
@@ -283,6 +284,62 @@ class DetailView extends GetView<DetailController> {
                         maxLines: 8,
                         style: GoogleFonts.alata(
                             color: GlobalColor.text, fontSize: 18),
+                      ),
+                    ),
+                  ]),
+            ),
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 20),
+              decoration: BoxDecoration(
+                border: Border.symmetric(
+                    horizontal: BorderSide(width: 1, color: GlobalColor.soft)),
+              ),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      child: Text(
+                        'Genre',
+                        style: GoogleFonts.alata(
+                            color: GlobalColor.subtitle,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    Container(
+                      padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                      //color: Color(0xff9585ff),
+                      child: SizedBox(
+                        width: Get.width,
+                        height: 43,
+                        child: ListView.builder(
+                            scrollDirection: Axis.horizontal,
+                            itemCount: state.length,
+                            itemBuilder: (context, index) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 0),
+                                child: Card(
+                                  color: Colors.white,
+                                  elevation: 5,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(7.0)),
+                                  child: Container(
+                                      height: 30,
+                                      margin: const EdgeInsets.symmetric(horizontal: 10),
+                                      child: Text(
+                                        state[index].genre.toString(),
+                                        style: GoogleFonts.alata(
+                                            color: GlobalColor.soft, fontSize: 20),
+                                        textAlign: TextAlign.left,
+                                      )
+                                  ),
+                                ),
+                              );
+                            }
+                        ),
                       ),
                     ),
                   ]),

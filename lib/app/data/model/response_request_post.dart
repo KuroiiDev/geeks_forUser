@@ -138,7 +138,7 @@ class Book {
     publisher = json['publisher'];
     synopsis = json['synopsis'];
     rented = json['rented'];
-    rating = json['rating'];
+    rating = json['rating'].toDouble();
     status = json['status'];
     publishYear = json['publish_year'];
     createdAt = json['created_at'];

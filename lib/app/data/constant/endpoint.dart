@@ -1,6 +1,6 @@
 class Endpoint {
 
-  static const String ipPort = "127.0.0.1:8000";
+  static const String ipPort = "192.168.1.18:8000";
 
   static const String baseUrlApi = "http://$ipPort/api/user/";
 
@@ -19,5 +19,7 @@ class Endpoint {
   static const String removeBookmark = "${baseUrlApi}bookmark/remove";
   static const String addBookmark = "${baseUrlApi}bookmark/add";
   static const String checkBookmark = "${baseUrlApi}bookmark/check";
-  static const String genre = "${baseUrlApi}genre";
+  static const String genreList = "${baseUrlApi}genre";
+  static const String genreBook = "${baseUrlApi}genre/book";
+  static const String genreGenre = "${baseUrlApi}genre/genre";
 }
