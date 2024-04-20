@@ -305,8 +305,7 @@ class AccountView extends GetView<AccountController> {
     return Shimmer.fromColors(
       baseColor: const Color(0xffb6b6b6),
       highlightColor: const Color(0xffffffff),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+      child: ListView(
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
@@ -320,7 +319,7 @@ class AccountView extends GetView<AccountController> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 10, left: 60, right: 60),
             child: Container(
               height: 30,
               width: Get.width * 0.7,
@@ -331,7 +330,7 @@ class AccountView extends GetView<AccountController> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(top: 10, left: 40, right: 40),
             child: Container(
               height: 25,
               width: Get.width * 0.50,
