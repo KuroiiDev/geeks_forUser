@@ -211,7 +211,8 @@ class HomeView extends GetView<HomeController> {
                 child: InkWell(
                   onTap: () {
                     Get.toNamed(Routes.GENRE, parameters: {
-                      'id' : state[index].id.toString()
+                      'id' : state[index].id.toString(),
+                      'genre' : state[index].genre.toString()
                     });
                   },
                   child: Card(

@@ -37,6 +37,16 @@ class GenreView extends GetView<GenreController> {
                         child: Icon(Icons.arrow_back, color: GlobalColor.soft),
                       ),
                     ),
+                    Container(
+                      child: Text(
+                        'Genre: ${Get.parameters['genre']}',
+                        overflow: TextOverflow.ellipsis,
+                        style: GoogleFonts.alata(
+                            color: Colors.white,
+                            fontSize: 25,
+                        ),
+                      ),
+                    ),
                   ],
                 )),
           ),

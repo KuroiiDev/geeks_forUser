@@ -157,19 +157,16 @@ class AccountView extends GetView<AccountController> {
                                                       height: 180,
                                                       width: 120,
                                                       decoration: BoxDecoration(
-                                                          borderRadius:
-                                                              BorderRadius.circular(
-                                                                  15.0),
+                                                          borderRadius: BorderRadius.circular(15.0),
                                                           border: Border.all(
                                                               width: 2,
-                                                              color: GlobalColor
-                                                                  .darkTitle),
+                                                              color: GlobalColor.darkTitle
+                                                          ),
                                                           image: DecorationImage(
                                                               fit: BoxFit.fill,
-                                                              image: ImageConverter.base64ToImage(
-                                                                  rent.book
-                                                                          ?.cover ??
-                                                                      '-'))),
+                                                              image: ImageConverter.base64ToImage(rent.book?.cover ??'-')
+                                                          )
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
@@ -219,6 +216,16 @@ class AccountView extends GetView<AccountController> {
                                                                   Colors.red
                                                               ,
                                                               fontSize: 15),
+                                                          textAlign: TextAlign.left,
+                                                        ),
+                                                        Text(
+                                                          rent.status ?? '-',
+                                                          style: GoogleFonts.alata(
+                                                              fontSize: 15,
+                                                              color: rent.status == 'BOOKED' ? Colors.blue
+                                                                  : rent.status == 'RENTED' ? Colors.red
+                                                                  : Colors.green
+                                                          ),
                                                           textAlign: TextAlign.left,
                                                         )
                                                       ],

@@ -328,7 +328,8 @@ class DetailView extends GetView<DetailController> {
                                 child: InkWell(
                                   onTap: (){
                                     Get.toNamed(Routes.GENRE, parameters: {
-                                      'id' : state[index].id.toString()
+                                      'id' : state[index].genreId.toString(),
+                                      'genre' : state[index].genre!.genre.toString()
                                     });
                                   },
                                   child: Card(
