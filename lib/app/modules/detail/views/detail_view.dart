@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:quickalert/quickalert.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../routes/app_pages.dart';
 import '../../../widgets/base_64_converter.dart';
 import '../../../widgets/custom_clipper.dart';
 import '../controllers/detail_controller.dart';
@@ -324,20 +325,27 @@ class DetailView extends GetView<DetailController> {
                             itemBuilder: (context, index) {
                               return Padding(
                                 padding: const EdgeInsets.symmetric(horizontal: 0),
-                                child: Card(
-                                  color: Colors.white,
-                                  elevation: 5,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(7.0)),
-                                  child: Container(
-                                      height: 30,
-                                      margin: const EdgeInsets.symmetric(horizontal: 5),
-                                      child: Text(
-                                        state[index].genre!.genre.toString(),
-                                        style: GoogleFonts.alata(
-                                            color: GlobalColor.soft, fontSize: 20),
-                                        textAlign: TextAlign.left,
-                                      )
+                                child: InkWell(
+                                  onTap: (){
+                                    Get.toNamed(Routes.GENRE, parameters: {
+                                      'id' : state[index].id.toString()
+                                    });
+                                  },
+                                  child: Card(
+                                    color: Colors.white,
+                                    elevation: 5,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(7.0)),
+                                    child: Container(
+                                        height: 30,
+                                        margin: const EdgeInsets.symmetric(horizontal: 5),
+                                        child: Text(
+                                          state[index].genre!.genre.toString(),
+                                          style: GoogleFonts.alata(
+                                              color: GlobalColor.soft, fontSize: 20),
+                                          textAlign: TextAlign.left,
+                                        )
+                                    ),
                                   ),
                                 ),
                               );
@@ -420,7 +428,7 @@ class DetailView extends GetView<DetailController> {
                           )
                       ),
                     )
-            ) : SizedBox(child: Text('no rating')),
+            ) : SizedBox(),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
               child: Row(
