@@ -14,9 +14,7 @@ class RentlistView extends GetView<RentlistController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Rent List'),
         backgroundColor: GlobalColor.soft,
-        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(children: [

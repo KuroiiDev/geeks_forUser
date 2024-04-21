@@ -15,10 +15,7 @@ class RentView extends GetView<RentController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('RentView'),
-        centerTitle: true,
-      ),
+      appBar: AppBar(),
       body: SingleChildScrollView(child: Obx(() {
         var state = controller.rentData.value;
         if (state == null) {

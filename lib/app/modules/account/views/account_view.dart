@@ -22,7 +22,7 @@ class AccountView extends GetView<AccountController> {
                 onPressed: () {
                   QuickAlert.show(
                     context: context,
-                    type: QuickAlertType.warning,
+                    type: QuickAlertType.error,
                     showCancelBtn: true,
                     showConfirmBtn: true,
                     onConfirmBtnTap: () => controller.logout(),
