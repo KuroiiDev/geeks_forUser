@@ -2,7 +2,9 @@ import 'dart:developer';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/cupertino.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
 import 'package:geek/app/widgets/base_64_converter.dart';
@@ -55,12 +57,13 @@ class EditController extends GetxController {
     if (image != null) {
       imagePath.value = image.path;
       imageSize.value =
-      "${((File(imagePath.value)).lengthSync() / 512 / 512).toStringAsFixed(2)}Mb";
+      "${((File(imagePath.value)).lengthSync() / 1024 / 1024).toStringAsFixed(2)}Mb";
       Get.snackbar("Success", "Selected!", backgroundColor: Colors.green);
     } else {
       Get.snackbar("Sorry", "Canceled", backgroundColor: Colors.orange);
     }
   }
+
 
   data() async{
 
@@ -81,7 +84,12 @@ class EditController extends GetxController {
         FocusScope.of(Get.context!).unfocus();
         if (!isName.value && !isPass.value){
 
-          response = await ApiProvider.instance().post(url,data:{"profile" : profilePict});
+          response = await ApiProvider.instance().post(url,data:{
+            "profile" : await dio.MultipartFile.fromFile(
+              imagePath.value,
+
+            )
+          });
 
         }else if (!isPass.value){
 
