@@ -65,74 +65,63 @@ class EditController extends GetxController {
   }
 
 
-  data() async{
-
-    if (imagePath.value.isNotEmpty ||
-        imagePath.value.trim() != "" ||
-        imagePath.value != "") {
-      profilePict = (await ImageConverter.imageToBase64(imagePath.value))!;
-    } else {
-    }
-
+  data() async {
+    String url = "${Endpoint.edit}/${StorageProvider.read(StorageKey.idUser)}";
     FocusScope.of(Get.context!).unfocus();
-    if (profilePict != 'NONE'){
-      log("Name: ${nameController.text}");
-      log("Pass: ${passwordController.text}");
-      try {
-        final response;
-        String url = "${Endpoint.edit}/${StorageProvider.read(StorageKey.idUser)}";
-        FocusScope.of(Get.context!).unfocus();
-        if (!isName.value && !isPass.value){
-
-          response = await ApiProvider.instance().post(url,data:{
-            "profile" : await dio.MultipartFile.fromFile(
-              imagePath.value,
-
-            )
-          });
-
-        }else if (!isPass.value){
-
-          response = await ApiProvider.instance().post(url,data:{"name": nameController.text.toString(), "profile" : profilePict});
-
-        } else if (!isName.value) {
-
-          response = await ApiProvider.instance().post(url,data:{"password": passwordController.text.toString(), "profile" : profilePict});
-
-        } else {
-
-          response = await ApiProvider.instance().post(url,data:
-          {
-            "name": nameController.text.toString(),
-            "password": passwordController.text.toString(),
-            "profile" : profilePict
-          });
-
-        }
+    try {
+      if (imagePath.value.isNotEmpty ||
+          imagePath.value.trim() != "" ||
+          imagePath.value != "") {
+        final response = await ApiProvider.instance().post(url, data: {
+          "profile": await dio.MultipartFile.fromFile(imagePath.value,
+              filename: imagePath.value.split('/').last,
+              contentType: MediaType('image', 'png'))
+        });
         if (response.statusCode == 201) {
-          Get.snackbar("Success", "Profile Edited!", backgroundColor: Colors.green);
+          Get.snackbar("Success", "Profile Edited!",
+              backgroundColor: Colors.green);
         } else {
           Get.snackbar("Sorry", "Edit Failed", backgroundColor: Colors.orange);
         }
-      }on DioException catch(e) {
-        if (e.response != null){
-          if (e.response?.data != null){
-            Get.snackbar("Sorry", "${e.response?.data['message']}", backgroundColor: Colors.orange);
-          }
-        } else {
-          Get.snackbar("Sorry", e.message ?? "", backgroundColor: Colors.red);
-        }
-      }catch (e) {
-        Get.snackbar("Error", e.toString(), backgroundColor: Colors.red);
       }
-    }else{
-      QuickAlert.show(
-          context: Get.context!,
-          type: QuickAlertType.error,
-          title: 'Forbidden!',
-          text: "Image Is Required!",
-          confirmBtnText: 'I Understand');
-    }
 
+      if (isName.value) {
+        final response = await ApiProvider.instance().post(url, data: {
+          "name": nameController.text.toString(),
+          "profile": profilePict
+        });
+        if (response.statusCode == 201) {
+          Get.snackbar("Success", "Profile Edited!",
+              backgroundColor: Colors.green);
+        } else {
+          Get.snackbar("Sorry", "Edit Failed", backgroundColor: Colors.orange);
+        }
+      }
+
+      if (isPass.value) {
+        final response = await ApiProvider.instance().post(url, data: {
+          "password": passwordController.text.toString(),
+          "profile": profilePict
+        });
+        if (response.statusCode == 201) {
+          Get.snackbar("Success", "Profile Edited!",
+              backgroundColor: Colors.green);
+        } else {
+          Get.snackbar("Sorry", "Edit Failed", backgroundColor: Colors.orange);
+        }
+      }
+
+    } on DioException catch (e) {
+      if (e.response != null) {
+        if (e.response?.data != null) {
+          Get.snackbar("Sorry", "${e.response?.data['message']}",
+              backgroundColor: Colors.orange);
+        }
+      } else {
+        Get.snackbar("Sorry", e.message ?? "", backgroundColor: Colors.red);
+      }
+    } catch (e) {
+      Get.snackbar("Error", e.toString(), backgroundColor: Colors.red);
+    }
   }
 }
