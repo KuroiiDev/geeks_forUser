@@ -86,7 +86,7 @@ class HomeView extends GetView<HomeController> {
                       ),
                     ),
                     Container(
-                        height: 220,
+                        height: 250,
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: _buildRatedBook(),
                     ),
@@ -104,12 +104,13 @@ class HomeView extends GetView<HomeController> {
                     ),
                   ),
                   Container(
-                    height: 220,
+                    height: 250,
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: _buildNewBook(),
                   ),
                 ],
-              )
+              ),
+              SizedBox(height: 10)
               ],
           ),
         ),
@@ -176,13 +177,13 @@ class HomeView extends GetView<HomeController> {
             width: 300,
             child: TextFormField(
               controller: controller.searchController,
-              onChanged: (query) {
-                FocusScope.of(Get.context!).unfocus();
-                controller.searchController.clear();
-                Get.toNamed(Routes.INDEX, parameters: {
-                  'query': query,
-                });
-              },
+              // onChanged: (query) {
+              //   FocusScope.of(Get.context!).unfocus();
+              //   controller.searchController.clear();
+              //   Get.toNamed(Routes.INDEX, parameters: {
+              //     'query': query,
+              //   });
+              // },
               style: GoogleFonts.alata(fontSize: 20),
               decoration: InputDecoration(
                 border: InputBorder.none,
@@ -265,8 +266,8 @@ class HomeView extends GetView<HomeController> {
                     elevation: 10,
                     color: Colors.white,
                     child: Container(
-                      height: 50,
-                      width: 30,
+                      height: 150,
+                      width: 115,
                       padding: const EdgeInsets.all(10.0),
                       child: Column(
                         children: [
@@ -329,7 +330,9 @@ class HomeView extends GetView<HomeController> {
                     ),
                     elevation: 10,
                     color: Colors.white,
-                    child: Padding(
+                    child: Container(
+                      height: 150,
+                      width: 115,
                       padding: const EdgeInsets.all(10.0),
                       child: Column(
                         children: [
@@ -349,6 +352,7 @@ class HomeView extends GetView<HomeController> {
                             child: Text(
                               state[index].title ?? '-',
                               overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
                               style: GoogleFonts.alata(
                                   color: GlobalColor.title,
                                   fontSize: 15,
