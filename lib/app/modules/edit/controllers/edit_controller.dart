@@ -71,7 +71,7 @@ class EditController extends GetxController {
       if (imagePath.value.isNotEmpty ||
           imagePath.value.trim() != "" ||
           imagePath.value != "") {
-        var profilePic = ImageConverter.imageToBase64(imagePath.value);
+        final profilePic = await ImageConverter.imageToBase64(imagePath.value);
         final response = await ApiProvider.instance().post(url, data: {
 
           "profile": profilePic
