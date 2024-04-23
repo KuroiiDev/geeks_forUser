@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_image_compress/flutter_image_compress.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_pw_validator/flutter_pw_validator.dart';
@@ -23,6 +24,9 @@ class EditController extends GetxController {
   var isObs = true.obs;
   var isName = false.obs;
   var isPass = false.obs;
+
+  File? _imageFile;
+  File? _compressed;
 
   var imagePath = ''.obs;
   var imageSize = ''.obs;
@@ -49,10 +53,11 @@ class EditController extends GetxController {
   }
 
   Future<void> getImage() async {
-    final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+    final XFile? image = await ImagePicker().pickImage(source: ImageSource.gallery);
 
     if (image != null) {
       imagePath.value = image.path;
+      _imageFile = File(image.path);
       imageSize.value =
       "${((File(imagePath.value)).lengthSync() / 1024 / 1024).toStringAsFixed(2)}Mb";
       Get.snackbar("Success", "Selected!", backgroundColor: Colors.green);
@@ -71,7 +76,12 @@ class EditController extends GetxController {
       if (imagePath.value.isNotEmpty ||
           imagePath.value.trim() != "" ||
           imagePath.value != "") {
-        final profilePic = await ImageConverter.imageToBase64(imagePath.value);
+        _compressed = await FlutterImageCompress.compressAndGetFile(
+            _imageFile!.absolute.path,
+            _imageFile!.path + 'compressed.jpg',
+          quality: 88
+        ) as File;
+        final profilePic = await ImageConverter.imageToBase64(_compressed!.absolute.path);
         final response = await ApiProvider.instance().post(url, data: {
 
           "profile": profilePic
