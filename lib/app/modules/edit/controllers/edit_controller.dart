@@ -1,7 +1,6 @@
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as dio;
 import 'package:flutter/cupertino.dart';
 import 'package:http_parser/http_parser.dart';
@@ -27,8 +26,6 @@ class EditController extends GetxController {
 
   var imagePath = ''.obs;
   var imageSize = ''.obs;
-
-  String profilePict = 'NONE';
 
   @override
   void onInit() {
@@ -60,6 +57,8 @@ class EditController extends GetxController {
       "${((File(imagePath.value)).lengthSync() / 1024 / 1024).toStringAsFixed(2)}Mb";
       Get.snackbar("Success", "Selected!", backgroundColor: Colors.green);
     } else {
+      imagePath.value = '';
+      imageSize.value = '';
       Get.snackbar("Sorry", "Canceled", backgroundColor: Colors.orange);
     }
   }
@@ -73,9 +72,11 @@ class EditController extends GetxController {
           imagePath.value.trim() != "" ||
           imagePath.value != "") {
         final response = await ApiProvider.instance().post(url, data: {
-          "profile": await dio.MultipartFile.fromFile(imagePath.value,
+          "profile": await dio.MultipartFile.fromFile(
+              imagePath.value,
               filename: imagePath.value.split('/').last,
-              contentType: MediaType('image', 'png'))
+              //contentType: MediaType('image', 'png')
+          )
         });
         if (response.statusCode == 201) {
           Get.snackbar("Success", "Profile Edited!",
@@ -88,7 +89,6 @@ class EditController extends GetxController {
       if (isName.value) {
         final response = await ApiProvider.instance().post(url, data: {
           "name": nameController.text.toString(),
-          "profile": profilePict
         });
         if (response.statusCode == 201) {
           Get.snackbar("Success", "Profile Edited!",
@@ -101,7 +101,6 @@ class EditController extends GetxController {
       if (isPass.value) {
         final response = await ApiProvider.instance().post(url, data: {
           "password": passwordController.text.toString(),
-          "profile": profilePict
         });
         if (response.statusCode == 201) {
           Get.snackbar("Success", "Profile Edited!",
@@ -111,7 +110,7 @@ class EditController extends GetxController {
         }
       }
 
-    } on DioException catch (e) {
+    } on dio.DioException catch (e) {
       if (e.response != null) {
         if (e.response?.data != null) {
           Get.snackbar("Sorry", "${e.response?.data['message']}",
