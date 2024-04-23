@@ -113,14 +113,15 @@ class EditController extends GetxController {
     } on dio.DioException catch (e) {
       if (e.response != null) {
         if (e.response?.data != null) {
-          Get.snackbar("Sorry", "${e.response?.data['message']}",
+          Get.snackbar("Sorry 1", "${e.response?.data['message']}",
               backgroundColor: Colors.orange);
         }
       } else {
-        Get.snackbar("Sorry", e.message ?? "", backgroundColor: Colors.red);
+        Get.snackbar("Sorry 2", e.toString(), backgroundColor: Colors.red);
+        log(e.toString());
       }
     } catch (e) {
-      Get.snackbar("Error", e.toString(), backgroundColor: Colors.red);
+      Get.snackbar("Error 3", e.toString(), backgroundColor: Colors.red);
     }
   }
 }
