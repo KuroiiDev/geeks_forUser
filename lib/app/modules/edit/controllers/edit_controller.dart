@@ -91,7 +91,7 @@ class EditController extends GetxController {
           "name": nameController.text.toString(),
         });
         if (response.statusCode == 201) {
-          Get.snackbar("Success", "Profile Edited!",
+          Get.snackbar("Success", "Name Edited!",
               backgroundColor: Colors.green);
         } else {
           Get.snackbar("Sorry", "Edit Failed", backgroundColor: Colors.orange);
@@ -103,7 +103,7 @@ class EditController extends GetxController {
           "password": passwordController.text.toString(),
         });
         if (response.statusCode == 201) {
-          Get.snackbar("Success", "Profile Edited!",
+          Get.snackbar("Success", "Password Edited!",
               backgroundColor: Colors.green);
         } else {
           Get.snackbar("Sorry", "Edit Failed", backgroundColor: Colors.orange);
