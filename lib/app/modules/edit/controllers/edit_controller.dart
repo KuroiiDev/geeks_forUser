@@ -26,7 +26,6 @@ class EditController extends GetxController {
   var isPass = false.obs;
 
   File? _imageFile;
-  File? _compressed;
 
   var imagePath = ''.obs;
   var imageSize = ''.obs;
@@ -76,12 +75,12 @@ class EditController extends GetxController {
       if (imagePath.value.isNotEmpty ||
           imagePath.value.trim() != "" ||
           imagePath.value != "") {
-        _compressed = await FlutterImageCompress.compressAndGetFile(
+        var result = await FlutterImageCompress.compressAndGetFile(
             _imageFile!.absolute.path,
             _imageFile!.path + 'compressed.jpg',
           quality: 88
-        ) as File;
-        final profilePic = await ImageConverter.imageToBase64(_compressed!.absolute.path);
+        );
+        final profilePic = await ImageConverter.imageToBase64(result!.path);
         final response = await ApiProvider.instance().post(url, data: {
 
           "profile": profilePic
