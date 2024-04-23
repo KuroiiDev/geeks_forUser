@@ -264,7 +264,9 @@ class HomeView extends GetView<HomeController> {
                     ),
                     elevation: 10,
                     color: Colors.white,
-                    child: Padding(
+                    child: Container(
+                      height: 50,
+                      width: 30,
                       padding: const EdgeInsets.all(10.0),
                       child: Column(
                         children: [
@@ -284,6 +286,7 @@ class HomeView extends GetView<HomeController> {
                             child: Text(
                               state[index].title ?? '-',
                               overflow: TextOverflow.ellipsis,
+                              maxLines: 2,
                               style: GoogleFonts.alata(
                                   color: GlobalColor.title,
                                   fontSize: 15,
